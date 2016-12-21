@@ -4,6 +4,7 @@
   "description": "A Tcl Binary Scan Tester",
   "main": "index.js",
   "scripts": {
+    "build:client": "tsc",
     "npm-check": "npm-check --skip-unused",
     "nsp": "nsp check",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -33,7 +34,6 @@
     "typescript": "^2.1.4"
   },
   "devDependencies": {
-    "@types/axios": "^0.9.34",
     "@types/body-parser": "^0.0.33",
     "@types/chai": "^3.4.34",
     "@types/compression": "^0.0.33",

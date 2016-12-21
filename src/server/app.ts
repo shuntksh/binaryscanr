@@ -1,5 +1,5 @@
 
-import * as axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import * as bodyParser from "body-parser";
 import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
@@ -10,12 +10,11 @@ import * as serveStatic from "serve-static";
 
 // const logger = require('morgan');
 
-
 // Resources
-const examples = require('./examples');
+// const examples = require('./examples');
 
 // Error Handling Middleware
-const errorHandler = require('./middleware/errorHandler');
+// const errorHandler = require('./middleware/errorHandler');
 
 // Set Up Express Server
 const app = express();
@@ -23,8 +22,8 @@ const jsonParser = bodyParser.json();
 
 const csrfProtection = csrf({ cookie: true });
 
-const TCL_BACKEND_PATH = 'http://localhost:8001/api/process';
-const STATIC_PATH = __dirname + '/public/';
+const TCL_BACKEND_PATH = "http://localhost:8001/api/process";
+const STATIC_PATH = __dirname + "/public/";
 
 // Adjust HTTP header setting for security
 //  - Enables: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
@@ -32,49 +31,47 @@ const STATIC_PATH = __dirname + '/public/';
 app.use(helmet());
 app.use(cookieParser());
 app.use(compression());
-app.use(errorHandler);
+// app.use(errorHandler);
 
 // ToDo: Change to render initial state into HTML using template
 app.use(serveStatic(STATIC_PATH, { index: ["index.html"] }));
 
-app.use('/api/*', (req, res, next) => {
-  res.set('Content-Type', 'application/json');
+app.use("/api/*", (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+  if (req.headers["Content-Type"] === "application/json") {
+    res.set("Content-Type", "application/json");
+  }
   next();
 });
 
 
-app.get('/api/token', csrfProtection, (req, res) => {
+app.get("/api/token", csrfProtection, (req: express.Request, res: express.Response): void => {
   res.status(200);
   res.send({ csrfToken: req.csrfToken() });
 });
 
+app.post(
+  "/api/process",
+  jsonParser,
+  csrfProtection,
+  (req: express.Request, res: express.Response): void => {
+    if (!req.body) {
+      res.sendStatus(400);
+    } else {
+      const body: string = JSON.stringify({
+        formatString: req.body.formatString,
+        input: req.body.input,
+      });
+      axios.post(TCL_BACKEND_PATH, `${body}\n`)
+        .then((apiRes: AxiosResponse): void => {
+          res.status(200);
+          res.send(apiRes.data);
+        })
+        .catch((apiRes: AxiosResponse): void => {
+          res.status(apiRes.status);
+          res.send({ error: "Request Failed" });
+        });
+    }
+  },
+);
 
-app.post('/api/process', jsonParser, csrfProtection, (req, res) => {
-  if (!req.body) return res.sendStatus(400);
-  const body = JSON.stringify({
-    input: req.body.input,
-    formatString: req.body.formatString,
-  });
-  console.log(body);
-  return axios.post(TCL_BACKEND_PATH, `${body}\n`)
-    .then(apiRes => {
-      console.log(apiRes.data);
-      res.status(200);
-      res.send(apiRes.data);
-    });
-});
-
-
-app.get('/api/examples/:example', (req, res) => {
-  const example = examples[req.params.example];
-  if (!example) {
-    res.status(404);
-    res.send({ error: 'Example Not Found' });
-  }
-  res.status(200);
-  res.send(example);
-});
-
-app.listen(process.env.PORT || '3000');
-
-console.log('server started');
+app.listen(process.env.PORT || "3000");
