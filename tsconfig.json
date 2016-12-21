@@ -16,8 +16,11 @@
         "sourceMap": false,
         "stripInternal": true,
         "target": "es5",
-        "lib": ["es2016"]
+        "lib": ["es2016", "dom"]
     },
+    "files": [
+        "src/client/common.d.ts"
+    ],
     "include": [
         "src/**/*"
     ],

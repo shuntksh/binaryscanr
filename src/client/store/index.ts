@@ -1,8 +1,11 @@
-import { createStore, combineReducers } from "redux";
+import * as redux from "redux";
+import { reducer } from "./module";
 
-export const rootReducer = createStore({});
+export interface IInitialState { input?: string; };
 
-export function configureStore(initialState) {
-  const store = createStore(rootReducer);
+export function configureStore(initialState: IInitialState) {
+  const store = redux.createStore(reducer, initialState);
   return store;
-}
+};
+
+export default configureStore;
