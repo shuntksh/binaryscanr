@@ -1,0 +1,13 @@
+FROM node:argon
+MAINTAINER Shun Takahashi <@shuntksh>
+
+RUN groupadd -r app && useradd -r -g app app 
+
+COPY . /opt/binaryscanr
+WORKDIR /opt/binaryscanr
+
+RUN npm install
+RUN make
+
+EXPOSE 3000/tcp
+ENTRYPOINT exec /usr/bin/nodejs /opt/binaryscanr/build/app.js
