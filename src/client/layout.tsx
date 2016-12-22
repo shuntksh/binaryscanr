@@ -9,13 +9,13 @@ export class Layout<P, S> extends React.Component<P, S> {
 
   public displayName: string;
 
-  constructor(props?: P, context?: any) {
-    super(props, context);
-  }
+  // constructor(props?: P, context?: any) {
+  //   super(props, context);
+  // }
 
   public render() {
     return (
-      <div>test</div>
+      <div>123test2<span>test</span></div>
     );
   }
 }
