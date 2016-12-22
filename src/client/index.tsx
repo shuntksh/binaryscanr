@@ -10,5 +10,5 @@ const store = configureStore((window as any).__PRELOADED_STATE__ || {});
 
 ReactDom.render(
   <Provider store={store}><Layout /></Provider>,
-  document.querySelector("app"),
+  document.getElementById("app"),
 );

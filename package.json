@@ -4,11 +4,11 @@
   "description": "A Tcl Binary Scan Tester",
   "main": "index.js",
   "scripts": {
-    "build:client": "cross-env NODE_ENV=production webpack --config ./config/webpack/webpack.config.js",
+    "build:client": "cross-env NODE_ENV=production webpack",
     "clean": "rimraf ./dist",
     "npm-check": "npm-check --skip-unused",
     "nsp": "nsp check",
-    "start": "webpack",
+    "start": "cross-env NODE_ENV=development webpack-dev-server --hot --inline",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -53,17 +53,22 @@
     "awesome-typescript-loader": "^3.0.0-beta.17",
     "chai": "^3.5.0",
     "cross-env": "^3.1.3",
+    "html-webpack-plugin": "^2.24.1",
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",
     "mocha": "^3.2.0",
     "ncp": "^2.0.0",
     "npm-check": "^5.4.0",
     "nsp": "^2.6.2",
+    "open-browser-webpack-plugin": "^0.0.3",
     "react-addons-test-utils": "^15.4.1",
+    "react-hot-loader": "^1.3.1",
     "rimraf": "^2.5.4",
+    "ts-loader": "^1.3.3",
     "tslint": "^4.1.1",
     "tslint-react": "^2.2.0",
     "typescript": "^2.1.4",
-    "webpack": "^1.14.0"
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }
