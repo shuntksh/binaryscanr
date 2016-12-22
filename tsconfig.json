@@ -18,13 +18,11 @@
         "target": "es5",
         "lib": ["es2016", "dom"]
     },
-    "files": [
-        "src/client/common.d.ts"
-    ],
     "include": [
         "src/**/*"
     ],
     "exclude": [
+        "config",
         "node_modules",
         "dist",
         "test"
