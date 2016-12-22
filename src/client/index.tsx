@@ -9,6 +9,6 @@ import configureStore from "./store";
 const store = configureStore((window as any).__PRELOADED_STATE__ || {});
 
 ReactDom.render(
-  <Provider store={store}><Layout /></Provider>,
-  document.getElementById("main"),
+    <Provider store={store}><Layout /></Provider>,
+    document.getElementById("main"),
 );
