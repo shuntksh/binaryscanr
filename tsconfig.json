@@ -19,6 +19,7 @@
         "lib": ["es2016", "dom"]
     },
     "include": [
+        "./index.d.ts",
         "src/**/*.tsx",
         "src/**/*.ts"
     ],
