@@ -1,12 +1,14 @@
 FROM node:argon
 MAINTAINER Shun Takahashi <@shuntksh>
 
+RUN npm install -g yarn
+
 RUN groupadd -r app && useradd -r -g app app 
 
 COPY . /opt/binaryscanr
 WORKDIR /opt/binaryscanr
 
-RUN npm install
+RUN yarn
 RUN make
 
 EXPOSE 3000/tcp

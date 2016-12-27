@@ -12,7 +12,7 @@ const config = {
     stats: false,
     progress: true,
 
-    entry: "./src/client/index.tsx",
+    entry: "./src/client/app.tsx",
 
     output: {
         path: "./dist/client/",

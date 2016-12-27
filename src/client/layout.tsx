@@ -3,22 +3,27 @@ import { connect } from "react-redux";
 
 import TaggableInput from "./components/TaggableInput";
 
-export class Layout<P, S> extends React.Component<P, S> {
+export interface LayoutState {
+  value: any;
+};
+
+export class Layout extends React.Component<{}, LayoutState> {
   public static propTypes = {
     // React
     data: React.PropTypes.string,
   };
 
   public displayName: string;
-
-  // constructor(props?: P, context?: any) {
-  //   super(props, context);
-  // }
+  public state = { value: "" };
+  public updateInput = (ev: React.FormEvent<Event>): void => {
+    const target = ev.target as HTMLInputElement;
+    this.setState({ value: target.value });
+  }
 
   public render() {
     return (
       <div>123test2<span>test</span>
-        <TaggableInput />
+        <TaggableInput value={this.state.value} handleChange={this.updateInput} />
       </div>
     );
   }

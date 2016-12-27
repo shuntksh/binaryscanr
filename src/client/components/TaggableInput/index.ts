@@ -1,3 +1,3 @@
-import TaggableInput from "./Input";
+import TaggableInput from "./TaggableInput";
 
 export default TaggableInput;
