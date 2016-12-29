@@ -7,6 +7,8 @@ const postcssCssNext = require("postcss-cssnext");
 const postcssReporter = require("postcss-reporter");
 const webpack = require("webpack");
 
+// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
 const config = {
     target: "web",
     stats: false,
@@ -30,11 +32,13 @@ const config = {
             {
                 test: /\.css$/,
                 loader: "style!css?modules&importLoaders=1&camelCase!postcss",
+                // loader: ExtractTextPlugin.extract("css-loader")
             },
         ],
     },
 
     plugins: [
+        // new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             template: "./src/client/index.html",
             inject: "body",
