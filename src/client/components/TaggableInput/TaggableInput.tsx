@@ -1,9 +1,8 @@
 import * as React from "react";
-
 import * as CSS from "./TaggableInput.css";
 
 export interface InputProps {
-  value: string | undefined;
+  value?: string;
   handleChange: (ev: React.FormEvent<EventTarget>) => any;
 };
 

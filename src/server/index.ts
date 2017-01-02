@@ -17,11 +17,13 @@ import * as serveStatic from "serve-static";
 // const errorHandler = require('./middleware/errorHandler');
 
 // Set Up Express Server
-const app = express();
-const jsonParser = bodyParser.json();
+const app: express.Express = express();
 
+// Middleware
+const jsonParser = bodyParser.json();
 const csrfProtection = csrf({ cookie: true });
 
+// Constants
 const TCL_BACKEND_PATH = "http://localhost:8001/api/process";
 const STATIC_PATH = __dirname + "/public/";
 
@@ -31,7 +33,6 @@ const STATIC_PATH = __dirname + "/public/";
 app.use(helmet());
 app.use(cookieParser());
 app.use(compression());
-// app.use(errorHandler);
 
 // ToDo: Change to render initial state into HTML using template
 app.use(serveStatic(STATIC_PATH, { index: ["index.html"] }));
@@ -42,7 +43,6 @@ app.use("/api/*", (req: express.Request, res: express.Response, next: express.Ne
     }
     next();
 });
-
 
 app.get("/api/token", csrfProtection, (req: express.Request, res: express.Response): void => {
     res.status(200);
