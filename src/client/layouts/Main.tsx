@@ -1,7 +1,7 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
-import TaggableInput from "./components/TaggableInput";
+import TaggableInput from "../components/TaggableInput";
 
 export interface LayoutState {
   value: any;

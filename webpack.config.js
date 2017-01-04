@@ -14,7 +14,7 @@ const config = {
     stats: false,
     progress: true,
 
-    entry: "./src/client/app.tsx",
+    entry: ["./src/client/app.tsx"],
 
     output: {
         path: "./dist/client/",
@@ -79,7 +79,6 @@ if (process.env.NODE_ENV === "production") {
 //
 } else {
     config.output.filename = "[name].js";
-
     config.module.loaders.push({
         test: /\.tsx?$/,
         loader: "react-hot!awesome-typescript-loader",
@@ -99,7 +98,7 @@ if (process.env.NODE_ENV === "production") {
         hot: true,
         inline: true,
         host: "0.0.0.0",
-        port: 8081,
+        port: 8080,
     };
 }
 

@@ -1,18 +1,24 @@
-import { Action } from "redux";
+import * as redux from "redux";
 
-export interface ActionType {
+export interface ActionTypes {
     [index: string]: string;
 }
 
-export const types: ActionType = {
+export const types: ActionTypes = {
     init: "app/INIT",
 };
 
-export const actions = {
-    
-}
+export interface ActionCreators {
+    [index: string]: redux.ActionCreator<any>;
+};
 
-export function reducer<S>(state: S, action: Action ): S {
+export const actions: ActionCreators = {
+};
+
+export const selectors = {
+};
+
+export function reducer<S>(state: S, action: redux.Action ): S {
     const { type } = action;
     switch (type) {
     default:
