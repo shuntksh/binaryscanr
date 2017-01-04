@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import TaggableInput from "../components/TaggableInput";
 
 export interface LayoutState {
-  value: any;
+  readonly value: any;
 };
 
 export class Layout extends React.Component<{}, LayoutState> {

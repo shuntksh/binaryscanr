@@ -1,10 +1,10 @@
 import * as redux from "redux";
 import reduxThunk from "redux-thunk";
 
-import { IInitialState } from "../app";
+import { IAppState } from "../app";
 import { reducer } from "./module";
 
-export function configureStore(initialState: IInitialState): redux.Store<IInitialState> {
+export function configureStore(initialState: IAppState): redux.Store<IAppState> {
     const thunkMiddleware = reduxThunk.withExtraArgument({ api: true });
     let middleware = redux.applyMiddleware(thunkMiddleware);
 

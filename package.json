@@ -5,6 +5,7 @@
     "main": "index.js",
     "typings": "index.d.ts",
     "scripts": {
+        "build": "npm run clean && npm run p:css && npm run build:client",
         "build:client": "cross-env NODE_ENV=production webpack",
         "build:client:dev": "cross-env NODE_ENV=development webpack",
         "clean": "rimraf ./dist",

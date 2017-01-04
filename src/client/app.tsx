@@ -2,27 +2,28 @@ import * as React from "react";
 import * as ReactDom from "react-dom";
 import { Provider } from "react-redux";
 
-import { fromJS, Iterable } from "immutable";
+import { fromJS, Map } from "immutable";
 
 import MainLayout from "./layouts/Main";
 import configureStore from "./store/configureStore";
 
-export interface IInitialState {
+export interface IAppState extends Map<string, any> {
     input?: string;
     data?: string;
     vars?: IVariables[];
+    valid?: boolean;
 };
 
-export interface IVariables extends Iterable<string, string | undefined> {
+export interface IVariables extends Map<string, string | undefined> {
     name?: string;
     value?: string;
 }
 
-
-const initialState = (window as any).__PRELOADED_STATE__ || { input: "", data: "", vars: [] };
+const initialState: IAppState =
+    fromJS((window as any).__PRELOADED_STATE__ || { input: "", data: "", vars: [] });
 
 // Load initial state from passed by the backend
-const store = configureStore(fromJS(initialState));
+const store = configureStore(initialState);
 
 ReactDom.render(
     <Provider store={store}><MainLayout /></Provider>,
