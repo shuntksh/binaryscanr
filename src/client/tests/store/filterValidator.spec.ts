@@ -1,5 +1,5 @@
 import { expect } from "chai";
-import isValidFormat from "../../store/filterVaridator";
+import isValidFormat from "../../store/isValidFilter";
 
 describe("isValidFormat", () => {
     it("shall return true (valid) if no string is passed", () => {
