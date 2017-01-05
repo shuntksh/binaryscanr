@@ -29,13 +29,14 @@ export const types: IActionTypes = {
 export interface IActionCreators {
     [index: string]: redux.ActionCreator<any>;
     readonly clearInput: () => IAction;
-    readonly updateInput: (input: string) => IAction;
+    readonly updateInput: (ev: React.FormEvent<Event>) => IAction;
 };
 
 export const actions: IActionCreators = {
     clearInput: () => ({ type: types.input_clear }),
-    updateInput: (input: string): IAction => {
-        if (typeof input === "string") {
+    updateInput: (ev: React.FormEvent<Event>): IAction => {
+        const input = (ev.target as HTMLInputElement).value;
+        if (typeof input !== "string") {
             const error = { input: `Invalid Filter Type: ${typeof input}` };
             return { type: types.input_error, error };
         }
@@ -45,6 +46,7 @@ export const actions: IActionCreators = {
 };
 
 export const selectors = {
+    getInput: () => (state: IAppState): string => state.get("input") || "",
 };
 
 export function reducer(state: IAppState, action: IAction ): IAppState {
@@ -66,7 +68,6 @@ export function reducer(state: IAppState, action: IAction ): IAppState {
     //
     // Hex Data (aka Data)
     //
-
 
     default:
         return state;
