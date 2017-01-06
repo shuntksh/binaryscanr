@@ -1,10 +1,9 @@
 "use strict";
 
+const autoprefixer = require("autoprefixer");
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
-const postcssCssNext = require("postcss-cssnext");
-const postcssReporter = require("postcss-reporter");
 const webpack = require("webpack");
 
 // const ExtractTextPlugin = require("extract-text-webpack-plugin");
@@ -51,8 +50,14 @@ const config = {
     ],
 
     postcss: () => [
-        postcssCssNext({ browsers: ["last 2 versions", "IE > 10"] }),
-        postcssReporter({ clearMessages: true }),
+        autoprefixer({
+            browsers: [
+                ">1%",
+                "last 4 versions",
+                "Firefox ESR",
+                "not ie < 9",
+            ],
+        }),
     ],
 };
 
@@ -60,6 +65,7 @@ const config = {
 // Production Configuration
 //
 if (process.env.NODE_ENV === "production") {
+    config.bail = true;
     config.debug = false;
     config.module.loaders.push({
         test: /\.tsx?$/,
@@ -67,10 +73,18 @@ if (process.env.NODE_ENV === "production") {
         exclude: /(\.spec.ts$|node_modules)/,
     });
     config.plugins.push(new webpack.optimize.DedupePlugin());
+    config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         compress: {
             screw_ie8: true,
             warnings: false,
+        },
+        mangle: {
+            screw_ie8: true,
+        },
+        output: {
+            comments: false,
+            screw_ie8: true,
         },
     }));
 
@@ -78,6 +92,9 @@ if (process.env.NODE_ENV === "production") {
 // Development Configuration
 //
 } else {
+    // Include an alternative client for WebpackDevServer (for better error handling)
+    config.entry.push(require.resolve("react-dev-utils/webpackHotDevClient"));
+
     config.output.filename = "[name].js";
     config.module.loaders.push({
         test: /\.tsx?$/,
@@ -89,9 +106,9 @@ if (process.env.NODE_ENV === "production") {
     config.plugins.push(new CheckerPlugin());
 
     // Dev Server
-    config.devtool = "#cheap-module-source-map";
+    config.devtool = "cheap-module-source-map";
     // config.plugins.push(new OpenBrowserWebpackPlugin({
-    //     url: "http://localhost:8081/",
+    //     url: "http://localhost:8080/",
     // }));
     config.devServer = {
         contentBase: "./dev",
@@ -99,6 +116,13 @@ if (process.env.NODE_ENV === "production") {
         inline: true,
         host: "0.0.0.0",
         port: 8080,
+    };
+
+    // Learn from create-react-app project.
+    config.node = {
+        fs: "empty",
+        net: "empty",
+        tls: "empty",
     };
 }
 

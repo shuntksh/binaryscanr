@@ -44,11 +44,6 @@ app.use("/api/*", (req: express.Request, res: express.Response, next: express.Ne
     next();
 });
 
-app.get("/api/token", csrfProtection, (req: express.Request, res: express.Response): void => {
-    res.status(200);
-    res.send({ csrfToken: req.csrfToken() });
-});
-
 app.post(
     "/api/process",
     jsonParser,
@@ -62,7 +57,7 @@ app.post(
                 input: req.body.input,
             });
             axios.post(TCL_BACKEND_PATH, `${body}\n`)
-                .then((apiRes: AxiosResponse): void => {
+            .then((apiRes: AxiosResponse): void => {
                     res.status(200);
                     res.send(apiRes.data);
                 })
