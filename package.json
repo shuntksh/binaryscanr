@@ -14,7 +14,7 @@
     "nsp": "nsp check",
     "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack-dev-server --hot --inline\"",
     "test": "mocha -r ts-node/register 'src/*/tests/**/*.spec.ts'",
-    "watch": "cross-env NODE_ENV=development webpack --watch"
+    "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack --watch\""
   },
   "repository": {
     "type": "git",
