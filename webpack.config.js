@@ -1,12 +1,16 @@
 "use strict";
 
-const autoprefixer = require("autoprefixer");
 const { CheckerPlugin } = require("awesome-typescript-loader");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
 const webpack = require("webpack");
 
-// const ExtractTextPlugin = require("extract-text-webpack-plugin");
+// For CSSNext
+const autoprefixer = require("autoprefixer");
+const cssnano = require("cssnano");
+const stylefmt = require("stylefmt");
+const stylelint = require("stylelint");
 
 const config = {
     target: "web",
@@ -27,17 +31,24 @@ const config = {
     },
 
     module: {
+        preLoaders: [
+            {
+                test: /\.ts$/,
+                loader: "tslint-loader",
+            },
+        ],
+
         loaders: [
             {
                 test: /\.css$/,
-                loader: "style!css?modules&importLoaders=1&camelCase!postcss",
-                // loader: ExtractTextPlugin.extract("css-loader")
+                // loader: "style!css?modules&importLoaders=1&camelCase!postcss",
+                loader: ExtractTextPlugin.extract("css?modules&importLoaders=1&camelCase!postcss")
             },
         ],
     },
 
     plugins: [
-        // new ExtractTextPlugin("[name].css"),
+        new ExtractTextPlugin("[name].[chunkhash].css"),
         new HtmlWebpackPlugin({
             template: "./src/client/index.html",
             inject: "body",
@@ -50,6 +61,9 @@ const config = {
     ],
 
     postcss: () => [
+        cssnano(),
+        stylefmt(),
+        stylelint(),
         autoprefixer({
             browsers: [
                 ">1%",
@@ -59,6 +73,10 @@ const config = {
             ],
         }),
     ],
+
+    tslint: {
+        failOnHint: true,
+    },
 };
 
 //

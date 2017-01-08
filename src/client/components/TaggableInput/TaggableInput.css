@@ -1,3 +1,15 @@
+:local(.taggable-container) {
+  display: inline-block;
+  font-size: 16px;
+  font-family: monospace;
+  position: relative;
+}
+
+:local(.background) {
+  font-size: 1em;
+  position: absolute;
+}
+
 :local(.input) {
-  font-size: 12px;
+  font-size: 1em;
 }

@@ -1,1 +1,3 @@
-.myInput { margin: 10px; }
+:local(.input-container) {
+  display: block;
+}

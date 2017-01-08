@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { ActionCreator, Dispatch } from "redux";
 
 import { IAppState } from "../app";
+import * as css from "../app.css";
 import TaggableInput from "../components/TaggableInput";
 import { actions, selectors } from "../store/module";
 
@@ -10,7 +11,7 @@ export interface ILayoutProps extends React.Props<MainLayout> {
     readonly input: string;
 };
 
-export interface IDIspatchedProps {
+export interface IDispatchedProps {
     readonly updateInput: (ev: React.FormEvent<Event>) => void;
 }
 
@@ -25,16 +26,17 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>) => ({
 export interface ILayoutState {
 }
 
-export class MainLayout extends React.Component<ILayoutProps & IDIspatchedProps, ILayoutState> {
+export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps, ILayoutState> {
     public displayName: string;
     public render() {
         const { input, updateInput } = this.props;
         return (
-            <div>
-                <span>Filter: </span>
+            <div className={css.inputContainer}>
+                <span>[binary scan </span>
                 <TaggableInput value={input} handleChange={updateInput} />
+                <span>]</span>
             </div>
         );
     }
 }
-export default connect<{}, IDIspatchedProps, {}>(mapStateToProps, mapDispatchToProps)(MainLayout);
+export default connect<{}, IDispatchedProps, {}>(mapStateToProps, mapDispatchToProps)(MainLayout);
