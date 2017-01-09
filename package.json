@@ -15,6 +15,9 @@
     "p:css": "tcm --pattern ./src/client/**/*.css --camelCase",
     "npm-check": "npm-check --skip-unused",
     "nsp": "nsp check",
+    "server:restart": "forever restart dist/binaryscanr.js",
+    "server:start": "forever start dist/binaryscanr.js",
+    "server:stop": "forever stopall",
     "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack-dev-server --hot --inline --config webpack.client.js\"",
     "test": "mocha -r ts-node/register 'src/*/tests/**/*.spec.ts'",
     "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack --watch --config webpack.client.js\""
@@ -70,6 +73,7 @@
     "css-loader": "^0.26.1",
     "cssnano": "^3.10.0",
     "extract-text-webpack-plugin": "^1.0.1",
+    "forever": "^0.15.3",
     "html-webpack-plugin": "2.26.0",
     "json-loader": "^0.5.4",
     "mkdirp": "^0.5.1",

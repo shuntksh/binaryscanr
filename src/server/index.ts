@@ -6,20 +6,13 @@ import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
 import * as csrf from "csurf";
 import * as express from "express";
+// import * as forever from "forever-monitor";
 import * as helmet from "helmet";
 import * as os from "os";
 import * as pathExists from "path-exists";
 import * as serveStatic from "serve-static";
 
-// const logger = require('morgan');
-
 const numCPUs = os.cpus().length;
-
-// Resources
-// const examples = require('./examples');
-
-// Error Handling Middleware
-// const errorHandler = require('./middleware/errorHandler');
 
 // Set Up Express Server
 const app: express.Express = express();
