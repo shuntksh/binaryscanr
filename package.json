@@ -11,7 +11,7 @@
     "build:server:dev": "cross-env NODE_ENV=development webpack --config webpack.server.js",
     "check": "npm run npm-check && npm run nsp",
     "clean": "rimraf ./dist",
-    "cp": "mkdirp dist/static",
+    "cp": "mkdirp dist/static && ncp src/client/assets dist/static/assets",
     "p:css": "tcm --pattern ./src/client/**/*.css --camelCase",
     "npm-check": "npm-check --skip-unused",
     "nsp": "nsp check",
