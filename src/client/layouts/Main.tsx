@@ -5,6 +5,7 @@ import { ActionCreator, Dispatch } from "redux";
 import { IAppState } from "../app";
 import * as css from "../app.css";
 import TaggableInput from "../components/TaggableInput";
+import location from "../containers/LocationHoC";
 import { actions, selectors } from "../store/module";
 
 export interface ILayoutProps extends React.Props<MainLayout> {
@@ -23,10 +24,9 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>) => ({
     updateInput: (ev: React.FormEvent<Event>) => dispatch(actions.updateInput(ev)),
 });
 
-export interface ILayoutState {
-}
+// export interface ILayoutState {}
 
-export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps, ILayoutState> {
+export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps, {}> {
     public displayName: string;
     public render() {
         const { input, updateInput } = this.props;
@@ -39,4 +39,4 @@ export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps,
         );
     }
 }
-export default connect<{}, IDispatchedProps, {}>(mapStateToProps, mapDispatchToProps)(MainLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(location(MainLayout));

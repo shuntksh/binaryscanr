@@ -4,17 +4,20 @@
   "description": "A Tcl Binary Scan Tester",
   "main": "index.js",
   "scripts": {
-    "build": "npm run clean && npm run p:css && npm run build:client",
-    "build:client": "cross-env NODE_ENV=production webpack",
-    "build:client:dev": "cross-env NODE_ENV=development webpack",
+    "build": "npm run clean && npm run p:css && npm run build:client && npm run build:server && npm run cp",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack.client.js",
+    "build:client:dev": "cross-env NODE_ENV=development webpack --config webpack.client.js",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
+    "build:server:dev": "cross-env NODE_ENV=development webpack --config webpack.server.js",
     "check": "npm run npm-check && npm run nsp",
     "clean": "rimraf ./dist",
+    "cp": "mkdirp dist/static",
     "p:css": "tcm --pattern ./src/client/**/*.css --camelCase",
     "npm-check": "npm-check --skip-unused",
     "nsp": "nsp check",
-    "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack-dev-server --hot --inline\"",
+    "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack-dev-server --hot --inline --config webpack.client.js\"",
     "test": "mocha -r ts-node/register 'src/*/tests/**/*.spec.ts'",
-    "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack --watch\""
+    "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run p:css -- --watch\" \"webpack --watch --config webpack.client.js\""
   },
   "repository": {
     "type": "git",

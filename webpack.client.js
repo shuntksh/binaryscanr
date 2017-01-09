@@ -20,8 +20,8 @@ const config = {
     entry: ["./src/client/app.tsx"],
 
     output: {
-        path: "./dist/client/",
-        publicPath: "",
+        path: "./dist/static/",
+        publicPath: "/",
         filename: "[name].[chunkhash].js",
         sourceMapFilename: "[name].[chunkhash].map",
     },
@@ -33,8 +33,8 @@ const config = {
     module: {
         preLoaders: [
             {
-                test: /\.ts$/,
-                loader: "tslint-loader",
+                test: /\.tsx?$/,
+                loader: "tslint",
             },
         ],
 
@@ -42,7 +42,7 @@ const config = {
             {
                 test: /\.css$/,
                 // loader: "style!css?modules&importLoaders=1&camelCase!postcss",
-                loader: ExtractTextPlugin.extract("css?modules&importLoaders=1&camelCase!postcss")
+                loader: ExtractTextPlugin.extract("css?modules&importLoaders=1&camelCase!postcss"),
             },
         ],
     },
@@ -77,6 +77,13 @@ const config = {
     tslint: {
         failOnHint: true,
     },
+
+    // Learn from create-react-app project.
+    node: {
+        fs: "empty",
+        net: "empty",
+        tls: "empty",
+    },
 };
 
 //
@@ -85,11 +92,13 @@ const config = {
 if (process.env.NODE_ENV === "production") {
     config.bail = true;
     config.debug = false;
+
     config.module.loaders.push({
         test: /\.tsx?$/,
-        loader: "awesome-typescript-loader",
+        loader: "awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
+
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
@@ -112,11 +121,12 @@ if (process.env.NODE_ENV === "production") {
 } else {
     // Include an alternative client for WebpackDevServer (for better error handling)
     config.entry.push(require.resolve("react-dev-utils/webpackHotDevClient"));
-
     config.output.filename = "[name].js";
+    config.devtool = "cheap-module-source-map";
+
     config.module.loaders.push({
         test: /\.tsx?$/,
-        loader: "react-hot!awesome-typescript-loader",
+        loader: "react-hot!awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
 
@@ -124,7 +134,6 @@ if (process.env.NODE_ENV === "production") {
     config.plugins.push(new CheckerPlugin());
 
     // Dev Server
-    config.devtool = "cheap-module-source-map";
     // config.plugins.push(new OpenBrowserWebpackPlugin({
     //     url: "http://localhost:8080/",
     // }));
@@ -134,13 +143,6 @@ if (process.env.NODE_ENV === "production") {
         inline: true,
         host: "0.0.0.0",
         port: 8080,
-    };
-
-    // Learn from create-react-app project.
-    config.node = {
-        fs: "empty",
-        net: "empty",
-        tls: "empty",
     };
 }
 

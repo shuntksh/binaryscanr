@@ -1,15 +1,37 @@
+:local(.taggable-outer) {
+  background: #ffffff;
+  padding: 0 10px;
+  vertical-align: middle;
+}
+
+:local(.taggable-outer:focus) {
+  outline: 1px red solid
+}
+
 :local(.taggable-container) {
   display: inline-block;
   font-size: 16px;
   font-family: monospace;
+  height: 36px;
   position: relative;
+  text-transform: none;
+  width: 150px;
 }
 
 :local(.background) {
   font-size: 1em;
+  height: 100%;
   position: absolute;
+  width: 100%;
 }
 
 :local(.input) {
   font-size: 1em;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+:local(.input:active) {
+  outline: none;
 }
