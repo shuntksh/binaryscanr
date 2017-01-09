@@ -1,14 +1,19 @@
 
 import axios, { AxiosResponse } from "axios";
 import * as bodyParser from "body-parser";
+import * as cluster from "cluster";
 import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
 import * as csrf from "csurf";
 import * as express from "express";
 import * as helmet from "helmet";
+import * as os from "os";
+import * as pathExists from "path-exists";
 import * as serveStatic from "serve-static";
 
 // const logger = require('morgan');
+
+const numCPUs = os.cpus().length;
 
 // Resources
 // const examples = require('./examples');
@@ -25,7 +30,12 @@ const csrfProtection = csrf({ cookie: true });
 
 // Constants
 const TCL_BACKEND_PATH = "http://localhost:8001/api/process";
-const STATIC_PATH = __dirname + "/public/";
+
+if (pathExists.sync("dist")) {
+    process.chdir("dist");
+}
+
+const STATIC_PATH = process.cwd() + "/static/";
 
 // Adjust HTTP header setting for security
 //  - Enables: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
@@ -69,4 +79,17 @@ app.post(
     },
 );
 
-app.listen(process.env.PORT || "3000");
+
+if (cluster.isMaster) {
+    console.log(`Master ${process.pid} is running`);
+    for (let i = 0; i < numCPUs; i += 1) {
+        cluster.fork();
+    }
+    cluster.on("exit", (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
+    });
+} else {
+    app.listen(process.env.PORT || "3000");
+    console.log(`Worker ${process.pid} started`);
+}
+

@@ -9,7 +9,6 @@ export const FIELD_SPECIFIERS: ReadonlyArray<string> = [
 export const isValidFilter = (filterString?: string): boolean => {
     // Empty input always validated as valid input for the simplicity of UI
     if (!filterString) { return true; }
-
     const REGEX = /(^\*$|^([@ABHIQRSWXabcdfhinqrstwx](?:\d+|\*)?)+$)/g;
     return REGEX.test(filterString.trim().split(/\s/)[0]);
 };
