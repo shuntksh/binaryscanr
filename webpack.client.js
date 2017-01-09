@@ -118,12 +118,15 @@ if (process.env.NODE_ENV === "production") {
         loader: "react-hot!awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
+
     // Awesome-Typescript-Loader requires this to detect watch mode
     config.plugins.push(new CheckerPlugin());
+
     // Dev Server
-    // config.plugins.push(new OpenBrowserWebpackPlugin({
-    //     url: "http://localhost:8080/",
-    // }));
+    config.plugins.push(new OpenBrowserWebpackPlugin({
+        url: "http://localhost:8080/",
+    }));
+
     config.devServer = {
         contentBase: "./dev",
         hot: true,

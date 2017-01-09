@@ -1,5 +1,7 @@
 import * as cx from "classnames";
 import * as React from "react";
+
+import Hightlight from "./Highlight";
 import * as css from "./TaggableInput.css";
 
 export interface InputProps extends React.Props<Input> {
@@ -23,6 +25,12 @@ export class Input extends React.Component<InputProps, InputState> {
     public setFocus = () => this.setState({ isActive: true });
     public setBlur = () => this.setState({ isActive: false });
 
+    public renderHighlight(): React.ReactElement<any> {
+        return (
+            <div><Hightlight /></div>
+        );
+    }
+
     public render() {
         const { value } = this.props;
         const { isActive } = this.state;
@@ -33,7 +41,9 @@ export class Input extends React.Component<InputProps, InputState> {
         return (
             <div className={cx(className)}>
                 <div className={css.inputContainer}>
-                    <span className={css.background} />
+                    <span className={css.background}>
+                        {this.renderHighlight()}
+                    </span>
                     <input
                         className={css.input}
                         value={value}
