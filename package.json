@@ -31,6 +31,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.15.2",
+    "classnames": "^2.2.5",
     "compression": "^1.6.2",
     "cookie-parser": "^1.4.3",
     "csurf": "^1.9.0",
@@ -49,6 +50,7 @@
   "devDependencies": {
     "@types/body-parser": "^0.0.33",
     "@types/chai": "^3.4.34",
+    "@types/classnames": "^0.0.32",
     "@types/compression": "^0.0.33",
     "@types/cookie-parser": "^1.3.30",
     "@types/csurf": "^1.9.33",
@@ -82,8 +84,8 @@
     "npm-check": "^5.4.0",
     "nsp": "^2.6.2",
     "open-browser-webpack-plugin": "^0.0.3",
-    "path-exists": "^3.0.0",
     "postcss-loader": "^1.2.1",
+    "postcss-reporter": "^3.0.0",
     "react-addons-test-utils": "^15.4.2",
     "react-dev-utils": "^0.4.2",
     "react-hot-loader": "^1.3.1",

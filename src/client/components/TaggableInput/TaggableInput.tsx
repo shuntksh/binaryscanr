@@ -1,3 +1,4 @@
+import * as cx from "classnames";
 import * as React from "react";
 import * as css from "./TaggableInput.css";
 
@@ -24,9 +25,14 @@ export class Input extends React.Component<InputProps, InputState> {
 
     public render() {
         const { value } = this.props;
+        const { isActive } = this.state;
+
+        const className = [css.taggableOuter];
+        if (isActive) { className.push(css.focus); }
+
         return (
-            <div className={css.taggableOuter}>
-                <div className={css.taggableContainer}>
+            <div className={cx(className)}>
+                <div className={css.inputContainer}>
                     <span className={css.background} />
                     <input
                         className={css.input}

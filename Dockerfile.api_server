@@ -1,7 +1,7 @@
 FROM node:argon
 MAINTAINER Shun Takahashi <@shuntksh>
 
-RUN npm install -g yarn
+RUN npm install -g yarn forever
 
 RUN groupadd -r app && useradd -r -g app app 
 
@@ -9,7 +9,7 @@ COPY . /opt/binaryscanr
 WORKDIR /opt/binaryscanr
 
 RUN yarn
-RUN make
+RUN npm run build
 
 EXPOSE 3000/tcp
-ENTRYPOINT exec /usr/bin/nodejs /opt/binaryscanr/build/app.js
+ENTRYPOINT exec forever dist/binaryscanr.js

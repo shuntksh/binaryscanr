@@ -9,6 +9,7 @@ const webpack = require("webpack");
 // For CSSNext
 const autoprefixer = require("autoprefixer");
 const cssnano = require("cssnano");
+const reporter = require("postcss-reporter");
 const stylefmt = require("stylefmt");
 const stylelint = require("stylelint");
 
@@ -32,10 +33,7 @@ const config = {
 
     module: {
         preLoaders: [
-            {
-                test: /\.tsx?$/,
-                loader: "tslint",
-            },
+            { test: /\.tsx?$/, loader: "tslint" },
         ],
 
         loaders: [
@@ -72,6 +70,7 @@ const config = {
                 "not ie < 9",
             ],
         }),
+        reporter({ clearMessage: true, throwError: true }),
     ],
 
     tslint: {
@@ -92,7 +91,6 @@ const config = {
 if (process.env.NODE_ENV === "production") {
     config.bail = true;
     config.debug = false;
-
     config.module.loaders.push({
         test: /\.tsx?$/,
         loader: "awesome-typescript",
@@ -102,17 +100,9 @@ if (process.env.NODE_ENV === "production") {
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            screw_ie8: true,
-            warnings: false,
-        },
-        mangle: {
-            screw_ie8: true,
-        },
-        output: {
-            comments: false,
-            screw_ie8: true,
-        },
+        compress: { screw_ie8: true, warnings: false },
+        mangle: { screw_ie8: true },
+        output: { comments: false, screw_ie8: true },
     }));
 
 //
@@ -123,16 +113,13 @@ if (process.env.NODE_ENV === "production") {
     config.entry.push(require.resolve("react-dev-utils/webpackHotDevClient"));
     config.output.filename = "[name].js";
     config.devtool = "cheap-module-source-map";
-
     config.module.loaders.push({
         test: /\.tsx?$/,
         loader: "react-hot!awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
-
     // Awesome-Typescript-Loader requires this to detect watch mode
     config.plugins.push(new CheckerPlugin());
-
     // Dev Server
     // config.plugins.push(new OpenBrowserWebpackPlugin({
     //     url: "http://localhost:8080/",
@@ -143,6 +130,11 @@ if (process.env.NODE_ENV === "production") {
         inline: true,
         host: "0.0.0.0",
         port: 8080,
+        proxy: {
+            "/api/*": {
+                target: "http://localhost:3000",
+            },
+        },
     };
 }
 

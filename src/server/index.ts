@@ -6,11 +6,20 @@ import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
 import * as csrf from "csurf";
 import * as express from "express";
+import * as fs from "fs";
 // import * as forever from "forever-monitor";
 import * as helmet from "helmet";
 import * as os from "os";
-import * as pathExists from "path-exists";
 import * as serveStatic from "serve-static";
+
+const pathExistSync = (pathName: string): boolean => {
+	try {
+		fs.accessSync(pathName);
+		return true;
+	} catch (err) {
+		return false;
+	}
+};
 
 const numCPUs = os.cpus().length;
 
@@ -24,14 +33,14 @@ const csrfProtection = csrf({ cookie: true });
 // Constants
 const TCL_BACKEND_PATH = "http://localhost:8001/api/process";
 
-if (pathExists.sync("dist")) {
+if (pathExistSync("dist")) {
     process.chdir("dist");
 }
 
 const STATIC_PATH = process.cwd() + "/static/";
 
 // Adjust HTTP header setting for security
-//  - Enables: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
+//  - Enabled: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
 //  - Disabled: contentSecurityPolicy, HTTP Public Key Pinning, noCache
 app.use(helmet());
 app.use(cookieParser());

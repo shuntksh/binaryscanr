@@ -23,22 +23,12 @@ const config = {
 
     module: {
         preLoaders: [
-            {
-                test: /\.ts$/,
-                loader: "tslint",
-            },
+            { test: /\.ts$/, loader: "tslint" },
         ],
 
         loaders: [
-            {
-                test: /\.json$/,
-                loader: "json",
-            },
-            {
-                test: /\.ts$/,
-                loader: "awesome-typescript",
-                exclude: /(\.spec.ts$|node_modules)/,
-            },
+            { test: /\.json$/, loader: "json" },
+            { test: /\.ts$/, loader: "awesome-typescript", exclude: /(\.spec.ts$|node_modules)/ },
         ],
     },
 
@@ -81,6 +71,9 @@ if (process.env.NODE_ENV === "production") {
 // Development Configuration
 //
 } else {
+    config.bail = true;
+    config.debug = true;
+
     // Include an alternative client for WebpackDevServer (for better error handling)
     config.devtool = "cheap-module-source-map";
 

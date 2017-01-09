@@ -1,37 +1,53 @@
 :local(.taggable-outer) {
+  border: 1px solid rgba(34, 36, 38, .25);
+  border-radius: .25rem;
   background: #ffffff;
-  padding: 0 10px;
-  vertical-align: middle;
-}
-
-:local(.taggable-outer:focus) {
-  outline: 1px red solid
-}
-
-:local(.taggable-container) {
   display: inline-block;
   font-size: 16px;
   font-family: monospace;
   height: 36px;
+  margin: 0 10px;
+  padding: 2px 10px;
+  vertical-align: middle;
+  width: 400px;
+}
+
+:local(.focus) {
+  border-color: #85B7D9;
+  box-shadow: none;
+}
+
+:local(.input-container) {
+  display: inline-block;
+  height: 100%;
   position: relative;
   text-transform: none;
-  width: 150px;
+  width: 100%;
 }
 
 :local(.background) {
+  bottom: 0;
+  font-family: monospace;
   font-size: 1em;
-  height: 100%;
+  left: 0;
+  letter-spacing: 0.1em;
   position: absolute;
+  right: 0;
+  top: 0;
   width: 100%;
 }
 
 :local(.input) {
+  border: none;
+  bottom: 0;
+  font-family: monospace;
   font-size: 1em;
-  height: 100%;
-  position: absolute;
-  width: 100%;
-}
-
-:local(.input:active) {
+  left: 0;
+  letter-spacing: 0.02em;
   outline: none;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100%;
 }
