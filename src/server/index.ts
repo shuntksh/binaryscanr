@@ -1,3 +1,4 @@
+/// <reference path="./strong-cluster-control.d.ts" />
 
 import axios, { AxiosResponse } from "axios";
 import * as bodyParser from "body-parser";
@@ -9,8 +10,8 @@ import * as express from "express";
 import * as fs from "fs";
 // import * as forever from "forever-monitor";
 import * as helmet from "helmet";
-import * as os from "os";
 import * as serveStatic from "serve-static";
+import * as control from "strong-cluster-control";
 
 const pathExistSync = (pathName: string): boolean => {
 	try {
@@ -20,8 +21,6 @@ const pathExistSync = (pathName: string): boolean => {
 		return false;
 	}
 };
-
-const numCPUs = os.cpus().length;
 
 // Set Up Express Server
 const app: express.Express = express();
@@ -70,28 +69,37 @@ app.post(
             });
             axios.post(TCL_BACKEND_PATH, `${body}\n`)
             .then((apiRes: AxiosResponse): void => {
-                    res.status(200);
-                    res.send(apiRes.data);
-                })
-                .catch((apiRes: AxiosResponse): void => {
-                    res.status(apiRes.status);
-                    res.send({ error: "Request Failed" });
-                });
+                res.status(200);
+                res.send(apiRes.data);
+            })
+            .catch((apiRes: AxiosResponse): void => {
+                res.status(apiRes.status);
+                res.send({ error: "Request Failed" });
+            });
         }
     },
 );
 
-
-if (cluster.isMaster) {
-    console.log(`Master ${process.pid} is running`);
-    for (let i = 0; i < numCPUs; i += 1) {
-        cluster.fork();
-    }
-    cluster.on("exit", (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
+control.start({ size: control.CPUS})
+    .on('error', (err: Error):void => {
+        console.error(err);
     });
-} else {
+
+if (cluster.isWorker) {
     app.listen(process.env.PORT || "3000");
-    console.log(`Worker ${process.pid} started`);
+    console.log(`Worker ${process.pid} started`);    
 }
+
+// if (cluster.isMaster) {
+//     console.log(`Master ${process.pid} is running`);
+//     for (let i = 0; i < numCPUs; i += 1) {
+//         cluster.fork();
+//     }
+//     cluster.on("exit", (worker, code, signal) => {
+//         console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
+//     });
+// } else {
+//     app.listen(process.env.PORT || "3000");
+//     console.log(`Worker ${process.pid} started`);
+// }
 

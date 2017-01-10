@@ -2752,6 +2752,10 @@ lodash.reduce@4.6.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
+lodash@^3.0.0:
+  version "3.10.1"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
+
 lodash@~4.16.4:
   version "4.16.6"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.6.tgz#d22c9ac660288f3843e16ba7d2b5d06cca27d777"
@@ -3355,10 +3359,6 @@ path-exists@^2.0.0, path-exists@^2.1.0:
   resolved "https://registry.yarnpkg.com/path-exists/-/path-exists-2.1.0.tgz#0feb6c64f0fc518d9a754dd5efb62c7022761f4b"
   dependencies:
     pinkie-promise "^2.0.0"
-
-path-exists@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/path-exists/-/path-exists-3.0.0.tgz#ce0ebeaa5f78cb18925ea7d810d7b59b010fd515"
 
 path-is-absolute@^1.0.0, path-is-absolute@~1.0.0:
   version "1.0.1"
@@ -4580,6 +4580,13 @@ strip-json-comments@~0.1.1:
 strip-json-comments@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-1.0.4.tgz#1e15fbcac97d3ee99bf2d73b4c656b082bbafb91"
+
+strong-cluster-control@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/strong-cluster-control/-/strong-cluster-control-2.2.3.tgz#5eca9ae2e9a84843a11b3fdd21e8bc1dc4187c6b"
+  dependencies:
+    debug "^2.1.3"
+    lodash "^3.0.0"
 
 style-loader@^0.13.1:
   version "0.13.1"
