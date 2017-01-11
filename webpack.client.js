@@ -39,7 +39,6 @@ const config = {
         loaders: [
             {
                 test: /\.css$/,
-                // loader: "style!css?modules&importLoaders=1&camelCase!postcss",
                 loader: ExtractTextPlugin.extract("css?modules&importLoaders=1&camelCase!postcss"),
             },
         ],
