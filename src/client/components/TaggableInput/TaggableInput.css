@@ -1,10 +1,16 @@
+:root {
+  --font-family: monospace;
+  --font-size: 1em;
+  --spacing: .02em;
+}
+
 :local(.taggable-outer) {
   border: 1px solid rgba(34, 36, 38, .25);
   border-radius: .25rem;
   background: #ffffff;
   display: inline-block;
   font-size: 16px;
-  font-family: monospace;
+  font-family: var(--font-family);
   height: 36px;
   margin: 0 10px;
   padding: 2px 10px;
@@ -25,25 +31,58 @@
   width: 100%;
 }
 
+/* Background */
 :local(.background) {
   bottom: 0;
-  font-family: monospace;
-  font-size: 1em;
   left: 0;
-  letter-spacing: 0.1em;
   position: absolute;
   right: 0;
   top: 0;
   width: 100%;
 }
 
+:local(.inner) {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+:local(.spacing) {
+  display: inline-block;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  height: 100%;
+  line-height: 36px;
+  letter-spacing: var(--spacing);
+  opacity: 0;
+  position: relative;  
+}
+
+:local(.highlight) {
+  background: red;
+  color: #cecece;
+  display: inline-block;
+  font-family: var(--font-family);
+  font-size: var(--font-size);;
+  height: 1.8em;
+  line-height: 1.8em;
+  letter-spacing: var(--spacing);
+  position: relative;
+}
+
+
+/* Foreground */
 :local(.input) {
+  background: transparent;
   border: none;
   bottom: 0;
-  font-family: monospace;
-  font-size: 1em;
+  font-family: var(--font-family);
+  font-size: var(--font-size);;
   left: 0;
-  letter-spacing: 0.02em;
+  letter-spacing: var(--spacing);
   outline: none;
   padding: 0;
   position: absolute;
@@ -51,3 +90,6 @@
   top: 0;
   width: 100%;
 }
+
+
+/* Modifiers */

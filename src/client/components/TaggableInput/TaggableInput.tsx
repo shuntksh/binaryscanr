@@ -27,7 +27,13 @@ export class Input extends React.Component<InputProps, InputState> {
 
     public renderHighlight(): React.ReactElement<any> {
         return (
-            <div><Hightlight /></div>
+            <div className={css.inner}>
+                <Hightlight
+                    from={5}
+                    to={7}
+                    value={""}
+                />
+            </div>
         );
     }
 
@@ -41,9 +47,9 @@ export class Input extends React.Component<InputProps, InputState> {
         return (
             <div className={cx(className)}>
                 <div className={css.inputContainer}>
-                    <span className={css.background}>
+                    <div className={css.background}>
                         {this.renderHighlight()}
-                    </span>
+                    </div>
                     <input
                         className={css.input}
                         value={value}

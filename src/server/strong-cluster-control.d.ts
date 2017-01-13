@@ -3,6 +3,6 @@
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare namespace "strong-cluster-control" {
+// export declare namespace "strong-cluster-control" {
 
-}
+// }
