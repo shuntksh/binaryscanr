@@ -11,7 +11,7 @@ import * as fs from "fs";
 // import * as forever from "forever-monitor";
 import * as helmet from "helmet";
 import * as serveStatic from "serve-static";
-import * as control from "strong-cluster-control";
+// import * as control from "strong-cluster-control";
 
 const pathExistSync = (pathName: string): boolean => {
 	try {
@@ -80,10 +80,10 @@ app.post(
     },
 );
 
-control.start({ size: control.CPUS})
-    .on('error', (err: Error):void => {
-        console.error(err);
-    });
+// control.start({ size: control.CPUS})
+//     .on('error', (err: Error):void => {
+//         console.error(err);
+//     });
 
 if (cluster.isWorker) {
     app.listen(process.env.PORT || "3000");

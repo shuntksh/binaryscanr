@@ -7,7 +7,7 @@ const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
 const webpack = require("webpack");
 
 // For CSSNext
-const autoprefixer = require("autoprefixer");
+const cssnext = require("postcss-cssnext");
 const cssnano = require("cssnano");
 const reporter = require("postcss-reporter");
 const stylefmt = require("stylefmt");
@@ -58,17 +58,17 @@ const config = {
     ],
 
     postcss: () => [
-        cssnano(),
         stylefmt(),
         stylelint(),
-        autoprefixer({
-            browsers: [
+        cssnext({
+                browsers: [
                 ">1%",
                 "last 4 versions",
                 "Firefox ESR",
                 "not ie < 9",
             ],
         }),
+        cssnano({ autoprefixer: false }),
         reporter({ clearMessage: true, throwError: true }),
     ],
 

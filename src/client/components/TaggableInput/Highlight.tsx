@@ -22,7 +22,7 @@ export const Highlight = (props: HighlightProps) => {
         return <noscript />;
     }
 
-    const spacing = new Array(from).join("-");
+    const spacing = new Array(from).join(" ");
 
     if (highlight && bgColor) { style.backgroundColor = bgColor; }
     if (fgColor) { style.color = fgColor; }
