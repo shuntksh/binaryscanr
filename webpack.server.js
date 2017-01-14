@@ -1,7 +1,19 @@
 "use strict";
 
 const { CheckerPlugin } = require("awesome-typescript-loader");
+const fs = require('fs');
+const path = require('path');
 const webpack = require("webpack");
+
+const nodeModules = {};
+fs.readdirSync('node_modules')
+    .filter(function(x) {
+        return ['.bin'].indexOf(x) === -1;
+    })
+    .forEach(function(mod) {
+        nodeModules[mod] = 'commonjs ' + mod;
+    });
+
 
 const config = {
     target: "node",
@@ -20,6 +32,8 @@ const config = {
     resolve: {
         extensions: ["", ".ts", ".tsx", ".js", ".json"],
     },
+
+    externals: nodeModules,
 
     module: {
         preLoaders: [
@@ -53,20 +67,6 @@ if (process.env.NODE_ENV === "production") {
     config.debug = false;
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: {
-            screw_ie8: true,
-            warnings: false,
-        },
-        mangle: {
-            screw_ie8: true,
-        },
-        output: {
-            comments: false,
-            screw_ie8: true,
-        },
-    }));
-
 //
 // Development Configuration
 //

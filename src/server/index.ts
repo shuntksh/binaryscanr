@@ -8,10 +8,8 @@ import * as cookieParser from "cookie-parser";
 import * as csrf from "csurf";
 import * as express from "express";
 import * as fs from "fs";
-// import * as forever from "forever-monitor";
 import * as helmet from "helmet";
 import * as serveStatic from "serve-static";
-// import * as control from "strong-cluster-control";
 
 const pathExistSync = (pathName: string): boolean => {
 	try {
@@ -80,26 +78,30 @@ app.post(
     },
 );
 
+// import * as forever from "forever-monitor";
+// import * as control from "strong-cluster-control";
+
 // control.start({ size: control.CPUS})
 //     .on('error', (err: Error):void => {
 //         console.error(err);
 //     });
 
-if (cluster.isWorker) {
-    app.listen(process.env.PORT || "3000");
-    console.log(`Worker ${process.pid} started`);    
-}
-
-// if (cluster.isMaster) {
-//     console.log(`Master ${process.pid} is running`);
-//     for (let i = 0; i < numCPUs; i += 1) {
-//         cluster.fork();
-//     }
-//     cluster.on("exit", (worker, code, signal) => {
-//         console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
-//     });
-// } else {
+// if (cluster.isWorker) {
 //     app.listen(process.env.PORT || "3000");
-//     console.log(`Worker ${process.pid} started`);
+//     console.log(`Worker ${process.pid} started`);    
 // }
+
+const numCPUs = require("os").cpus().length
+if (cluster.isMaster) {
+    console.log(`Master ${process.pid} is running`);
+    for (let i = 0; i < numCPUs; i += 1) {
+        cluster.fork();
+    }
+    cluster.on("exit", (worker, code, signal) => {
+        console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
+    });
+} else {
+    app.listen(process.env.PORT || "3000");
+    console.log(`Worker ${process.pid} started`);
+}
 

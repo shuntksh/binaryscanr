@@ -39,8 +39,12 @@ const config = {
         loaders: [
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract("css?modules&importLoaders=1&camelCase!postcss"),
+                loader: ExtractTextPlugin.extract("css?importLoaders=1&camelCase!postcss"),
             },
+            {
+                test: /\.(eot|woff|woff2|ttf|svg|png)$/,
+                loader: 'url-loader?limit=30000',
+            }
         ],
     },
 
