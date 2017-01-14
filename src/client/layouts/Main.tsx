@@ -33,7 +33,7 @@ export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps,
         return (
             <div className={css.inputContainer}>
                 <span>[binary scan  $str</span>
-                <TaggableInput value={input} handleChange={updateInput} />
+                <TaggableInput value={input} handleChange={updateInput} highlights={[]} />
                 <span>]</span>
             </div>
         );

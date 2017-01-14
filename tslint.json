@@ -4,6 +4,7 @@
     "interface-name": [false],
     "linebreak-style": [true, "LF"],
     "no-invalid-this": [true, "check-function-in-method"],
+    "jsx-no-multiline-js": [false],
     "variable-name": [
         "ban-keywords",
         "check-format",

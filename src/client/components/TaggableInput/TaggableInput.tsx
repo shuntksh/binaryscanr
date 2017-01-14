@@ -4,7 +4,13 @@ import * as React from "react";
 import Hightlight from "./Highlight";
 import * as css from "./TaggableInput.css";
 
+export interface Highlight {
+    at: number;
+    length: number;
+}
+
 export interface InputProps extends React.Props<Input> {
+    highlights: Highlight[];
     value?: string;
     handleChange: (ev: React.FormEvent<EventTarget>) => any;
     hasError?: boolean;
@@ -20,19 +26,20 @@ export class Input extends React.Component<InputProps, InputState> {
     };
 
     public onChange = (ev: React.FormEvent<EventTarget>) => this.props.handleChange(ev);
-
-    // Change the global state for 
     public setFocus = () => this.setState({ isActive: true });
     public setBlur = () => this.setState({ isActive: false });
 
     public renderHighlight(): React.ReactElement<any> {
+        const { highlights } = this.props;
         return (
             <div className={css.inner}>
-                <Hightlight
-                    from={5}
-                    to={7}
-                    value={""}
-                />
+                {highlights.map(({ at, length }, idx) => (
+                    <Hightlight
+                        key={idx}
+                        at={at}
+                        length={length}
+                    />
+                ))}
             </div>
         );
     }
@@ -40,7 +47,6 @@ export class Input extends React.Component<InputProps, InputState> {
     public render() {
         const { value } = this.props;
         const { isActive } = this.state;
-
         const className = [css.taggableOuter];
         if (isActive) { className.push(css.focus); }
 

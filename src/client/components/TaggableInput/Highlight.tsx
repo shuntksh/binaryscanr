@@ -3,8 +3,8 @@ import * as React from "react";
 import * as css from "./TaggableInput.css";
 
 export interface HighlightProps {
-    from: number; // 0 <= from <= length
-    to: number; // from <= to <= length
+    at: number; // 0 <= from <= length
+    length: number; // from <= length <= length
     bgColor?: string; // Background Color
     fgColor?: string; // Foreground (font) Color
     highlight?: boolean; // If fill hightlight color
@@ -15,17 +15,18 @@ export interface HighlightProps {
 export const Highlight = (props: HighlightProps) => {
     const style: any = {};
     const {
-        from = 0, to = 0, bgColor, fgColor, highlight, value,
+        at = 2, length = 6, bgColor, fgColor, highlight, value,
     } = props;
 
-    if ((from > to) || typeof from !== "number" && typeof to !== "number") {
+    if ((at > length) || typeof at !== "number" && typeof length !== "number") {
         return <noscript />;
     }
 
-    const spacing = new Array(from).join(" ");
+    const spacing = new Array(at).join(" ");
 
     if (highlight && bgColor) { style.backgroundColor = bgColor; }
     if (fgColor) { style.color = fgColor; }
+
     return (
         <div className={css.inner}>
             <span className={css.spacing}>{spacing}</span>
@@ -33,7 +34,7 @@ export const Highlight = (props: HighlightProps) => {
                 className={css.highlight}
                 style={style}
             >
-                {value || new Array(to - from + 1).join(" ")}
+                {value || new Array(length - at + 1).join(" ")}
             </span>
         </div>
     );
