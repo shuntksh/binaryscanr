@@ -55,7 +55,7 @@
   width: 100%;
 }
 
-:local(.spacing) {
+:local(.highlght-spacing) {
   display: inline-block;
   font-family: var(--font-family);
   font-size: var(--font-size);
@@ -68,12 +68,14 @@
 
 :local(.highlight) {
   background: red;
+  border-radius: 3px;
   color: #cecece;
   display: inline-block;
   font-family: var(--font-family);
   font-size: var(--font-size);
-  height: 1.2em;
-  line-height: 1.2em;
+  font-style: italic;
+  height: 1.4em;
+  line-height: 1.4em;
   letter-spacing: var(--spacing);
   position: relative;
   white-space: pre;
@@ -97,3 +99,20 @@
 }
 
 /* Modifiers */
+:local(.invalid) {
+  background: #ffe5e5;
+  border-color: #ff4949;
+}
+
+:local(.highlight-animation) {
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation: highlighting 0.5s;
+}
+
+@keyframes highlighting {
+  0% {transform: scaleY(0.9);}
+  50% {transform: scaleY(1.1);}
+  75% {transform: scaleY(0.9);}
+  85% {transform: scaleY(1.1);}
+  100% {transform: scaleY(1);}
+}

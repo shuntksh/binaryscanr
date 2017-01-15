@@ -20,7 +20,7 @@ export interface IVariables extends Map<string, string | undefined> {
 }
 
 const initialState: IAppState =
-    fromJS((window as any).__PRELOADED_STATE__ || { input: "", data: "", vars: [] });
+    fromJS((window as any).__PRELOADED_STATE__ || { input: "", data: "", vars: [], valid: true });
 
 // Load initial state from passed by the backend
 const store = configureStore(initialState);

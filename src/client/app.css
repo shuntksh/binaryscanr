@@ -1,3 +1,20 @@
+:root {
+  --font-family: monospace;
+  --font-size: 16px;
+  --spacing: 0.02em;
+}
+
+body {
+  background: rgba(1,1,1,0.01);
+}
+
 :local(.input-container) {
   display: block;
+}
+
+:local(.input-caption) {
+  color: #979797;
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  font-style: italic;
 }

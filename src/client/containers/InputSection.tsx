@@ -8,7 +8,7 @@ import TaggableInput, { IHighlight } from "../components/TaggableInput";
 import location from "../containers/LocationHoC";
 import { actions, selectors } from "../store/module";
 
-export interface ILayoutProps extends React.Props<MainLayout> {
+export interface IInputSectionProps extends React.Props<InputSection> {
     readonly highlights: IHighlight[];
     readonly input: string;
     readonly valid: boolean;
@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>) => ({
 
 // export interface ILayoutState {}
 
-export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps, {}> {
+export class InputSection extends React.Component<IInputSectionProps & IDispatchedProps, {}> {
     public displayName: string;
     public render() {
         const { input, updateInput, valid, highlights } = this.props;
@@ -48,4 +48,4 @@ export class MainLayout extends React.Component<ILayoutProps & IDispatchedProps,
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(location(MainLayout));
+export default connect(mapStateToProps, mapDispatchToProps)(location(InputSection));

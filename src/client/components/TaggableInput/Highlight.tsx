@@ -1,10 +1,12 @@
 /* tslint:disable:no-console */
+import * as cx from "classnames";
+import * as _ from "lodash";
 import * as React from "react";
 import * as css from "./TaggableInput.css";
 
-export interface HighlightProps {
-    at: number; // 0 <= from <= length
-    length: number; // from <= length <= length
+import { IHighlight, Intent } from "./index";
+
+export interface HighlightProps extends IHighlight {
     bgColor?: string; // Background Color
     fgColor?: string; // Foreground (font) Color
     highlight?: boolean; // If fill hightlight color
@@ -13,28 +15,41 @@ export interface HighlightProps {
 }
 
 export const Highlight = (props: HighlightProps) => {
-    const style: any = {};
     const {
-        at = 2, length = 6, bgColor, fgColor, highlight, value,
+        at = 0, size = 0, color, style, intent, placeholder,
     } = props;
 
-    if ((at > length) || typeof at !== "number" && typeof length !== "number") {
+    const highlightStyle: any = {};
+    const highlightClassNames: any[] = [css.highlight];
+
+    if ((at > size) || typeof at !== "number" && typeof size !== "number") {
         return <noscript />;
     }
 
     const spacing = new Array(at).join(" ");
 
-    if (highlight && bgColor) { style.backgroundColor = bgColor; }
-    if (fgColor) { style.color = fgColor; }
+    if (intent === Intent.None) {
+        highlightStyle.backgroundColor = "transparent";
+    }
+
+    if (color) {
+        highlightStyle.backgroundColor = color;
+    }
+    console.log(props);
+
+    // Animation
+    if (!placeholder && (intent !== Intent.None || color)) {
+        highlightClassNames.push(css.highlightAnimation);
+    }
 
     return (
         <div className={css.inner}>
-            <span className={css.spacing}>{spacing}</span>
+            <span className={css.highlghtSpacing}>{spacing}</span>
             <span
-                className={css.highlight}
-                style={style}
+                className={cx(highlightClassNames)}
+                style={_.isEmpty(style) ? highlightStyle : style}
             >
-                {value || new Array(length - at + 1).join(" ")}
+                {placeholder || new Array(size - at + 1).join(" ")}
             </span>
         </div>
     );

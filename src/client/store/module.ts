@@ -2,6 +2,8 @@
 import * as redux from "redux";
 
 import { IAppState } from "../app";
+import { IHighlight, Intent } from "../components/TaggableInput";
+import c from "../constants";
 import isValidFilter from "./isValidFilter";
 
 export interface IAction extends redux.Action {
@@ -40,13 +42,29 @@ export const actions: IActionCreators = {
             const error = { input: `Invalid Filter Type: ${typeof input}` };
             return { type: types.input_error, error };
         }
-        const payload = { input: input || "", valid: isValidFilter(input) };
+        const payload = { input: input || "", valid: isValidFilter(input || "") };
         return { type: types.input_update, payload };
     },
 };
 
 export const selectors = {
+    getHighlights: () => (state: IAppState): IHighlight[] => {
+        const highlights: IHighlight[] = [];
+        const input = state.get("input");
+
+        // Show placeholder text if the input is empty.
+        if (!input) {
+            const placeholder = "formatString ?varName varName ...?";
+            return [{ placeholder, intent: Intent.None }];
+        }
+        if (input.length > 4) {
+            highlights.push({ at: 2, size: input.length, color: c.colors.lime });
+        }
+        return highlights;
+    },
+
     getInput: () => (state: IAppState): string => state.get("input") || "",
+    isValid: () => (state: IAppState): boolean => !!state.get("valid"),
 };
 
 export function reducer(state: IAppState, action: IAction ): IAppState {
@@ -59,6 +77,7 @@ export function reducer(state: IAppState, action: IAction ): IAppState {
         return state
             .set("input", "");
     }
+
     case types.input_update: {
         return state
             .set("input", payload.input)

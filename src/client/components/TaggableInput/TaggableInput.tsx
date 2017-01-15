@@ -2,16 +2,13 @@ import * as cx from "classnames";
 import * as React from "react";
 
 import Hightlight from "./Highlight";
+import { IHighlight, Intent } from "./index";
 import * as css from "./TaggableInput.css";
 
-export interface Highlight {
-    at: number;
-    length: number;
-}
-
 export interface InputProps extends React.Props<Input> {
-    highlights: Highlight[];
+    highlights: IHighlight[];
     value?: string;
+    valid?: boolean;
     handleChange: (ev: React.FormEvent<EventTarget>) => any;
     hasError?: boolean;
 };
@@ -33,22 +30,30 @@ export class Input extends React.Component<InputProps, InputState> {
         const { highlights } = this.props;
         return (
             <div className={css.inner}>
-                {highlights.map(({ at, length }, idx) => (
-                    <Hightlight
-                        key={idx}
-                        at={at}
-                        length={length}
-                    />
-                ))}
+            {highlights.map((highlight, idx) => (
+                <Hightlight
+                    key={idx}
+                    at={highlight.at}
+                    size={highlight.size}
+                    color={highlight.color}
+                    intent={highlight.intent || Intent.None}
+                    style={highlight.style || {}}
+                    placeholder={highlight.placeholder || ""}
+                />
+            ))}
             </div>
         );
     }
 
     public render() {
-        const { value } = this.props;
+        const { value, valid } = this.props;
         const { isActive } = this.state;
         const className = [css.taggableOuter];
-        if (isActive) { className.push(css.focus); }
+        if (valid) {
+            if (isActive) { className.push(css.focus); }
+        } else {
+            className.push(css.invalid);
+        }
 
         return (
             <div className={cx(className)}>
