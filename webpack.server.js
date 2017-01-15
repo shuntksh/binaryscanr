@@ -20,7 +20,7 @@ const config = {
     stats: false,
     progress: true,
 
-    entry: ["./src/server/index.ts"],
+    entry: ["./src/server/binaryscanr.ts"],
 
     output: {
         path: "./dist/",

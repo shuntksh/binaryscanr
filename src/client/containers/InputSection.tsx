@@ -4,6 +4,7 @@ import { ActionCreator, Dispatch } from "redux";
 
 import { IAppState } from "../app";
 import * as css from "../app.css";
+import CopyButton from "../components/CopyButton";
 import TaggableInput, { IHighlight } from "../components/TaggableInput";
 import location from "../containers/LocationHoC";
 import { actions, selectors } from "../store/module";
@@ -35,15 +36,18 @@ export class InputSection extends React.Component<IInputSectionProps & IDispatch
     public render() {
         const { input, updateInput, valid, highlights } = this.props;
         return (
-            <div className={css.inputContainer}>
-                <span className={css.inputCaption}>[binary scan  $str</span>
-                <TaggableInput
-                    value={input}
-                    handleChange={updateInput}
-                    highlights={highlights}
-                    valid={valid}
-                />
-                <span className={css.inputCaption}>]</span>
+            <div>
+                <div className={css.inputContainer}>
+                    <span className={css.inputCaption}>[binary scan  $str</span>
+                    <TaggableInput
+                        value={input}
+                        handleChange={updateInput}
+                        highlights={highlights}
+                        valid={valid}
+                    />
+                    <span className={css.inputCaption}>]</span>
+                </div>
+                <CopyButton value={input} />
             </div>
         );
     }

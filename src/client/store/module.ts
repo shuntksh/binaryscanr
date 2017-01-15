@@ -48,6 +48,9 @@ export const actions: IActionCreators = {
 };
 
 export const selectors = {
+    getFullSentence: () => (state: IAppState): string => (
+        `[binary scan $str ${state.get("input").trim()}]`
+    ),
     getHighlights: () => (state: IAppState): IHighlight[] => {
         const highlights: IHighlight[] = [];
         const input = state.get("input");

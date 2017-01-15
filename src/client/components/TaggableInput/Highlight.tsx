@@ -35,7 +35,6 @@ export const Highlight = (props: HighlightProps) => {
     if (color) {
         highlightStyle.backgroundColor = color;
     }
-    console.log(props);
 
     // Animation
     if (!placeholder && (intent !== Intent.None || color)) {

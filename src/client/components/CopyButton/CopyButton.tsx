@@ -1,5 +1,5 @@
+/* tslint:disable:no-console */
 import * as React from "react";
-
 import * as css from "./CopyButton.css";
 
 // from: fontawesome
@@ -14,9 +14,9 @@ const msg = {
     TOOLTIP_MSG_COPIED: "Copied!",
     TOOLTIP_MSG_FAILED: "Oops, something went wrong!",
     TOOLTIP_MSG_OOPS: "Oops, nothing to copy!",
-}
+};
 
-export interface CopyButtonProps extends React.Props<CopyButton>{
+export interface CopyButtonProps extends React.Props<CopyButton> {
     value: string;
 }
 
@@ -29,6 +29,7 @@ export class CopyButton extends React.Component<CopyButtonProps, {}> {
     };
 
     public render() {
+        console.log(this.props);
         return (
         <div>
             <button className="copy-btn" onClick={this.copyToClipboard}>
@@ -51,10 +52,11 @@ export class CopyButton extends React.Component<CopyButtonProps, {}> {
     private updateTooltip = (tooltip: string): void => { this.setState({ tooltip }); };
 
     private copyToClipboard = (): void => {
-        if (this.props.value) {
+        if (!this.props.value) {
             this.updateTooltip(msg.TOOLTIP_MSG_OOPS);
             return;
         }
+        console.log("called");
         this.textareaElement.value = this.props.value;
         this.textareaElement.select();
         try {

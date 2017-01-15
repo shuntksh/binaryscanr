@@ -1,9 +1,8 @@
 :local(.invisible-textbox) {
     position: fixed;
-    top: -10px;
+    top: -20px;
     width: 3em;
     height: 1em;
-    opacity: 0;
     padding: 0;
     border: none;
     outline: none;
