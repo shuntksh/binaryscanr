@@ -17,6 +17,7 @@ const msg = {
 };
 
 export interface CopyButtonProps extends React.Props<CopyButton> {
+    style?: {};
     value: string;
 }
 
@@ -29,13 +30,12 @@ export class CopyButton extends React.Component<CopyButtonProps, {}> {
     };
 
     public render() {
-        console.log(this.props);
         return (
-        <div>
-            <button className="copy-btn" onClick={this.copyToClipboard}>
-                <svg width="28px" viewBox="0 0 179.2 179.2">
+        <div style={this.props.style}>
+            <button className={css.copyButton} onClick={this.copyToClipboard}>
+                <svg width="20px" viewBox="0 0 179.2 179.2">
                     <path
-                        transform="scale(0.1,-0.1) translate(0,-1536)"
+                        transform="scale(0.1, -0.1) translate(0,-1536)"
                         d={CLIPBOARD_ICON}
                         stroke="white"
                     />
@@ -56,7 +56,6 @@ export class CopyButton extends React.Component<CopyButtonProps, {}> {
             this.updateTooltip(msg.TOOLTIP_MSG_OOPS);
             return;
         }
-        console.log("called");
         this.textareaElement.value = this.props.value;
         this.textareaElement.select();
         try {

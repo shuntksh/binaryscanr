@@ -1,4 +1,3 @@
-/* tslint:disable:no-console */
 import * as cx from "classnames";
 import * as _ from "lodash";
 import * as React from "react";

@@ -50,7 +50,7 @@ export class Input extends React.Component<InputProps, InputState> {
         const { isActive } = this.state;
         const className = [css.taggableOuter];
         if (valid) {
-            if (isActive) { className.push(css.focus); }
+            if (isActive) { className.push(css.focused); }
         } else {
             className.push(css.invalid);
         }

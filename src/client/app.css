@@ -6,10 +6,21 @@
 
 body {
   background: rgba(1,1,1,0.01);
+  min-width: 800px;
+}
+
+:local(.input-section) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  min-height: 100px;
+  width: 100%;
 }
 
 :local(.input-container) {
-  display: block;
+  display: inline-block;
 }
 
 :local(.input-caption) {

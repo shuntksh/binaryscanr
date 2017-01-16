@@ -31,12 +31,12 @@ export const types: IActionTypes = {
 export interface IActionCreators {
     [index: string]: redux.ActionCreator<any>;
     readonly clearInput: () => IAction;
-    readonly updateInput: (ev: React.FormEvent<Event>) => IAction;
+    readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => IAction;
 };
 
 export const actions: IActionCreators = {
     clearInput: () => ({ type: types.input_clear }),
-    updateInput: (ev: React.FormEvent<Event>): IAction => {
+    updateInput: (ev: React.SyntheticEvent<HTMLInputElement>): IAction => {
         const input = (ev.target as HTMLInputElement).value;
         if (typeof input !== "string") {
             const error = { input: `Invalid Filter Type: ${typeof input}` };
@@ -48,9 +48,10 @@ export const actions: IActionCreators = {
 };
 
 export const selectors = {
-    getFullSentence: () => (state: IAppState): string => (
-        `[binary scan $str ${state.get("input").trim()}]`
-    ),
+    getFullSentence: () => (state: IAppState): string => {
+        const input = state.get("input").trim();
+        return input ? `[binary scan $str ${input}]` : "";
+    },
     getHighlights: () => (state: IAppState): IHighlight[] => {
         const highlights: IHighlight[] = [];
         const input = state.get("input");
@@ -65,7 +66,6 @@ export const selectors = {
         }
         return highlights;
     },
-
     getInput: () => (state: IAppState): string => state.get("input") || "",
     isValid: () => (state: IAppState): boolean => !!state.get("valid"),
 };
