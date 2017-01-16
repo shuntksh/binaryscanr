@@ -1,6 +1,7 @@
 import * as cx from "classnames";
-import * as _ from "lodash";
 import * as React from "react";
+
+import isEmpty from "../../helpers/isEmpty";
 import * as css from "./TaggableInput.css";
 
 import { IHighlight, Intent } from "./index";
@@ -45,7 +46,7 @@ export const Highlight = (props: HighlightProps) => {
             <span className={css.highlghtSpacing}>{spacing}</span>
             <span
                 className={cx(highlightClassNames)}
-                style={_.isEmpty(style) ? highlightStyle : style}
+                style={isEmpty(style) ? highlightStyle : style}
             >
                 {placeholder || new Array(size - at + 1).join(" ")}
             </span>

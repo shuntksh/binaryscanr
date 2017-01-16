@@ -19,6 +19,6 @@ describe("isValidFormat", () => {
 
     it("shall validate invalid value types", () => {
         expect(isEmpty(1)).to.eq(true);
-        expect(isEmpty("false")).to.eq(false);
+        expect(isEmpty(undefined)).to.eq(true);
     });
 });
