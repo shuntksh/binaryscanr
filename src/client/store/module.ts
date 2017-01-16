@@ -4,7 +4,7 @@ import * as redux from "redux";
 import { IAppState } from "../app";
 import { IHighlight, Intent } from "../components/TaggableInput";
 import c from "../constants";
-import isValidFilter from "./isValidFilter";
+import isValidFilter from "../helpers/isValidFilter";
 
 export interface IAction extends redux.Action {
     [index: string]: any;

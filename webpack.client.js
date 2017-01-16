@@ -3,7 +3,6 @@
 const { CheckerPlugin } = require("awesome-typescript-loader");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const OpenBrowserWebpackPlugin = require("open-browser-webpack-plugin");
 const webpack = require("webpack");
 
 // For CSSNext
@@ -126,10 +125,6 @@ if (process.env.NODE_ENV === "production") {
     config.plugins.push(new CheckerPlugin());
 
     // Dev Server
-    config.plugins.push(new OpenBrowserWebpackPlugin({
-        url: "http://localhost:8080/",
-    }));
-
     config.devServer = {
         contentBase: "./dev",
         hot: true,

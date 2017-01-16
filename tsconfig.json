@@ -28,6 +28,6 @@
         "config",
         "node_modules",
         "dist",
-        "test"
+        "src/**/*.spec.ts"
     ]
 }

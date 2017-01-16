@@ -19,7 +19,7 @@
     "server:restart": "forever restart dist/binaryscanr.js",
     "server:stop": "forever stop dist/binaryscanr.js",
     "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run prebuild:css -- --watch\" \"webpack-dev-server --hot --inline --config webpack.client.js\"",
-    "test": "mocha -r ts-node/register 'src/*/tests/**/*.spec.ts'",
+    "test": "mocha -r ts-node/register 'src/**/*.spec.ts'",
     "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run prebuild:css -- --watch\" \"webpack --watch --config webpack.client.js\""
   },
   "repository": {
@@ -79,7 +79,6 @@
     "ncp": "2.0.0",
     "npm-check": "5.4.0",
     "nsp": "2.6.2",
-    "open-browser-webpack-plugin": "0.0.3",
     "postcss-cssnext": "2.9.0",
     "postcss-loader": "1.2.2",
     "postcss-reporter": "3.0.0",
