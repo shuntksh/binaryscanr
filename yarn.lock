@@ -4246,9 +4246,9 @@ react-redux@5.0.2:
     lodash-es "^4.2.0"
     loose-envify "^1.1.0"
 
-react-virtualized@8.9.0:
-  version "8.9.0"
-  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.9.0.tgz#b53d8dfdb43624036e3e11148bac8be4b56c21fa"
+react-virtualized@8.10.0:
+  version "8.10.0"
+  resolved "https://registry.yarnpkg.com/react-virtualized/-/react-virtualized-8.10.0.tgz#c2f7b74523f71f88991efbc77a0d82f64e52879e"
   dependencies:
     babel-runtime "^6.11.6"
     classnames "^2.2.3"
