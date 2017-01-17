@@ -21,18 +21,41 @@ export interface CopyButtonProps extends React.Props<CopyButton> {
     value: string;
 }
 
-export class CopyButton extends React.Component<CopyButtonProps, {}> {
-    public state: { tooltip: string } = { tooltip: msg.TOOLTIP_DEFAULT };
+export interface CopyButtonState {
+    showOutline?: boolean; // Show outline of copy button only when focused by tab
+    tooltip?: string;
+}
 
+export class CopyButton extends React.Component<CopyButtonProps, CopyButtonState> {
+    public state: CopyButtonState = {
+        showOutline: true,
+        tooltip: msg.TOOLTIP_DEFAULT,
+    };
+
+    // Ref Handlers
+    private buttonElement: HTMLButtonElement;
     private textareaElement: HTMLTextAreaElement;
     private refHandlers: any = {
+        button:  (ref: HTMLButtonElement): void => { this.buttonElement = ref; },
         textarea: (ref: HTMLTextAreaElement): void => { this.textareaElement = ref; },
     };
 
+    public componentDidMount() {
+        this.setState({ showOutline: true });
+    }
+
     public render() {
+        const { showOutline } = this.state;
         return (
         <div style={this.props.style}>
-            <button className={css.copyButton} onClick={this.copyToClipboard}>
+            <button
+                className={css.copyButton}
+                style={{ outlineWidth: showOutline ? "5px" : "0" }}
+                ref={this.refHandlers.button}
+                onClick={this.copyToClipboard}
+                onMouseDown={this.handleMouseDown}
+                onMouseUp={this.handleMouseUp}
+            >
                 <svg width="20px" viewBox="0 0 179.2 179.2">
                     <path
                         transform="scale(0.1, -0.1) translate(0,-1536)"
@@ -49,7 +72,18 @@ export class CopyButton extends React.Component<CopyButtonProps, {}> {
         );
     }
 
-    private updateTooltip = (tooltip: string): void => { this.setState({ tooltip }); };
+    private handleMouseDown = (): void => {
+        this.setState({ showOutline: false });
+    }
+
+    private handleMouseUp = (): void => {
+        this.buttonElement.blur();
+        this.setState({ showOutline: true });
+    }
+
+    private updateTooltip = (tooltip: string): void => {
+        this.setState({ tooltip });
+    }
 
     private copyToClipboard = (): void => {
         if (!this.props.value) {

@@ -78,7 +78,8 @@ export function reducer(state: IAppState, action: IAction ): IAppState {
     //
     case types.input_clear: {
         return state
-            .set("input", "");
+            .set("input", "")
+            .set("valid", true);
     }
 
     case types.input_update: {

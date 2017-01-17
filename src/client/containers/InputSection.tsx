@@ -4,7 +4,6 @@ import { ActionCreator, Dispatch } from "redux";
 
 import { IAppState } from "../app";
 import * as css from "../app.css";
-import ClearButton from "../components/ClearButton";
 import CopyButton from "../components/CopyButton";
 import TaggableInput, { IHighlight } from "../components/TaggableInput";
 import location from "../containers/LocationHoC";
@@ -49,6 +48,8 @@ export class InputSection extends React.Component<IInputSectionProps & IDispatch
                     </span>
                     <TaggableInput
                         value={input}
+                        showClearButton={true}
+                        handleClear={clearInput}
                         handleChange={updateInput}
                         highlights={highlights}
                         valid={valid}
@@ -57,8 +58,7 @@ export class InputSection extends React.Component<IInputSectionProps & IDispatch
                         ]
                     </span>
                 </div>
-                <ClearButton disabled={!input} onClick={clearInput} style={{ marginLeft: "5px" }} />
-                <CopyButton value={strToCopy} style={{ marginLeft: "10px" }}/>
+                <CopyButton value={strToCopy} style={{ marginLeft: "15px" }}/>
             </div>
         );
     }

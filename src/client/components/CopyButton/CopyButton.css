@@ -5,7 +5,7 @@
     height: 1em;
     padding: 0;
     border: none;
-    outline: none;
+    outline: 0;
     box-shadow: none;
     background: transparent;
 }
@@ -22,7 +22,6 @@
     font-weight: 400;
     height: 36px;
     line-height: 1.42857143;
-    outline: 0;
     padding: 0;
     text-align: center;
     transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;

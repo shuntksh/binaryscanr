@@ -18,8 +18,9 @@
   margin: 0 10px;
   padding: 0;
   vertical-align: middle;
-  width: 400px;
+  width: 480px;
   transition: background 0.2s ease-in-out, border 0.2s ease-in-out;
+  overflow: hidden;
 }
 
 :local(.focused) {
@@ -90,12 +91,67 @@
   font-size: var(--font-size);
   left: 0;
   letter-spacing: var(--spacing);
-  outline: none;
+  outline-width: 0;
   padding: 0;
   position: absolute;
   right: 0;
   top: 0;
   width: 100%;
+}
+
+/* Clear Button */
+:local(.clear-button-outer) {
+  align-items: center;
+  background: transparent;
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 36px;
+  position: absolute;  
+  right: 0;
+  width: 36px;
+}
+
+:local(.clear-button) {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 100px;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+  cursor: pointer;
+  display: inline-block;
+  color: #585858;
+  font-size: 18px;
+  font-weight: 400;
+  height: 16px;
+  line-height: 14px;
+  padding: 0;
+  right: 0;
+  transition: background 0.2s ease, box-shadow 0.2s ease, color 0.1s, opacity 0.2s ease;
+  user-select: none;
+  vertical-align: middle;
+  width: 16px;
+}
+
+:local(.clear-button:disabled) {
+    cursor: default;
+    color: #dcdcdc;
+    opacity: 0;
+    pointer-events: none;
+}
+
+:local(.clear-button:focus:enabled) {
+  background: #E25C4B;
+  color: #fff;
+}
+
+:local(.clear-button:hover:enabled) {
+  background: #E25C4B;
+  color: #fff;
+}
+
+:local(.clear-button:active:enabled) {
+  background: #ff3737;
+  color: #fff;
 }
 
 /* Modifiers */

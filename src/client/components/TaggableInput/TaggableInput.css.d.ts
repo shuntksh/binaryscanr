@@ -6,6 +6,8 @@ export const inner: string;
 export const highlghtSpacing: string;
 export const highlight: string;
 export const input: string;
+export const clearButtonOuter: string;
+export const clearButton: string;
 export const invalid: string;
 export const highlightAnimation: string;
 export const highlighting: string;

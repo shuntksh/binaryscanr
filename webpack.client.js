@@ -37,10 +37,6 @@ const config = {
 
         loaders: [
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract("css?importLoaders=1&camelCase!postcss"),
-            },
-            {
                 test: /\.(eot|woff|woff2|ttf|svg|png)$/,
                 loader: 'url-loader?limit=30000',
             }
@@ -98,6 +94,10 @@ if (process.env.NODE_ENV === "production") {
         loader: "awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
+    config.module.loaders.push({
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract("css?importLoaders=1&camelCase!postcss"),
+    });
 
     config.plugins.push(new webpack.optimize.DedupePlugin());
     config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
@@ -120,6 +120,11 @@ if (process.env.NODE_ENV === "production") {
         loader: "react-hot!awesome-typescript",
         exclude: /(\.spec.ts$|node_modules)/,
     });
+    // Using style-loader for react hot loader
+    config.module.loaders.push({
+        test: /\.css$/,
+        loader: "style!css?importLoaders=1&camelCase!postcss",
+    });
 
     // Awesome-Typescript-Loader requires this to detect watch mode
     config.plugins.push(new CheckerPlugin());
@@ -129,6 +134,7 @@ if (process.env.NODE_ENV === "production") {
         contentBase: "./dev",
         hot: true,
         inline: true,
+        historyApiFallback: true,
         host: "0.0.0.0",
         port: 8080,
         proxy: {

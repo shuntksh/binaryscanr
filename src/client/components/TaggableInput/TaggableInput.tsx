@@ -6,6 +6,8 @@ import { IHighlight, Intent } from "./index";
 import * as css from "./TaggableInput.css";
 
 export interface InputProps extends React.Props<Input> {
+    showClearButton?: boolean;
+    handleClear?: () => any;
     highlights: IHighlight[];
     value?: string;
     valid?: boolean;
@@ -14,19 +16,53 @@ export interface InputProps extends React.Props<Input> {
 };
 
 export interface InputState {
-    isActive: boolean;
+    isActive?: boolean;
+    showOutline?: boolean;
 }
 
 export class Input extends React.Component<InputProps, InputState> {
     public state: InputState = {
         isActive: false,
+        showOutline: true,
     };
 
-    public onChange = (ev: React.FormEvent<EventTarget>) => this.props.handleChange(ev);
-    public setFocus = () => this.setState({ isActive: true });
-    public setBlur = () => this.setState({ isActive: false });
+    public render() {
+        const { value, valid, showClearButton } = this.props;
+        const { isActive } = this.state;
+        const className = [css.taggableOuter];
+        if (valid) {
+            if (isActive) { className.push(css.focused); }
+        } else {
+            className.push(css.invalid);
+        }
 
-    public renderHighlight(): React.ReactElement<any> {
+        return (
+            <div className={cx(className)}>
+                <div className={css.inputContainer}>
+                    <div className={css.background}>
+                        {this.renderHighlight()}
+                    </div>
+                    <input
+                        className={css.input}
+                        value={value}
+                        tabIndex={0}
+                        onChange={this.onChange}
+                        onFocus={this.setFocus}
+                        onBlur={this.setBlur}
+                    />
+                     {showClearButton && this.renderClearButton()}
+                </div>
+            </div>
+        );
+    }
+
+    private onChange = (ev: React.FormEvent<EventTarget>) => this.props.handleChange(ev);
+    private setFocus = () => this.setState({ isActive: true });
+    private setBlur = () => this.setState({ isActive: false });
+    private disableOutline = (): void => { this.setState({ showOutline: false }); };
+    private enableOutline = (): void => { this.setState({ showOutline: true }); };
+
+    private renderHighlight(): React.ReactElement<any> {
         const { highlights } = this.props;
         return (
             <div className={css.inner}>
@@ -45,30 +81,21 @@ export class Input extends React.Component<InputProps, InputState> {
         );
     }
 
-    public render() {
-        const { value, valid } = this.props;
-        const { isActive } = this.state;
-        const className = [css.taggableOuter];
-        if (valid) {
-            if (isActive) { className.push(css.focused); }
-        } else {
-            className.push(css.invalid);
-        }
-
+    private renderClearButton(): React.ReactElement<any> {
+        const { handleClear, value } = this.props;
+        const { showOutline } = this.state;
         return (
-            <div className={cx(className)}>
-                <div className={css.inputContainer}>
-                    <div className={css.background}>
-                        {this.renderHighlight()}
-                    </div>
-                    <input
-                        className={css.input}
-                        value={value}
-                        onChange={this.onChange}
-                        onFocus={this.setFocus}
-                        onBlur={this.setBlur}
-                    />
-                </div>
+            <div className={css.clearButtonOuter} >
+                <button
+                    className={css.clearButton}
+                    style={{ outlineWidth: showOutline ? "5px" : "0" }}
+                    disabled={!value}
+                    onClick={handleClear}
+                    onMouseDown={this.disableOutline}
+                    onMouseUp={this.enableOutline}
+                >
+                    ×
+                </button>
             </div>
         );
     }

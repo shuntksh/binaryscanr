@@ -4,6 +4,11 @@
   --spacing: 0.02em;
 }
 
+:focus {
+  outline: -webkit-focus-ring-color auto 5px;
+  outline-offset: -2px
+}
+
 body {
   background: rgba(1,1,1,0.01);
   min-width: 800px;
