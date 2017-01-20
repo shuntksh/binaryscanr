@@ -4,3 +4,6 @@ node_js: stable
 branches:
   only:
     - master 
+script:
+  - yarn test
+  - yarn build
