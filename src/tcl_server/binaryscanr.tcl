@@ -176,10 +176,10 @@ proc ReceiveData { chan } {
   }
 
 
-  # -------------------------------------------------------------------------
-  # Generate and send HTTP response to client and close connection.
-  # -------------------------------------------------------------------------
-  proc HttpRespond { chan code {body ""} } {
+# -------------------------------------------------------------------------
+# Generate and send HTTP response to client and close connection.
+# -------------------------------------------------------------------------
+proc HttpRespond { chan code {body ""} } {
     global StatusCode APP
     upvar #0 APP$chan req
 

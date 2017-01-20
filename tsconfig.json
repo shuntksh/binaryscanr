@@ -17,7 +17,6 @@
         "strictNullChecks": true,
         "stripInternal": true,
         "target": "es5",
-        "typeRoot": ["./src/server"],
         "lib": ["es2016", "dom"]
     },
     "include": [
