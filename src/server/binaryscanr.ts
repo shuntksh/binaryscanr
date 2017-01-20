@@ -1,8 +1,5 @@
-/// <reference path="./strong-cluster-control.d.ts" />
-
 import axios, { AxiosResponse } from "axios";
 import * as bodyParser from "body-parser";
-import * as cluster from "cluster";
 import * as compression from "compression";
 import * as cookieParser from "cookie-parser";
 import * as csrf from "csurf";
@@ -78,30 +75,4 @@ app.post(
     },
 );
 
-// import * as forever from "forever-monitor";
-// import * as control from "strong-cluster-control";
-
-// control.start({ size: control.CPUS})
-//     .on('error', (err: Error):void => {
-//         console.error(err);
-//     });
-
-// if (cluster.isWorker) {
-//     app.listen(process.env.PORT || "3000");
-//     console.log(`Worker ${process.pid} started`);    
-// }
-
-const numCPUs = require("os").cpus().length
-if (cluster.isMaster) {
-    console.log(`Master ${process.pid} is running`);
-    for (let i = 0; i < numCPUs; i += 1) {
-        cluster.fork();
-    }
-    cluster.on("exit", (worker, code, signal) => {
-        console.log(`worker ${worker.process.pid} exited with code ${code} / ${signal}`);
-    });
-} else {
-    app.listen(process.env.PORT || "3000");
-    console.log(`Worker ${process.pid} started`);
-}
-
+export default app;

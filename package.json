@@ -2,7 +2,7 @@
   "name": "binaryscanr",
   "version": "0.1.0",
   "description": "A Tcl Binary Scan Tester",
-  "main": "dist/binaryscanr.js",
+  "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run prebuild:css && npm run build:client && npm run build:server && npm run cp",
     "build:client": "cross-env NODE_ENV=production webpack --config webpack.client.js",
@@ -64,6 +64,7 @@
     "@types/react-virtualized": "8.9.0",
     "@types/redux-thunk": "2.1.32",
     "@types/serve-static": "1.7.31",
+    "@types/strong-cluster-control": "2.2.0",
     "awesome-typescript-loader": "3.0.0-beta.17",
     "chai": "3.5.0",
     "concurrently": "3.1.0",
