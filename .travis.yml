@@ -4,6 +4,7 @@ node_js: stable
 branches:
   only:
     - master 
+    - /^greenkeeper/.*$/
 script:
   - yarn test
   - yarn build

@@ -1,5 +1,7 @@
 # binaryscanr
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/shuntksh/binaryscanr.svg)](https://greenkeeper.io/)
+
 A Tcl Binary Scan Tester
 
 [![dependencies Status](https://david-dm.org/shuntksh/binaryscanr/status.svg)](https://david-dm.org/shuntksh/binaryscanr)
