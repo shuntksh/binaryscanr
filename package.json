@@ -61,7 +61,7 @@
     "@types/react-addons-test-utils": "0.14.16",
     "@types/react-dom": "0.14.20",
     "@types/react-redux": "4.4.35",
-    "@types/react-virtualized": "8.9.1",
+    "@types/react-virtualized": "8.9.2",
     "@types/redux-thunk": "2.1.32",
     "@types/serve-static": "1.7.31",
     "@types/strong-cluster-control": "2.2.0",
