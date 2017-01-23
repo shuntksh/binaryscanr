@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run prebuild:css && npm run build:client && npm run build:server && npm run cp",
-    "build:client": "cross-env NODE_ENV=production webpack --config webpack.client.js",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack.client.js --display-error-details",
     "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
     "dev:build:client": "cross-env NODE_ENV=development webpack --config webpack.client.js",
     "dev:build:server": "cross-env NODE_ENV=development webpack --config webpack.server.js",
@@ -39,7 +39,7 @@
     "forever": "0.15.3",
     "helmet": "3.4.0",
     "immutable": "3.8.1",
-    "serve-static": "1.11.1",
+    "serve-static": "1.11.2",
     "strong-cluster-control": "2.2.3"
   },
   "devDependencies": {
