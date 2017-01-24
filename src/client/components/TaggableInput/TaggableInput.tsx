@@ -26,6 +26,10 @@ export class Input extends React.Component<InputProps, InputState> {
         showOutline: true,
     };
 
+    //
+    // Public Methods
+    //
+
     public render() {
         const { value, valid, showClearButton } = this.props;
         const { isActive } = this.state;
@@ -55,6 +59,10 @@ export class Input extends React.Component<InputProps, InputState> {
             </div>
         );
     }
+
+    //
+    // Private Methods
+    //
 
     private onChange = (ev: React.FormEvent<EventTarget>) => this.props.handleChange(ev);
     private setFocus = () => this.setState({ isActive: true });

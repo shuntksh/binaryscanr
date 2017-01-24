@@ -1,6 +1,8 @@
 import * as React from "react";
 import { connect } from "react-redux";
 
+import * as css from "../app.css";
+
 import InputSection from "../containers/InputSection";
 import location from "../containers/LocationHoC";
 
@@ -10,7 +12,11 @@ export class MainLayout extends React.Component<{}, {}> {
     public displayName: string;
     public render() {
         return (
-           <InputSection />
+            <div>
+                <div className={css.row}>
+                    <InputSection />
+                </div>
+            </div>
         );
     }
 }
