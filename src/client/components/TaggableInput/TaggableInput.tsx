@@ -53,8 +53,10 @@ export class Input extends React.Component<InputProps, InputState> {
                         onChange={this.onChange}
                         onFocus={this.setFocus}
                         onBlur={this.setBlur}
+                        style={{ color: valid ? null : "#ff3737" }}
                     />
-                     {showClearButton && this.renderClearButton()}
+                    {showClearButton && this.renderClearButton()}
+                    {this.renderOutline()}
                 </div>
             </div>
         );
@@ -69,6 +71,15 @@ export class Input extends React.Component<InputProps, InputState> {
     private setBlur = () => this.setState({ isActive: false });
     private disableOutline = (): void => { this.setState({ showOutline: false }); };
     private enableOutline = (): void => { this.setState({ showOutline: true }); };
+
+    private renderOutline(): React.ReactElement<any> {
+        const { isActive } = this.state;
+        const classNames = [ css.outline, isActive ? css.active : css.inactive ];
+        if (!this.props.valid) { classNames.push(css.invalid); }
+        return (
+            <div className={cx(classNames)} />
+        );
+    }
 
     private renderHighlight(): React.ReactElement<any> {
         const { highlights } = this.props;
