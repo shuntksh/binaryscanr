@@ -1,3 +1,4 @@
+/* tslint:disable */ 
 "use strict";
 
 const { CheckerPlugin } = require("awesome-typescript-loader");

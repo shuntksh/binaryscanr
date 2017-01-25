@@ -1,10 +1,11 @@
+/* tslint:disable:no-console */
 const cluster = require("cluster");
 const control = require("strong-cluster-control");
 
 const app = require("dist/binaryscanr");
 
 control.start({ size: control.CPUS})
-    .on('error', (err) => {
+    .on("error", (err) => {
         console.error(err);
     });
 
