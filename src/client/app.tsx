@@ -7,24 +7,25 @@ import { fromJS, Map } from "immutable";
 import MainLayout from "./layouts/Main";
 import configureStore from "./store/configureStore";
 
-export interface IAppState extends Map<string, any> {
+export interface AppState extends Map<string, any> {
     input?: string;
     data?: string;
-    vars?: IVariables[];
+    vars?: Variables[];
     valid?: boolean;
 };
 
-export interface IVariables extends Map<string, string | undefined> {
+export interface AppWindow extends Window {
+    __PRELOADED_STATE__: AppState;
+}
+
+export interface Variables extends Map<string, string | undefined> {
     name?: string;
     value?: string;
 }
 
-interface AppWindow extends Window {
-    __PRELOADED_STATE__: IAppState;
-}
-
-const initialState: IAppState =
-    fromJS((window as AppWindow).__PRELOADED_STATE__ || { input: "", data: "", vars: [], valid: true });
+const initialState: AppState =
+    fromJS((window as AppWindow).__PRELOADED_STATE__ ||
+    { input: "", data: "", vars: [], valid: true });
 
 // Load initial state from passed by the backend
 const store = configureStore(initialState);

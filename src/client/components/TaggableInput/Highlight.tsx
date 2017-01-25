@@ -4,17 +4,9 @@ import * as React from "react";
 import isEmpty from "../../helpers/isEmpty";
 import * as css from "./TaggableInput.css";
 
-import { IHighlight, Intent } from "./index";
+import { HighlightProps, Intent } from "./index";
 
-export interface HighlightProps extends IHighlight {
-    bgColor?: string; // Background Color
-    fgColor?: string; // Foreground (font) Color
-    highlight?: boolean; // If fill hightlight color
-    underline?: boolean; // If draw underline
-    value?: string; // Placeholder string to show
-}
-
-export const Highlight = (props: HighlightProps) => {
+export const Highlight: React.SFC<HighlightProps> = (props) => {
     const {
         at = 0, size = 0, color, style, intent, placeholder,
     } = props;

@@ -2,13 +2,13 @@ import * as cx from "classnames";
 import * as React from "react";
 
 import Hightlight from "./Highlight";
-import { IHighlight, Intent } from "./index";
+import { HighlightProps, Intent } from "./index";
 import * as css from "./TaggableInput.css";
 
 export interface InputProps extends React.Props<Input> {
     showClearButton?: boolean;
     handleClear?: () => any;
-    highlights: IHighlight[];
+    highlights: HighlightProps[];
     value?: string;
     valid?: boolean;
     handleChange: (ev: React.FormEvent<EventTarget>) => any;
@@ -88,15 +88,15 @@ export class Input extends React.Component<InputProps, InputState> {
         const { highlights } = this.props;
         return (
             <div className={css.inner}>
-            {highlights.map((highlight, idx) => (
+            {highlights.map((h, idx) => (
                 <Hightlight
                     key={idx}
-                    at={highlight.at}
-                    size={highlight.size}
-                    color={highlight.color}
-                    intent={highlight.intent || Intent.None}
-                    style={highlight.style || {}}
-                    placeholder={highlight.placeholder || ""}
+                    at={h.at}
+                    size={h.size}
+                    color={h.color}
+                    intent={h.intent || Intent.None}
+                    style={h.style || {}}
+                    placeholder={h.placeholder || ""}
                 />
             ))}
             </div>

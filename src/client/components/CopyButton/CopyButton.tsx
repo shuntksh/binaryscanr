@@ -16,7 +16,7 @@ const msg = {
     TOOLTIP_MSG_OOPS: "Oops, nothing to copy!",
 };
 
-export interface CopyButtonProps extends React.Props<CopyButton> {
+export interface CopyButtonProps {
     style?: {};
     value: string;
 }

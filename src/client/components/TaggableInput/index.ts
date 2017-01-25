@@ -6,7 +6,7 @@ export enum Intent {
     Valid,
 }
 
-export interface IHighlight {
+export interface HighlightProps {
     at?: number;
     size?: number;
     placeholder?: string;
