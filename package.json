@@ -56,7 +56,7 @@
     "@types/mocha": "2.2.38",
     "@types/node": "7.0.4",
     "@types/path-exists": "1.0.29",
-    "@types/react": "15.0.1",
+    "@types/react": "15.0.3",
     "@types/react-addons-shallow-compare": "0.14.19",
     "@types/react-addons-test-utils": "0.14.17",
     "@types/react-dom": "0.14.20",
