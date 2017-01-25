@@ -102,7 +102,7 @@
     "stylelint-config-standard": "15.0.1",
     "ts-loader": "2.0.0",
     "ts-node": "2.0.0",
-    "tslint": "4.3.1",
+    "tslint": "4.4.0",
     "tslint-loader": "3.3.0",
     "tslint-react": "2.3.0",
     "typed-css-modules": "0.1.13",
