@@ -123,7 +123,7 @@ if (process.env.NODE_ENV === "production") {
     // Using style-loader for react hot loader
     config.module.loaders.push({
         test: /\.css$/,
-        loader: "style!css?importLoaders=1&camelCase!postcss",
+        loader: "style!css?importLoaders=1&camelCase&localIdentName='[path][name]__[local]--[hash:base64:5]'!postcss",
     });
 
     // Awesome-Typescript-Loader requires this to detect watch mode

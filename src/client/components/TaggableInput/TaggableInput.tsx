@@ -56,6 +56,7 @@ export class Input extends React.Component<InputProps, InputState> {
                         style={{ color: valid ? null : "#ff3737" }}
                     />
                     {showClearButton && this.renderClearButton()}
+                    {this.renderOutline(true)}
                     {this.renderOutline()}
                 </div>
             </div>
@@ -72,10 +73,12 @@ export class Input extends React.Component<InputProps, InputState> {
     private disableOutline = (): void => { this.setState({ showOutline: false }); };
     private enableOutline = (): void => { this.setState({ showOutline: true }); };
 
-    private renderOutline(): React.ReactElement<any> {
+    private renderOutline(background: boolean = false): React.ReactElement<any> {
         const { isActive } = this.state;
-        const classNames = [ css.outline, isActive ? css.active : css.inactive ];
-        if (!this.props.valid) { classNames.push(css.invalid); }
+        const classNames = background ?
+            [css.outline, css.outlineBackground] :
+            [css.outline, isActive ? css.active : css.inactive];
+        if (!this.props.valid) { classNames.push(css.invalidOutline); }
         return (
             <div className={cx(classNames)} />
         );
