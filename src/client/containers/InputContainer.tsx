@@ -8,7 +8,7 @@ import CopyButton from "../components/CopyButton";
 import TaggableInput, { HighlightProps } from "../components/TaggableInput";
 import { actions, selectors } from "../store/module";
 
-export interface InputSectionProps {
+export interface InputContainerProps {
     readonly highlights: HighlightProps[];
     readonly input: string;
     readonly strToCopy: string;
@@ -20,7 +20,7 @@ export interface DispatchedProps {
     readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => void;
 }
 
-const mapStateToProps = (state: AppState): InputSectionProps => ({
+const mapStateToProps = (state: AppState): InputContainerProps => ({
     highlights: selectors.getHighlights()(state),
     input: selectors.getInput()(state),
     strToCopy: selectors.getFullSentence()(state),
@@ -34,13 +34,13 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
 
 // export interface ILayoutState {}
 
-export class InputSection extends React.Component<InputSectionProps & DispatchedProps, {}> {
+export class InputContainer extends React.Component<InputContainerProps & DispatchedProps, {}> {
     public render() {
         const {
             clearInput, input, updateInput, valid, highlights, strToCopy,
         } = this.props;
         return (
-            <div className={css.inputSection}>
+            <div className={css.inputContainer}>
                 <div className={css.inputContainer}>
                     <span className={css.inputCaption}>
                         [binary scan  $str
@@ -62,4 +62,4 @@ export class InputSection extends React.Component<InputSectionProps & Dispatched
         );
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(InputSection);
+export default connect(mapStateToProps, mapDispatchToProps)(InputContainer);

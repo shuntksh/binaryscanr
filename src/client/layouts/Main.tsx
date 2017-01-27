@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 
 import * as css from "../app.css";
 
-import InputSection from "../containers/InputSection";
+import HexEditorContainer from "../containers/HexEditorContainer";
+import InputContainer from "../containers/InputContainer";
 import location from "../containers/LocationHoC";
 
 // export interface ILayoutState {}
@@ -14,7 +15,10 @@ export class MainLayout extends React.Component<{}, {}> {
         return (
             <div>
                 <div className={css.row}>
-                    <InputSection />
+                    <InputContainer />
+                </div>
+                <div className={css.row}>
+                    <HexEditorContainer />
                 </div>
             </div>
         );
