@@ -2,11 +2,14 @@ import * as React from "react";
 
 import * as css from "./HexEditor.css";
 import * as KEY from "./keymaps";
+import Line from "./Line";
+
+export const BYTES_PER_LINE = 32;
 
 export interface HexEditorProps {
     onBlur?: () => {};
-    value?: string;
     onChange?: (value: string) => {};
+    value?: string;
 }
 
 export interface HexEditorState {
@@ -19,9 +22,9 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     };
 
     public componentWillMount() {
-        window.addEventListener("mousedown", (event: MouseEvent) => this.handleClick(event));
-        window.addEventListener("keydown", (event: KeyboardEvent) => this.handleKeyDown(event));
-        window.addEventListener("keyup", (event: KeyboardEvent) => this.handleControlKeyUp(event));
+        window.addEventListener("mousedown", (event: MouseEvent) => this.handleClick(event), false);
+        window.addEventListener("keydown", (event: KeyboardEvent) => this.handleKeyDown(event), false);
+        window.addEventListener("keyup", (event: KeyboardEvent) => this.handleControlKeyUp(event), false);
     }
 
     public componentWillUnmount() {
@@ -31,8 +34,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     public render() {
+        const value = { data: this.props.value || "0123456789ABCDEF0123456789ABCDEF0123" };
+
         return (
-            <div className={css.base} />
+            <div className={css.base}>
+                <Line addrStart={0} length={BYTES_PER_LINE} value={value} />
+            </div>
         );
     }
 
