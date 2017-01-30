@@ -40,7 +40,7 @@ export class InputContainer extends React.Component<InputContainerProps & Dispat
             clearInput, input, updateInput, valid, highlights, strToCopy,
         } = this.props;
         return (
-            <div className={css.inputContainer}>
+            <div className={css.inputSection}>
                 <div className={css.inputContainer}>
                     <span className={css.inputCaption}>
                         [binary scan  $str

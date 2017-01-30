@@ -5,6 +5,7 @@
     "linebreak-style": [true, "LF"],
     "no-invalid-this": [true, "check-function-in-method"],
     "jsx-no-multiline-js": [false],
+    "no-console": [false],
     "variable-name": [
         "ban-keywords",
         "check-format",

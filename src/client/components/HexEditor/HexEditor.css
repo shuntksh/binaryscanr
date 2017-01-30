@@ -1,3 +1,12 @@
 :local(.base) {
   background: #fff;
 }
+
+
+:local(.cell) {
+  user-select: none;
+}
+
+:local(.selecting) {
+  background: blue;
+}

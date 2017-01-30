@@ -35,6 +35,8 @@ body {
   min-height: 80px;
   width: 850px;
   transition: box-shadow 0.3s ease;
+  user-select: none;
+  cursor: default;
 }
 
 :local(.input-section:hover) {
