@@ -14,7 +14,7 @@ describe("isValidFormat", () => {
     });
 
     it("shall return false (invalid) if format is invalid", () => {
-        const invalidInputs = ["z", "a3z", "a3*"];
+        const invalidInputs = ["z", "a3z", "a3*", "a03", "1"];
         for (const input of invalidInputs) {
             expect(isValidFilter(input)).to.eq(false);
         }
