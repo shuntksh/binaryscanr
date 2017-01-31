@@ -1,4 +1,7 @@
 import * as React from "react";
+import * as shallowCompare from "react-addons-shallow-compare";
+
+import * as css from "./HexEditor.css";
 
 import AsciiCell from "./AsciiCell";
 import HexCell from "./HexCell";
@@ -69,20 +72,29 @@ export class Line extends React.Component<LineProps, LineState> {
         this.setState({ line: this.getLineArray(nextProp) });
     }
 
+    public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
     public render() {
         const {
             addrStart, moveCursor, cursorAt, editingCellAt, editingCellTempValue,
             selection, onBeginSelection, onUpdateSelection, onFinishSelection, lineNum,
         } = this.props;
         const { line } = this.state;
+        const num = lineNum.toString(16).toUpperCase();
         return (
             <div
+                className={css.lineContainer}
                 onMouseEnter={this.handleEnter}
                 onMouseMove={this.handleEnter}
                 onMouseLeave={this.handleLeave}
             >
-                <div>{formatString(lineNum.toString(), 8)}</div>
-                <div>{line.map((char, idx) => (
+                <div className={css.line}>
+                    <span>{formatString(num, 8)}</span>
+                </div>
+                <div className={css.hexLineContainer}>
+                {line.map((char, idx) => (
                     <HexCell
                         key={idx}
                         char={char}
@@ -97,9 +109,11 @@ export class Line extends React.Component<LineProps, LineState> {
                         onBeginSelection={onBeginSelection}
                         onUpdateSelection={onUpdateSelection}
                         onFinishSelection={onFinishSelection}
-                    />))}
+                    />
+                ))}
                 </div>
-                <div>{line.map((char, idx) => (
+                <div className={css.asciiLineContainer}>
+                {line.map((char, idx) => (
                     <AsciiCell
                         key={idx}
                         char={char}

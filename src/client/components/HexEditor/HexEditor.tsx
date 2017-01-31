@@ -38,7 +38,7 @@ export interface HexEditorState {
 }
 
 const strArr: string[] = [];
-for (let i = 0; i < 100; i += 1) { strArr.push("AA"); strArr.push("BB"); }
+for (let i = 0; i < 150; i += 1) { strArr.push("00"); }
 
 export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     public static stringToArray = (str: string): string[] => {

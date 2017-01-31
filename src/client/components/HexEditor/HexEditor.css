@@ -4,9 +4,47 @@
 
 
 :local(.cell) {
+  font-family: monospace;
   user-select: none;
+  font-size: 1.2em;
+}
+
+:local(.cell:nth-child(even)) {
+  color: #878787;
 }
 
 :local(.selecting) {
   background: blue;
+}
+
+:local(.line-container) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  min-height: 20px;
+}
+
+:local(.line) {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+:local(.line) span {
+  font-family: monospace;
+  color: #cecece;
+  user-select: none;
+}
+
+:local(.hex-line-container) {
+  font-family: monospace;
+  color: #cecece;
+  margin-left: 5px;
+  min-width: 300px;
+}
+
+:local(.ascii-line-container) {
+  font-family: monospace;
+  color: #cecece;
+  margin-left: 5px;
 }

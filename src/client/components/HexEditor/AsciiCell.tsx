@@ -1,5 +1,6 @@
 import * as cx from "classnames";
 import * as React from "react";
+import * as shallowCompare from "react-addons-shallow-compare";
 
 import { END_OF_INPUT } from "./HexEditor";
 import * as css from "./HexEditor.css";
@@ -27,6 +28,11 @@ export interface AsciiCellState {
 
 export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
     public state: AsciiCellState = { isHovering: false };
+
+    public shouldComponentUpdate(nextProps: AsciiCellProps, nextState: AsciiCellState) {
+        return shallowCompare(this, nextProps, nextState);
+    }
+
     public render() {
         const { char, cursorAt, editingCellAt, editingCellTempValue, pos } = this.props;
         const { isHovering } = this.state;
@@ -37,7 +43,7 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
         }
 
         const classNames = [css.cell];
-        if (this.isSelectingCell()) {
+    if (this.isSelectingCell()) {
             classNames.push(css.selecting);
         }
 

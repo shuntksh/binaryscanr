@@ -22,6 +22,15 @@ body {
   width: 100%;
 }
 
+:local(.header) {
+  background: #fafafa;
+  color: #666;
+  font-size: small;
+  border-bottom: 1px solid #ebebeb;
+  padding-bottom: 15px;
+  margin-bottom: 10px;
+}
+
 :local(.input-section) {
   background: #fff;
   border: 1px solid rgba(1,1,1,0.15);

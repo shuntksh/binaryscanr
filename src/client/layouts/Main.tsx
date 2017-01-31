@@ -1,3 +1,4 @@
+import * as cx from "classnames";
 import * as React from "react";
 import { connect } from "react-redux";
 
@@ -14,7 +15,7 @@ export class MainLayout extends React.Component<{}, {}> {
     public render() {
         return (
             <div>
-                <div className={css.row}>
+                <div className={cx(css.row, css.header)}>
                     <InputContainer />
                 </div>
                 <div className={css.row}>
