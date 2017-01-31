@@ -157,6 +157,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 {lines.map((line) => (
                     <Line
                         key={line}
+                        lineNum={line}
                         addrStart={line}
                         length={BYTES_PER_LINE}
                         value={value}

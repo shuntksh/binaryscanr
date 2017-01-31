@@ -74,11 +74,7 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
     private handleMouseDown = (): void => {
         const {
             char, selection: { isSelecting }, onBeginSelection, pos,
-            // editingCellAt, editingCellTempValue,
         } = this.props;
-        // if (editingCellAt !== -1 && editingCellTempValue.length === 1) {
-        //     this.handleClick();
-        // }
         if (!isSelecting) {
             const _pos = char === END_OF_INPUT ? pos - 1 : pos;
             onBeginSelection(_pos);
