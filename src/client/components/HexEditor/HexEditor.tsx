@@ -8,6 +8,11 @@ import Line from "./Line";
 export const END_OF_INPUT = "<<";
 export const BYTES_PER_LINE = 16;
 
+export enum CellState {
+    EMPTY = -1,
+    EOF = -2,
+}
+
 export interface HexEditorProps {
     onBlur?: () => {};
     onChange?: (value: string) => {};
@@ -32,6 +37,9 @@ export interface HexEditorState {
     localValue: string[];
 }
 
+const strArr: string[] = [];
+for (let i = 0; i < 100; i += 1) { strArr.push("AA"); strArr.push("BB"); }
+
 export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     public static stringToArray = (str: string): string[] => {
         const arr = str.toUpperCase().match(/.{1,2}/g) || [];
@@ -44,15 +52,23 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         return arr;
     }
 
+   public static deleteRange(arr: string[], from: number, to: number): string[] {
+        const _from = (from < to) ? from : to;
+        const _to = (from < to) ? to : from;
+        const _arr = [...arr];
+        _arr.splice(_from, _to - _from + 1); // +1 to include target itself
+        return _arr;
+    }
+
     public state: HexEditorState = {
         currentCursorPosition: 0,
         cursorAt: 0,
-        editingCellAt: -2,
+        editingCellAt: CellState.EOF,
         editingCellTempValue: "",
         isCtrlPressing: false,
         isFocused: false,
         selection: { from: -1, to: -1, isSelecting: false },
-        localValue: [END_OF_INPUT],
+        localValue: [...strArr, END_OF_INPUT],
     };
 
     private hexEditorElement: HTMLDivElement;
@@ -70,7 +86,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         return (
             this.state &&
             Object.prototype.hasOwnProperty.call(this.state, "editingCellAt") &&
-            this.state.editingCellAt !== -2
+            this.state.editingCellAt !== CellState.EOF
         );
     }
 
@@ -156,10 +172,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                         onFinishSelection={this.finishSelection}
                     />
                 ))}
-                <div>{this.state.currentCursorPosition || 0}</div>
-                <div>{this.state.isFocused ? "focusing" : "not focused"}</div>
-                <div>{this.state.editingCellAt} / {this.state.editingCellTempValue}</div>
-                <div>{selection.isSelecting ? "SEL" : "NO_SEL"} / {selection.from} / {selection.to}</div>
+                <div>{selection.isSelecting ? "true" : "false"}/{selection.from}/{selection.to}</div>
             </div>
         );
     }
@@ -202,8 +215,8 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private handleKeyDown(event: KeyboardEvent): void {
-        const { isCtrlPressing } = this.state;
-
+        const { isCtrlPressing, cursorAt, localValue } = this.state;
+        const length = localValue.length;
         const code = event.which || event.keyCode;
         const target = event.target as HTMLElement;
 
@@ -252,50 +265,78 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         case KEY.CODE["i"]:
         case KEY.UP: {
             event.preventDefault(); // Prevent Page Scroll
-            if (this.state.isCtrlPressing) {
-                this.moveCursor(0);
-            } else {
-                this.moveCursor(this.state.cursorAt - BYTES_PER_LINE);
-            }
+            const to = isCtrlPressing ? 0 : cursorAt - BYTES_PER_LINE;
+            if (event.shiftKey) {
+                if (this.isSelectingCell()) {
+                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                } else {
+                    this.updateSelection(to, cursorAt - 1, isCtrlPressing);
+                }
+                this.moveCursor(to, false);
+                return void 0;
+            } 
+            this.moveCursor(to);
             return void 0;
         }
 
         case KEY.CODE["j"]:
         case KEY.LEFT: {
             event.preventDefault(); // Prevent Page Scroll
-            if (this.state.isCtrlPressing) {
-                const newpos = BYTES_PER_LINE * Math.floor(this.state.cursorAt / BYTES_PER_LINE);
-                this.moveCursor(newpos);
-            } else {
-                this.moveCursor(this.state.cursorAt - 1);
+            if (cursorAt === 0) { 
+                this.resetSelection();
+                return void 0;
             }
+            let to = cursorAt -1;
+            if (isCtrlPressing) {
+                to = BYTES_PER_LINE * Math.floor(cursorAt / BYTES_PER_LINE);
+            }
+            if (event.shiftKey) {
+                if (this.isSelectingCell()) {
+                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                } else {
+                    this.updateSelection(to, cursorAt - 1, isCtrlPressing);
+                }
+                this.moveCursor(to, false);
+                return void 0;
+            } 
+            this.moveCursor(to);
             return void 0;
         }
 
         case KEY.CODE["k"]:
         case KEY.DOWN: {
             event.preventDefault(); // Prevent Page Scroll
-            if (this.state.isCtrlPressing) {
-                this.moveCursor(-2);
-            } else {
-                this.moveCursor(this.state.cursorAt + BYTES_PER_LINE);
-            }
+            const to = isCtrlPressing ? length - 1 : cursorAt + BYTES_PER_LINE;
+            if (event.shiftKey) {
+                if (this.isSelectingCell()) {
+                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                } else {
+                    this.updateSelection(to, cursorAt, isCtrlPressing);
+                }
+                this.moveCursor(to, false);
+                return void 0;
+            } 
+            this.moveCursor(to);
             return void 0;
         }
 
         case KEY.CODE["l"]:
         case KEY.RIGHT: {
             event.preventDefault(); // Prevent Page Scroll
-            if (this.state.isCtrlPressing) {
-                const newpos = BYTES_PER_LINE * Math.floor(this.state.cursorAt / BYTES_PER_LINE) + 15;
-                this.moveCursor(newpos);
-            } else {
-                if (this.isEditingCell()) {
-                    this.commitEditCell(true);
-                } else {
-                    this.moveCursor(this.state.cursorAt + 1);
-                }
+            let to = cursorAt + 1;
+            if (isCtrlPressing) {
+                to = BYTES_PER_LINE * Math.floor(cursorAt / BYTES_PER_LINE) + 15;
             }
+            if (event.shiftKey) {
+                if (this.isSelectingCell()) {
+                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                } else {
+                    this.updateSelection(to, cursorAt, isCtrlPressing);
+                }
+                this.moveCursor(to, false);
+                return void 0;
+            } 
+            this.moveCursor(to);
             return void 0;
         }
 
@@ -312,7 +353,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const char = KEY.CODE_TO_KEY[code].toUpperCase();
 
         // Going to modify the cell
-        if (editingCellAt === -2) {
+        if (editingCellAt === CellState.EOF) {
             this.setState({ editingCellAt: cursorAt, editingCellTempValue: char });
             return void 0;
         }
@@ -329,20 +370,20 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private cancelEditCell():void {
-        this.setState({ editingCellAt: -2, editingCellTempValue: "" });
+        this.setState({ editingCellAt: CellState.EOF, editingCellTempValue: "" });
     }
 
     private commitEditCell(moveCursor: boolean = true, resetSelection: boolean = true): void {
-        const { cursorAt, editingCellAt, editingCellTempValue, localValue } = this.state;
+        const {
+            cursorAt, editingCellAt, editingCellTempValue, localValue,
+        } = this.state;
         if (!editingCellTempValue) {
             this.cancelEditCell();
         } else {
             const newCellValue = (editingCellTempValue.length === 1) ?
                 "0" + editingCellTempValue : editingCellTempValue;
-            
-                localValue[editingCellAt] = newCellValue;
-
-            this.setState({ editingCellAt: -2, editingCellTempValue: "" }, () => {
+            localValue[editingCellAt] = newCellValue;
+            this.setState({ editingCellAt: CellState.EOF, editingCellTempValue: "" }, () => {
                 if (localValue[localValue.length - 1] !== END_OF_INPUT) {
                     localValue.push(END_OF_INPUT);
                 }
@@ -355,7 +396,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
     }
 
-    private handleChange(input: string[] = []): void {
+    private handleChange(input: string[] = [], moveCursorTo?: number): void {
         const { onChange } = this.props;
         const { selection: { isSelecting } } = this.state;
         if (Array.isArray(input)) {
@@ -364,8 +405,8 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 onChange((input).join(""));
             } else {
                 this.setState({ localValue: input }, () => {
-                    if (!isSelecting) {
-                        this.resetSelection();
+                    if (moveCursorTo >= 0) {
+                        this.moveCursor(moveCursorTo, !isSelecting);
                     }
                 });
             }
@@ -374,10 +415,13 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
 
     private handleDelete(backspace: boolean = false): void {
         const { cursorAt, localValue, selection: { from, to } } = this.state;
-
+        const length = localValue.length;
         // Delete selection regardless of BS or DEL
         if (this.isSelectingCell()) {
-            this.deleteCells(from, to);
+            const _moveCursorTo = (from < to) ? from : to;
+            const _value = HexEditor.deleteRange(localValue, from, to);
+            this.resetSelection();
+            this.handleChange(_value, _moveCursorTo);
             return void 0;
         }
 
@@ -385,27 +429,22 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         if (backspace) {
             if (cursorAt === 0) { return void 0; }
         } else {
-            if (cursorAt === localValue.length) { return void 0; }
+            if (localValue.length === 1) { return void 0; }
         }
-    }
 
-    private deleteCells(from: number, to: number): void {
-        const { localValue } = this.state;
-        const _from = (from < to) ? from : to;
-        const _to = (from < to) ? to : from;
-        const _value = [...localValue];
-        _value.splice(_from, _to - _from);
-        this.handleChange(_value);
+        const del = (cursorAt === length - 1) ? cursorAt - 1 : cursorAt;
+        const _value = HexEditor.deleteRange(localValue, del, del);
+        this.resetSelection();
+        this.handleChange(_value, cursorAt - 1);
     }
 
     private moveCursor = (to: number = 0, resetSelection: boolean = true, cb?: () => any): void => {
         if (typeof to === "number") {
             let cursorAt = to <= 0 ? 0 : to;
             const length = (this.state.localValue).length - 1;
-            if (length <= cursorAt || to === -2) {
+            if (length <= cursorAt || to === CellState.EOF) {
                 cursorAt = length;
             }
-            console.log(resetSelection);
             // Commit current editing before moving cursor
             if (this.isEditingCell()) {
                 this.commitEditCell(false, false);
@@ -420,18 +459,27 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private beginSelection = (from: number): void => {
-        this.setState({ selection: { from, to: from, isSelecting: true } });
+        const { localValue } = this.state;
+        const maxLen = localValue.length - 2;
+        const _from = Math.max(0, Math.min(from, maxLen));
+        this.setState({ selection: { from: _from, to: _from, isSelecting: true } });
     }
 
-    private updateSelection = (to: number): void => {
-        const { selection: { from } } = this.state;
-        this.setState({ selection: { from, to, isSelecting: true } });
+    private updateSelection = (to: number, newFrom?: number, finishAfter: boolean = false): void => {
+        const { selection: { from }, localValue } = this.state;
+        const maxLen = localValue.length - 2;
+        const _from = Math.max(0, (typeof newFrom === 'number') ? newFrom : from);
+        const _to = Math.min(to, maxLen);
+        this.setState({ selection: { from: _from, to: _to, isSelecting: !finishAfter } });
     }
 
     private finishSelection = (to: number): void => {
-        const { selection: { from } } = this.state;
-        this.setState({ selection: { from, to, isSelecting: false } }, () => {
-            this.moveCursor(to, false);
+        const { selection: { from }, localValue } = this.state;
+        const maxLen = localValue.length - 2;
+        const _from = Math.max(0, from);
+        const _to = Math.min(to, maxLen);
+        this.setState({ selection: { from: _from, to: _to, isSelecting: false } }, () => {
+            this.moveCursor(_to, false);
         });        
     }
 
