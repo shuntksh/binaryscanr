@@ -11,10 +11,11 @@ export interface HexCellProps {
     onClick?: (pos: number) => any;
     onHovering?: (idx: number) => void;
     cursorAt: number;
+    currentCursorPosition?: number;
     editingCellAt: number;
     editingCellTempValue: string;
     pos: number;
-
+    isFocused: boolean;
     selection: Selection;
 
     onBeginSelection: (from: number) => void;
@@ -34,23 +35,41 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
     }
 
     public render() {
-        const { char, cursorAt, editingCellAt, editingCellTempValue, pos } = this.props;
+        const {
+            char, cursorAt, editingCellAt, editingCellTempValue, pos, currentCursorPosition, isFocused
+        } = this.props;
         const { isHovering } = this.state;
         let _char = char;
         if (editingCellAt === pos && editingCellTempValue) {
             _char = editingCellTempValue;
             if (_char.length === 1) { _char += "_"; }
         }
-
+        const styles: any = {};
         const classNames = [css.cell];
-        if (this.isSelectingCell()) {
+        if (this.isSelectingCell() && !isHovering) {
             classNames.push(css.selecting);
+        }
+        if (isHovering || currentCursorPosition === pos) {
+            classNames.push(css.hovering);
+        }
+
+        if (cursorAt === pos) {
+            classNames.push(css.cursor);
+            if (isFocused === false) {
+                styles.opacity = "0.5"
+            } else {
+                classNames.push(css.blinkCursor);
+            }
+        }
+        
+        if (_char === "<") {
+            styles.color = "black";
         }
 
         return (
             <span
                 className={cx(classNames)}
-                style={{ background: isHovering ? "red" : null, color: cursorAt === pos ? "red" : null }}
+                style={styles}
                 onClick={this.handleClick}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}

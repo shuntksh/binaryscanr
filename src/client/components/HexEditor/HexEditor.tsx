@@ -1,11 +1,14 @@
 import * as cx from "classnames";
 import * as React from "react";
 
+// Using commonJS module syntax for lodash.debounce
+const debounce = require("lodash.debounce");
+
 import * as css from "./HexEditor.css";
 import * as KEY from "./keymaps";
 import Line from "./Line";
 
-export const END_OF_INPUT = "<<";
+export const END_OF_INPUT = "< ";
 export const BYTES_PER_LINE = 16;
 
 export enum CellState {
@@ -38,7 +41,7 @@ export interface HexEditorState {
 }
 
 const strArr: string[] = [];
-for (let i = 0; i < 150; i += 1) { strArr.push("00"); }
+for (let i = 0; i < 300; i += 1) { strArr.push("00"); }
 
 export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     public static stringToArray = (str: string): string[] => {
@@ -100,7 +103,8 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     //
 
     public componentWillMount() {
-        window.addEventListener("keydown", (event: KeyboardEvent) => this.handleKeyDown(event), false);
+        const debounced = debounce(this.handleKeyDown.bind(this), 15);
+        window.addEventListener("keydown", (event: KeyboardEvent) => debounced(event), false);
         window.addEventListener("keyup", (event: KeyboardEvent) => this.handleControlKeyUp(event), false);
         window.addEventListener("focus", () => this.handleFocus(), true);
         window.addEventListener("blur", () => this.handleFocus(false), true);
@@ -146,7 +150,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     public render() {
-        const { editingCellAt, editingCellTempValue, localValue, selection } = this.state;
+        const { editingCellAt, editingCellTempValue, localValue, selection, isFocused } = this.state;
         const value = { data: localValue };
         const lines = [];
         for (let i = 0; i < Math.ceil(localValue.length / BYTES_PER_LINE); i += 1) {
@@ -165,15 +169,15 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                         cursorAt={this.state.cursorAt}
                         editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
+                        isFocused={isFocused}
                         moveCursor={this.moveCursor}
-
                         selection={selection}
+                        selectLine={this.selectLine}
                         onBeginSelection={this.beginSelection}
                         onUpdateSelection={this.updateSelection}
                         onFinishSelection={this.finishSelection}
                     />
                 ))}
-                <div>{selection.isSelecting ? "true" : "false"}/{selection.from}/{selection.to}</div>
             </div>
         );
     }
@@ -472,6 +476,19 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const _from = Math.max(0, (typeof newFrom === 'number') ? newFrom : from);
         const _to = Math.min(to, maxLen);
         this.setState({ selection: { from: _from, to: _to, isSelecting: !finishAfter } });
+    }
+
+    private selectLine = (from: number): void => {
+        const { localValue } = this.state;
+        const totalLines = Math.ceil(localValue.length / BYTES_PER_LINE);
+        const currentLine = Math.ceil((from + BYTES_PER_LINE) / BYTES_PER_LINE);
+        const isLastLine = totalLines === currentLine;
+        const to = isLastLine ? localValue.length - 2: from + BYTES_PER_LINE - 1;
+        console.log("!", to);
+        console.log(totalLines, currentLine, from, to, localValue.length);
+        this.setState({ selection: { from, to, isSelecting: false } }, () => {
+            this.moveCursor(to + 1, false);
+        });
     }
 
     private finishSelection = (to: number): void => {

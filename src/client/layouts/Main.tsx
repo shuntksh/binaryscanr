@@ -19,7 +19,9 @@ export class MainLayout extends React.Component<{}, {}> {
                     <InputContainer />
                 </div>
                 <div className={css.row}>
-                    <HexEditorContainer />
+                    <div className={css.hexEditorContainer}>
+                        <HexEditorContainer />
+                    </div>
                 </div>
             </div>
         );

@@ -1,20 +1,45 @@
 :local(.base) {
   background: #fff;
+  padding: 5px;
 }
 
+:local(.hovering) {
+  background: orange;
+  opacity: 0.5;
+}
+
+:local(.ascii-cell) {
+  font-family: monospace;
+  color: #757575;
+  user-select: none;
+  font-size: 0.8em;
+  line-height: 1.2em;
+  padding: 1px 0.8px;
+  cursor: default;
+}
+
+:local(.ascii-cell:nth-child(9)) {
+  margin-left: 0.7em;
+}
 
 :local(.cell) {
   font-family: monospace;
   user-select: none;
   font-size: 1.2em;
+  padding: 1px 3px;
+  cursor: text;
 }
 
 :local(.cell:nth-child(even)) {
   color: #878787;
 }
 
+:local(.cell:nth-child(9)) {
+  border-left: 1px solid rgba(201, 201, 201, 0.5);
+}
+
 :local(.selecting) {
-  background: blue;
+  background:  rgba(191, 238, 255, 0.8);
 }
 
 :local(.line-container) {
@@ -34,17 +59,37 @@
   font-family: monospace;
   color: #cecece;
   user-select: none;
+  line-height: 1.2em;
+  min-height: 20px;
+  cursor: default;
 }
 
 :local(.hex-line-container) {
-  font-family: monospace;
-  color: #cecece;
   margin-left: 5px;
-  min-width: 300px;
+  min-width: 410px;
 }
 
 :local(.ascii-line-container) {
   font-family: monospace;
   color: #cecece;
   margin-left: 5px;
+}
+
+:local(.cursor) {
+  background: orange;
+  opacity: 0.8;
+}
+
+:local(.blink-cursor) {
+  border-bottom: 1px solid black;
+  animation: 1s blink step-end infinite;
+}
+
+@keyframes blink {
+  from, to {
+    border-bottom-color: transparent;
+  }
+  50% {
+    border-bottom-color: black;
+  }
 }

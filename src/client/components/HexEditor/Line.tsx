@@ -20,9 +20,10 @@ export interface LineProps {
     editingCellTempValue: string;
     moveCursor: (to: number) => void;
     onHovering: (pos: number) => void;
+    isFocused: boolean;
     value: Value;
     selection: Selection;
-
+    selectLine: (lineNum: number) => void;
     onBeginSelection: (from: number) => void;
     onUpdateSelection: (to: number) => void;
     onFinishSelection: (to: number) => void;
@@ -78,10 +79,10 @@ export class Line extends React.Component<LineProps, LineState> {
 
     public render() {
         const {
-            addrStart, moveCursor, cursorAt, editingCellAt, editingCellTempValue,
+            addrStart, moveCursor, cursorAt, editingCellAt, editingCellTempValue, isFocused,
             selection, onBeginSelection, onUpdateSelection, onFinishSelection, lineNum,
         } = this.props;
-        const { line } = this.state;
+        const { line, currentCursorPosition } = this.state;
         const num = lineNum.toString(16).toUpperCase();
         return (
             <div
@@ -90,7 +91,10 @@ export class Line extends React.Component<LineProps, LineState> {
                 onMouseMove={this.handleEnter}
                 onMouseLeave={this.handleLeave}
             >
-                <div className={css.line}>
+                <div
+                    className={css.line}
+                    onClick={this.handleClickLine}
+                >
                     <span>{formatString(num, 8)}</span>
                 </div>
                 <div className={css.hexLineContainer}>
@@ -99,16 +103,17 @@ export class Line extends React.Component<LineProps, LineState> {
                         key={idx}
                         char={char}
                         cursorAt={cursorAt}
+                        currentCursorPosition={currentCursorPosition}
                         editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
                         pos={addrStart + idx}
                         onHovering={this.handleHoverOnCell}
                         onClick={moveCursor}
-
                         selection={selection}
                         onBeginSelection={onBeginSelection}
                         onUpdateSelection={onUpdateSelection}
                         onFinishSelection={onFinishSelection}
+                        isFocused={isFocused}
                     />
                 ))}
                 </div>
@@ -118,21 +123,29 @@ export class Line extends React.Component<LineProps, LineState> {
                         key={idx}
                         char={char}
                         cursorAt={cursorAt}
+                        currentCursorPosition={currentCursorPosition}
                         editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
                         pos={addrStart + idx}
                         onHovering={this.handleHoverOnCell}
                         onClick={moveCursor}
-
                         selection={selection}
                         onBeginSelection={onBeginSelection}
                         onUpdateSelection={onUpdateSelection}
                         onFinishSelection={onFinishSelection}
+                        isFocused={isFocused}
                     />
                 ))}
                 </div>
             </div>
         );
+    }
+
+    private handleClickLine = (): void => {
+        const { selectLine, lineNum } = this.props;
+        if (typeof selectLine === "function") {
+            selectLine(lineNum);
+        }
     }
 
     private handleEnter = (): void => {
@@ -142,7 +155,7 @@ export class Line extends React.Component<LineProps, LineState> {
     }
 
     private handleLeave = (): void => {
-        this.setState({ isHovering: false });
+        this.setState({ isHovering: false, currentCursorPosition: undefined });
     }
 }
 
