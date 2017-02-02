@@ -94,7 +94,6 @@
     "react-redux": "5.0.2",
     "react-virtualized": "8.11.4",
     "redux": "3.6.0",
-    "redux-thunk": "2.2.0",
     "rimraf": "2.5.4",
     "style-loader": "0.13.1",
     "stylefmt": "5.1.1",
