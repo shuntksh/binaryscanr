@@ -17,9 +17,9 @@ export enum CellState {
 }
 
 export interface HexEditorProps {
-    onBlur?: () => {};
-    onChange?: (value: string) => {};
-    onFocus?: () => {};
+    onBlur?: () => any;
+    onChange?: (value: string) => any;
+    onFocus?: () => any;
     value?: string;
 }
 
@@ -41,7 +41,7 @@ export interface HexEditorState {
 }
 
 const strArr: string[] = [];
-for (let i = 0; i < 300; i += 1) { strArr.push("00"); }
+for (let i = 0; i < 440; i += 1) { strArr.push("00"); }
 
 export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     public static stringToArray = (str: string): string[] => {
@@ -75,6 +75,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     };
 
     private hexEditorElement: HTMLDivElement;
+
     private refHandlers: any = {
         hexEditorElement: (ref: HTMLDivElement): void => { this.hexEditorElement = ref; },
     };
@@ -197,7 +198,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             if (typeof this.props.onBlur === "function") { this.props.onBlur(); }
             return void 0;
         }
-
         if (document.activeElement === this.hexEditorElement) {
             this.setState({ isFocused: true });
             if (typeof this.props.onFocus === "function") {
@@ -484,8 +484,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const currentLine = Math.ceil((from + BYTES_PER_LINE) / BYTES_PER_LINE);
         const isLastLine = totalLines === currentLine;
         const to = isLastLine ? localValue.length - 2: from + BYTES_PER_LINE - 1;
-        console.log("!", to);
-        console.log(totalLines, currentLine, from, to, localValue.length);
         this.setState({ selection: { from, to, isSelecting: false } }, () => {
             this.moveCursor(to + 1, false);
         });

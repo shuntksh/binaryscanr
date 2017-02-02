@@ -1,30 +1,40 @@
 import * as React from "react";
 import { connect } from "react-redux";
-// import { ActionCreator, Dispatch } from "redux";
+import { ActionCreator, Dispatch } from "redux";
 
-// import { AppState } from "../app";
+import { AppState } from "../app";
 import HexEditor from "../components/HexEditor";
-// import { actions, selectors } from "../store/module";
+import { actions, selectors } from "../store/module";
 
-// export interface InputSectionProps {
-//     readonly highlights: HexEditorProps[];
-//     readonly input: string;
-//     readonly strToCopy: string;
-//     readonly valid: boolean;
-// };
+export interface HexEditorProps {
+    // readonly highlights: HexEditorProps[];
+    readonly value: string;
+    readonly valid?: boolean;
+};
 
-// export interface DispatchedProps {
-//     readonly clearInput: () => void;
-//     readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => void;
-// }
+export interface DispatchedProps {
+    readonly updateHexData: (value: string) => void;
+}
 
-// export interface ILayoutState {}
+// export interface HexEditorState {}
 
-export class HexEditorContainer extends React.Component<{}, {}> {
+const mapState = (state: AppState): HexEditorProps => ({
+    value: selectors.getHexData()(state),
+});
+
+const mapDispatch = (dispatch: Dispatch<ActionCreator<any>>): DispatchedProps => ({
+    updateHexData: (value: string) => dispatch(actions.updateHexData(value)),
+});
+
+export class HexEditorContainer extends React.Component<HexEditorProps & DispatchedProps, {}> {
     public render() {
+        const { value, updateHexData } = this.props;
         return (
-            <HexEditor />
+            <HexEditor
+                onChange={updateHexData}
+                value={value}
+            />
         );
     }
 }
-export default connect()(HexEditorContainer);
+export default connect(mapState, mapDispatch)(HexEditorContainer);
