@@ -1,8 +1,8 @@
 import * as cx from "classnames";
 import * as React from "react";
 
-// Using commonJS module syntax for lodash.debounce
-const debounce = require("lodash.debounce");
+// Using commonJS module syntax for lodash.throttle
+const throttle = require("lodash.throttle");
 
 import * as css from "./HexEditor.css";
 import * as KEY from "./keymaps";
@@ -104,7 +104,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     //
 
     public componentWillMount() {
-        const debounced = debounce(this.handleKeyDown.bind(this), 15);
+        const debounced = throttle(this.handleKeyDown.bind(this), 15);
         window.addEventListener("keydown", (event: KeyboardEvent) => debounced(event), false);
         window.addEventListener("keyup", (event: KeyboardEvent) => this.handleControlKeyUp(event), false);
         window.addEventListener("focus", () => this.handleFocus(), true);
