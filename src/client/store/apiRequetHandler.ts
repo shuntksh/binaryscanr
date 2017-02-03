@@ -54,10 +54,17 @@ const apiHandler = (store: Store<AppState>): void => {
             };
             request.post(API_PATH, body)
                 .then((res) => {
-                    console.log(res);
+                    console.log("1", res);
+                    let data = res.data;
+                    if (typeof data === "string") {
+                        console.log(data[20], data.charCodeAt(20));
+                        data = JSON.parse(`${data}`);
+                    }
+                    console.log(data, typeof data);
                     store.dispatch(actions.stopLoading());
                 })
                 .catch((err: Error) => {
+                    console.log(err);
                     store.dispatch(actions.stopLoading());
                     store.dispatch(actions.apiError(err.message));
                 });
