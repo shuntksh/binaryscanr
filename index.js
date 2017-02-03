@@ -2,9 +2,9 @@
 const cluster = require("cluster");
 const control = require("strong-cluster-control");
 
-const app = require("dist/binaryscanr");
+const app = require("./dist/binaryscanr");
 
-control.start({ size: control.CPUS})
+control.start({ size: 1 })
     .on("error", (err) => {
         console.error(err);
     });

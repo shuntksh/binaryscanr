@@ -39,16 +39,19 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
             char, cursorAt, editingCellAt, editingCellTempValue, pos, currentCursorPosition, isFocused
         } = this.props;
         const { isHovering } = this.state;
+        const styles: any = {};
+        const classNames = [css.cell];
+
         let _char = char;
         if (editingCellAt === pos && editingCellTempValue) {
             _char = editingCellTempValue;
             if (_char.length === 1) { _char += "_"; }
         }
-        const styles: any = {};
-        const classNames = [css.cell];
+
         if (this.isSelectingCell() && !isHovering) {
             classNames.push(css.selecting);
         }
+
         if (isHovering || currentCursorPosition === pos) {
             classNames.push(css.hovering);
         }

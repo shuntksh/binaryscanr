@@ -12,13 +12,15 @@
 body {
   background: rgba(1,1,1,0.01);
   min-width: 800px;
+  padding: 0;
+  margin: 0;
 }
 
 :local(.row) {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-start;
+  justify-content: center;
   width: 100%;
 }
 
@@ -27,7 +29,7 @@ body {
   color: #666;
   font-size: small;
   border-bottom: 1px solid #ebebeb;
-  padding-bottom: 15px;
+  padding: 15px;
   margin-bottom: 10px;
 }
 
@@ -42,7 +44,7 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 80px;
-  width: 850px;
+  width: 900px;
   transition: box-shadow 0.3s ease;
   user-select: none;
   cursor: default;
@@ -63,6 +65,21 @@ body {
   font-style: italic;
 }
 
+:local(.hex-section) {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin-left: 30px;
+  width: 900px;
+}
+
 :local(.hex-editor-container) {
+  padding: 3px;
+  width: 630px;
+}
+
+:local(.result-section-container) {
+  flex-grow: 1;
+  background: red;
   margin-left: 5px;
 }

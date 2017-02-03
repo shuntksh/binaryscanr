@@ -87,6 +87,7 @@ export class Line extends React.Component<LineProps, LineState> {
         return (
             <div
                 className={css.lineContainer}
+                onDoubleClick={this.handleClickLine}
                 onMouseEnter={this.handleEnter}
                 onMouseMove={this.handleEnter}
                 onMouseLeave={this.handleLeave}
@@ -97,6 +98,7 @@ export class Line extends React.Component<LineProps, LineState> {
                 >
                     <span>{formatString(num, 8)}</span>
                 </div>
+
                 <div className={css.hexLineContainer}>
                 {line.map((char, idx) => (
                     <HexCell
@@ -117,6 +119,7 @@ export class Line extends React.Component<LineProps, LineState> {
                     />
                 ))}
                 </div>
+
                 <div className={css.asciiLineContainer}>
                 {line.map((char, idx) => (
                     <AsciiCell

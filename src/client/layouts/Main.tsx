@@ -8,8 +8,6 @@ import HexEditorContainer from "../containers/HexEditorContainer";
 import InputContainer from "../containers/InputContainer";
 import location from "../containers/LocationHoC";
 
-// export interface ILayoutState {}
-
 export class MainLayout extends React.Component<{}, {}> {
     public displayName: string;
     public render() {
@@ -19,8 +17,13 @@ export class MainLayout extends React.Component<{}, {}> {
                     <InputContainer />
                 </div>
                 <div className={css.row}>
-                    <div className={css.hexEditorContainer}>
-                        <HexEditorContainer />
+                    <div className={css.hexSection}>
+                        <div className={css.hexEditorContainer}>
+                            <HexEditorContainer />
+                        </div>
+                        <div className={css.resultSectionContainer}>
+                            test
+                        </div>
                     </div>
                 </div>
             </div>
