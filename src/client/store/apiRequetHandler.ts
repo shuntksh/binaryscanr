@@ -1,12 +1,12 @@
-import axios from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 import { fromJS } from "immutable";
 import { Store } from "redux";
 import { AppState } from "../app";
 import { actions } from "../store/module";
 
-// @types/lodash.debounce only allow commonJS import.
+// @types/lodash.throttle only allow commonJS import.
 /* tslint:disable-next-line:no-var-requires */
-const debounce = require("lodash.debounce");
+const throttle = require("lodash.throttle");
 
 interface APIBody {
     formatString: string;
@@ -14,17 +14,27 @@ interface APIBody {
 }
 
 const API_PATH = "/api/process";
+const TOKEN_PATH = "/api/token";
 const REQUEST_INTERVAL = 500; // ms
+const request = axios.create({ timeout: 1000 });
 
-const request = axios.create({
-    timeout: 1000,
+request.interceptors.request.use((config: AxiosRequestConfig ): any => {
+    return new Promise((resolve) => {
+        axios.get(TOKEN_PATH)
+            .then((res) => {
+                if (typeof (res.data || {})._csrf === "string") {
+                    config.headers["x-csrf-token"] = res.data._csrf;
+                }
+                resolve(config);
+            })
+            .catch(() => { resolve(config); });
+    });
 });
 
 const apiHandler = (store: Store<AppState>): void => {
     let prevState: any = fromJS({});
-    store.subscribe(debounce((): void => {
+    store.subscribe(throttle((): void => {
         const state = store.getState(); // The state is Immutable Map
-        console.log(state.toJS());
         if (state.get("isLoading") === true || state.get("valid") === false) {
             return void 0;
         }
@@ -48,7 +58,8 @@ const apiHandler = (store: Store<AppState>): void => {
                     store.dispatch(actions.stopLoading());
                 })
                 .catch((err: Error) => {
-                    console.log(err.message);
+                    store.dispatch(actions.stopLoading());
+                    store.dispatch(actions.apiError(err.message));
                 });
         }
         prevState = state;

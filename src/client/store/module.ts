@@ -15,6 +15,7 @@ export interface Action extends redux.Action {
 
 export interface ActionTypes {
     [index: string]: string;
+    readonly api_error: string;
     readonly hex_clear: string;
     readonly hex_error: string;
     readonly hex_update: string;
@@ -27,6 +28,8 @@ export interface ActionTypes {
 }
 
 export const types: ActionTypes = {
+    api_error: "@@app/HEX/API_ERROR",
+
     hex_clear: "@@app/HEX/CLEAR",
     hex_error: "@@app/HEX/ERROR",
     hex_update: "@@app/HEX/UPDATE",
@@ -43,6 +46,7 @@ export const types: ActionTypes = {
 
 export interface ActionCreators {
     [index: string]: redux.ActionCreator<any>;
+    readonly apiError: (errMsg: string) => Action;
     readonly clearInput: () => Action;
     readonly startLoading: () => Action;
     readonly stopLoading: () => Action;
@@ -51,6 +55,8 @@ export interface ActionCreators {
 };
 
 export const actions: ActionCreators = {
+    apiError: (errMsg: string) => ({ type: types.api_error, payload: errMsg }),
+
     clearInput: () => ({ type: types.input_clear }),
 
     startLoading: () => ({ type: types.start_loading }),
@@ -116,6 +122,10 @@ export function reducer(state: AppState, action: Action ): AppState {
 
     case types.stop_loading: {
         return state.set("isLoading", false);
+    }
+
+    case types.api_error: {
+        return state.set("error", payload);
     }
 
     //

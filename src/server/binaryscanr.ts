@@ -43,12 +43,21 @@ app.use(compression());
 // ToDo: Change to render initial state into HTML using template
 app.use(serveStatic(STATIC_PATH, { index: ["index.html"] }));
 
-app.use("/api/*", (req: express.Request, res: express.Response, next: express.NextFunction): void => {
-    if (req.headers["Content-Type"] === "application/json") {
-        res.set("Content-Type", "application/json");
-    }
-    next();
-});
+app.use(
+    "/api/*",
+    (req: express.Request, res: express.Response, next: express.NextFunction): void => {
+        if (req.headers["Content-Type"] === "application/json") {
+            res.set("Content-Type", "application/json");
+        }
+        next();
+    });
+
+app.get(
+    "/api/token",
+    csrfProtection,
+    (req: express.Request, res: express.Response): void => {
+        res.json({ "_csrf": req.csrfToken() });
+    })
 
 app.post(
     "/api/process",
@@ -75,4 +84,10 @@ app.post(
     },
 );
 
-export default app;
+app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction): void => {
+        if (err.code !== 'EBADCSRFTOKEN') return next(err);
+        console.log(req.cookies);
+        res.status(403).json({"error": "session has expired or tampered with"});
+    });
+
+module.exports = app;

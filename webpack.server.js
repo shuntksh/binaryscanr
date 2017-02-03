@@ -28,6 +28,8 @@ const config = {
         publicPath: "/",
         filename: "binaryscanr.js",
         sourceMapFilename: "binaryscanr.map",
+        library: "binaryscanr",
+        libraryTarget: "commonjs2",
     },
 
     resolve: {
