@@ -101,12 +101,20 @@
 }
 
 :local(.inner) {
-  align-items: center;
-  display: flex;
-  flex-direction: row;
   height: 100%;
   position: relative;
   width: 100%;
+}
+
+:local(.highlight-container) {
+  align-items: center;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  top: 0;
+  left: -1px;
+  right: 0;
+  bottom: 0;
 }
 
 :local(.highlght-spacing) {

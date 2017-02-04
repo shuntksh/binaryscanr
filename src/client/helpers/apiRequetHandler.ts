@@ -15,7 +15,7 @@ interface APIBody {
 
 const API_PATH = "/api/process";
 const TOKEN_PATH = "/api/token";
-const REQUEST_INTERVAL = 500; // ms
+const REQUEST_INTERVAL = 250; // ms
 const request = axios.create({ timeout: 1000 });
 
 request.interceptors.request.use((config: AxiosRequestConfig ): any => {
@@ -38,12 +38,14 @@ const apiHandler = (store: Store<AppState>): void => {
         if (state.get("isLoading") === true || state.get("valid") === false) {
             return void 0;
         }
+        const prevFmtString = (prevState.get("input") || "").split(" ")[0];
+        const currFmtString = (state.get("input") || "").split(" ")[0];
         if (
             typeof prevState.get === "function" &&
             state.get("input").length > 0 &&
             state.get("hexData").length > 0 &&
             (
-                prevState.get("input") !== state.get("input") ||
+                prevFmtString !== currFmtString ||
                 prevState.get("hexData") !== state.get("hexData")
             )
         ) {
@@ -54,13 +56,11 @@ const apiHandler = (store: Store<AppState>): void => {
             };
             request.post(API_PATH, body)
                 .then((res) => {
-                    console.log("1", res);
                     let data = res.data;
                     if (typeof data === "string") {
-                        console.log(data[20], data.charCodeAt(20));
                         data = JSON.parse(`${data}`);
                     }
-                    console.log(data, typeof data);
+                    store.dispatch(actions.updateResults(data.results));
                     store.dispatch(actions.stopLoading());
                 })
                 .catch((err: Error) => {

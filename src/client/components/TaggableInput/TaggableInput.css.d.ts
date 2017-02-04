@@ -11,6 +11,7 @@ export const invalidOutline: string;
 export const invalid: string;
 export const background: string;
 export const inner: string;
+export const highlightContainer: string;
 export const highlghtSpacing: string;
 export const highlight: string;
 export const input: string;

@@ -11,6 +11,7 @@ import { actions, selectors } from "../store/module";
 export interface InputContainerProps {
     readonly highlights: HighlightProps[];
     readonly input: string;
+    readonly varNameStub: HighlightProps;
     readonly strToCopy: string;
     readonly valid: boolean;
 };
@@ -25,6 +26,7 @@ const mapStateToProps = (state: AppState): InputContainerProps => ({
     input: selectors.getInput()(state),
     strToCopy: selectors.getFullSentence()(state),
     valid: selectors.isValid()(state),
+    varNameStub: selectors.getVarNameStub()(state),
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedProps => ({
@@ -37,7 +39,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
 export class InputContainer extends React.Component<InputContainerProps & DispatchedProps, {}> {
     public render() {
         const {
-            clearInput, input, updateInput, valid, highlights, strToCopy,
+            clearInput, input, updateInput, valid, highlights, strToCopy, varNameStub,
         } = this.props;
         return (
             <div className={css.inputSection}>
@@ -50,7 +52,7 @@ export class InputContainer extends React.Component<InputContainerProps & Dispat
                         showClearButton={true}
                         handleClear={clearInput}
                         handleChange={updateInput}
-                        highlights={highlights}
+                        highlights={[...highlights, varNameStub]}
                         valid={valid}
                     />
                     <span className={css.inputCaption}>
