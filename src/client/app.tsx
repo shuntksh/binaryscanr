@@ -4,8 +4,8 @@ import { Provider } from "react-redux";
 
 import { fromJS, Map } from "immutable";
 
+import apiHandler from "./helpers/apiRequetHandler";
 import MainLayout from "./layouts/Main";
-import apiHandler from "./store/apiRequetHandler";
 import configureStore from "./store/configureStore";
 
 export interface AppState extends Map<string, any> {

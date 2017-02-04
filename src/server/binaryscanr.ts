@@ -8,6 +8,11 @@ import * as fs from "fs";
 import * as helmet from "helmet";
 import * as serveStatic from "serve-static";
 
+import filterString from "./utils/filterString";
+
+const MAX_FILTER_LEN = 254;
+const MAX_HEX_LEN = 1500;
+
 const pathExistSync = (pathName: string): boolean => {
 	try {
 		fs.accessSync(pathName);
@@ -57,17 +62,22 @@ app.post(
     csrfProtection,
     (req: express.Request, res: express.Response): void => {
         res.set("Content-Type", "application/json");
-        if (!req.body) {
+        if (!req.body || !(req || {}).body.formatString.length) {
             res.sendStatus(400);
         } else {
             try {
+                const { formatString = "", input = "" } = req.body || {};
                 const body: string = JSON.stringify({
                     formatString: req.body.formatString,
                     input: req.body.input,
                 });
+                if (input.length > MAX_HEX_LEN || formatString.length > MAX_FILTER_LEN) {
+                    res.sendStatus(400);
+                    return void 0;
+                }
                 axios.post(TCL_BACKEND_PATH, `${body}\n`)
                     .then((apiRes: AxiosResponse): void => {
-                        res.status(200).json(apiRes.data);
+                        res.status(200).json(filterString(apiRes.data));
                     })
                     .catch((): void => {
                         res.status(500).json({ error: "Request Failed" });

@@ -58,13 +58,28 @@
 :local(.active) {
   opacity: 1;
   background: rgba(71, 71, 71, 0.89);
-  animation: activating 0.35s forwards;
+  animation: input-activating 0.35s forwards;
+}
+
+@keyframes input-activating {
+  0% {transform: scaleX(0);}
+  60% {transform: scaleX(1);}
+  80% {transform: scaleX(0.98);}
+  100% {transform: scaleX(1);}
 }
 
 :local(.inactive) {
   opacity: 1;
   background: rgba(71, 71, 71, 0.89);
-  animation: inactivating 0.5s forwards;
+  animation: input-inactivating 0.5s forwards;
+}
+
+@keyframes input-inactivating {
+  40% {transform: scaleX(0);}
+  55% {transform: scaleX(0.04);}
+  70% {transform: scaleX(0);}
+  85% {transform: scaleX(0.02);}
+  100% {transform: scaleX(0);}
 }
 
 :local(.invalid-outline) {
@@ -73,21 +88,6 @@
 
 :local(.invalid) {
   background: #E25C4B;
-}
-
-@keyframes activating {
-  0% {transform: scaleX(0);}
-  60% {transform: scaleX(1);}
-  80% {transform: scaleX(0.98);}
-  100% {transform: scaleX(1);}
-}
-
-@keyframes inactivating {
-  40% {transform: scaleX(0);}
-  55% {transform: scaleX(0.04);}
-  70% {transform: scaleX(0);}
-  85% {transform: scaleX(0.02);}
-  100% {transform: scaleX(0);}
 }
 
 /* Background */
@@ -150,6 +150,11 @@
   right: 0;
   top: 0;
   width: 100%;
+}
+
+:local(.input:focus) {
+  outline-width: 0;
+  outline-offset: 0;
 }
 
 /* Clear Button */
