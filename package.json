@@ -54,7 +54,7 @@
     "@types/helmet": "0.0.33",
     "@types/lodash.throttle": "4.1.1",
     "@types/mocha": "2.2.38",
-    "@types/node": "7.0.4",
+    "@types/node": "7.0.5",
     "@types/path-exists": "1.0.29",
     "@types/react": "15.0.4",
     "@types/react-addons-shallow-compare": "0.14.19",
@@ -108,6 +108,6 @@
     "typescript": "2.1.5",
     "url-loader": "0.5.7",
     "webpack": "1.14.0",
-    "webpack-dev-server": "1.16.3"
+    "webpack-dev-server": "2.3.0"
   }
 }
