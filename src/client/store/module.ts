@@ -1,7 +1,7 @@
-// import { fromJS } from "immutable";
+import { fromJS } from "immutable";
 import * as redux from "redux";
 
-import { AppState } from "../app";
+import { AppState, Result } from "../app";
 import { HighlightProps, Intent } from "../components/TaggableInput";
 import c from "../constants";
 import isValidFilter from "../helpers/isValidFilter";
@@ -25,6 +25,7 @@ export interface ActionTypes {
     readonly input_update: string;
     readonly start_loading: string;
     readonly stop_loading: string;
+    readonly update_results: string;
 }
 
 export const types: ActionTypes = {
@@ -42,6 +43,8 @@ export const types: ActionTypes = {
 
     start_loading: "@@app/LOADING/START",
     stop_loading: "@@app/LOADING/STOP",
+
+    update_results: "@@/API/SET_RESULTS",
 };
 
 export interface ActionCreators {
@@ -52,6 +55,7 @@ export interface ActionCreators {
     readonly stopLoading: () => Action;
     readonly updateHexData: (value: string) => Action;
     readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => Action;
+    readonly updateResults: (results: string[]) => Action;
 };
 
 export const actions: ActionCreators = {
@@ -60,6 +64,7 @@ export const actions: ActionCreators = {
     clearInput: () => ({ type: types.input_clear }),
 
     startLoading: () => ({ type: types.start_loading }),
+
     stopLoading: () => ({ type: types.stop_loading }),
 
     updateHexData: (value: string): Action => {
@@ -69,14 +74,26 @@ export const actions: ActionCreators = {
         }
         return { type: types.hex_update, payload: value };
     },
+
     updateInput: (ev: React.SyntheticEvent<HTMLInputElement>): Action => {
         const input = (ev.target as HTMLInputElement).value;
         if (typeof input !== "string") {
             const error = { input: `Invalid Filter Type: ${typeof input}` };
             return { type: types.input_error, error };
         }
-        const payload = { input: input || "", valid: isValidFilter(input || "") };
+        const vars = input.trim().split(" ");
+        vars.shift();
+        const payload = {
+            input: input || "",
+            valid: isValidFilter(input || ""),
+            vars,
+        };
         return { type: types.input_update, payload };
+    },
+
+    updateResults: (results: string[]): Action => {
+        const payload = results.every((r: string) => typeof r === "string") ? results : [];
+        return { type: types.update_results, payload };
     },
 };
 
@@ -107,6 +124,21 @@ export const selectors = {
 
     getInput: () => (state: AppState): string => state.get("input") || "",
 
+    getResults: () => (state: AppState): Result[] => state.get("results").toJS() || [],
+
+    getVarNameStub: () => (state: AppState): HighlightProps => {
+        const inputLen = state.get("input").split(" ")[0].length;
+        const varNames = state
+            .get("results")
+            .map((result: Result) => result.get("varName"))
+            .join(" ");
+        if (!varNames.length || !state.get("input").length) { return {}; }
+        const varNamesStub: HighlightProps = {
+            at: inputLen + 2,
+            placeholder: varNames,
+        };
+        return varNamesStub;
+    },
     isValid: () => (state: AppState): boolean => !!state.get("valid"),
 };
 
@@ -138,9 +170,18 @@ export function reducer(state: AppState, action: Action ): AppState {
     }
 
     case types.input_update: {
-        return state
-            .set("input", payload.input)
-            .set("valid", payload.valid);
+        const { input, valid, vars } = payload;
+        const results = state.get("results").map((result: Result, idx: number) => (
+            vars[idx] ?
+                result.set("varName", vars[idx]) :
+                result.set("varName", `var${idx}`)
+        ));
+
+        return state.withMutations((mState) => mState
+            .set("input", input)
+            .set("valid", valid)
+            .set("vars", fromJS(vars))
+            .set("results", results));
     }
 
     //
@@ -152,6 +193,18 @@ export function reducer(state: AppState, action: Action ): AppState {
 
     case types.hex_update: {
         return state.set("hexData", payload.toUpperCase() || "");
+    }
+
+    //
+    // API Results
+    //
+    case types.update_results: {
+        const results = payload.map((value: string, idx: number) => ({
+            setByUser: !!state.getIn(["vars", idx]),
+            value,
+            varName: state.getIn(["vars", idx]) || `var${idx}`,
+        }));
+        return state.set("results", fromJS(results));
     }
 
     default:

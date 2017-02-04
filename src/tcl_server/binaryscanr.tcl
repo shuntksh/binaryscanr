@@ -284,8 +284,8 @@ proc _scan_and_respond { chan input formatString } {
 
     # Run binary scan command and collect results
     set cmd "set matched_count \[binary scan \$input \$formatString $vars \]"
-    puts "$cmd $input $formatString $vars"
     if [catch { eval $cmd } error] {
+        puts "Error: $cmd $input $formatString $vars >> $error"
         set msg [::json::write array [_scan $input $formatString]]
         HttpRespond $chan 500 "[::json::write object error $msg]\n"
         return 

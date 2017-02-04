@@ -11,10 +11,15 @@ export const Highlight: React.SFC<HighlightProps> = (props) => {
         at = 0, size = 0, color, style, intent, placeholder,
     } = props;
 
+    let _size = size;
+    if (_size === 0 && typeof placeholder === "string" && placeholder.length) {
+        _size = placeholder.length;
+    }
+
     const highlightStyle: any = {};
     const highlightClassNames: any[] = [css.highlight];
 
-    if ((at > size) || typeof at !== "number" && typeof size !== "number") {
+    if ((at > _size) || typeof at !== "number" && typeof _size !== "number") {
         return <noscript />;
     }
 
@@ -34,13 +39,13 @@ export const Highlight: React.SFC<HighlightProps> = (props) => {
     }
 
     return (
-        <div className={css.inner}>
+        <div className={css.highlightContainer}>
             <span className={css.highlghtSpacing}>{spacing}</span>
             <span
                 className={cx(highlightClassNames)}
                 style={isEmpty(style) ? highlightStyle : style}
             >
-                {placeholder || new Array(size - at + 1).join(" ")}
+                {placeholder || new Array(_size - at + 1).join(" ")}
             </span>
         </div>
     );

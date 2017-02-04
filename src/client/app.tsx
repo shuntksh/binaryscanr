@@ -10,27 +10,37 @@ import configureStore from "./store/configureStore";
 
 export interface AppState extends Map<string, any> {
     input?: string;
-    data?: string;
-    vars?: Variables[];
+    hexData?: string;
+    vars?: Result[];
     valid?: boolean;
     isLoading?: boolean;
+    results?: Result[];
 };
 
 export interface AppWindow extends Window {
     __PRELOADED_STATE__: AppState;
 }
 
-export interface Variables extends Map<string, string | undefined> {
-    name?: string;
+export interface Result extends Map<string, string | undefined> {
+    setByUser?: boolean;
     value?: string;
+    varName?: string;
 }
 
-const hexData: string[] = [];
-for (let i = 0; i < 440; i += 1) { hexData.push("00"); }
+let hexData: string = "";
+for (let i = 0; i < 440; i += 1) { hexData += "00"; }
 
-const initialState: AppState =
-    fromJS((window as AppWindow).__PRELOADED_STATE__ ||
-    { input: "", hexData, vars: [], valid: true, isLoading: false });
+const initialState: AppState = fromJS(
+    (window as AppWindow).__PRELOADED_STATE__ ||
+    {
+        hexData,
+        input: "",
+        isLoading: false,
+        results: [],
+        valid: true,
+        vars: [],
+    },
+);
 
 // Load initial state from passed by the backend
 const store = configureStore(initialState);
