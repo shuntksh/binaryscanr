@@ -8,6 +8,7 @@ import * as fs from "fs";
 import * as helmet from "helmet";
 import * as serveStatic from "serve-static";
 
+import isValidFilter from "../client/helpers/isValidFilter";
 import filterString from "./utils/filterString";
 
 const MAX_FILTER_LEN = 254;
@@ -71,7 +72,11 @@ app.post(
                     formatString: req.body.formatString,
                     input: req.body.input,
                 });
-                if (input.length > MAX_HEX_LEN || formatString.length > MAX_FILTER_LEN) {
+                if (
+                    input.length > MAX_HEX_LEN ||
+                    formatString.length > MAX_FILTER_LEN ||
+                    !isValidFilter(formatString)
+                ) {
                     res.sendStatus(400);
                     return void 0;
                 }
