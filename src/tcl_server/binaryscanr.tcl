@@ -277,7 +277,11 @@ proc _scan_and_respond { chan input formatString } {
     }
 
     # Convert input string to hexadecimal
-    set input [binary format H* $input]
+    if [catch { set input [binary format H* $input] } error] {
+        puts "ERROR"
+        HttpRespond $chan 500 "[::json::write object error $error]\n"
+        return
+    }
 
     # Run binary scan command and collect results
     set cmd "set matched_count \[binary scan \$input \$formatString $vars \]"
