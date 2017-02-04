@@ -1,6 +1,8 @@
 /* tslint:disable */ 
 "use strict";
 
+const path = require("path");
+
 const { CheckerPlugin, TsConfigPathsPlugin } = require("awesome-typescript-loader");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -24,7 +26,7 @@ const config = {
     },
 
     output: {
-        path: "./dist/static/",
+        path: path.resolve(process.cwd(), "./dist/static/"),
         publicPath: "/",
         filename: "[name].[chunkhash].js",
         sourceMapFilename: "[name].[chunkhash].map",
