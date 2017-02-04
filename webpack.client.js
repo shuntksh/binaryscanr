@@ -3,7 +3,8 @@
 
 const path = require("path");
 
-const { CheckerPlugin, TsConfigPathsPlugin } = require("awesome-typescript-loader");
+const CheckerPlugin = require("awesome-typescript-loader").CheckerPlugin;
+const TsConfigPathsPlugin = require("awesome-typescript-loader").TsConfigPathsPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");

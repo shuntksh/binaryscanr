@@ -11,5 +11,5 @@ WORKDIR /opt/binaryscanr
 RUN yarn
 RUN npm run build
 
-EXPOSE 3000/tcp
+EXPOSE 8000/tcp
 ENTRYPOINT exec forever dist/binaryscanr.js

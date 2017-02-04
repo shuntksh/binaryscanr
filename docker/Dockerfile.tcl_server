@@ -6,7 +6,7 @@ RUN apt-get update
 RUN apt-get -y install apt-utils
 RUN apt-get -y install tcl8.6 tcllib
 
-COPY binaryscanr.tcl /opt/binaryscanr.tcl
+COPY src/tcl_server/binaryscanr.tcl /opt/binaryscanr.tcl
 
 EXPOSE 8001/tcp
 

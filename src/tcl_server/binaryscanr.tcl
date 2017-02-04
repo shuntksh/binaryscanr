@@ -267,7 +267,6 @@ proc _scan_and_respond { chan input formatString } {
 
     set n 0
     set vars {}
-
     # Prepare variable names to store scan result (need to be exact)
     foreach c [split $formatString {}] {
         if {[lsearch -exact $ALLOWED_CHARS $c] != -1} {
@@ -285,6 +284,7 @@ proc _scan_and_respond { chan input formatString } {
 
     # Run binary scan command and collect results
     set cmd "set matched_count \[binary scan \$input \$formatString $vars \]"
+    puts "$cmd $input $formatString $vars"
     if [catch { eval $cmd } error] {
         set msg [::json::write array [_scan $input $formatString]]
         HttpRespond $chan 500 "[::json::write object error $msg]\n"
