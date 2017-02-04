@@ -19,9 +19,12 @@ fs.readdirSync('node_modules')
 const config = {
     target: "node",
     stats: false,
-    progress: true,
 
     entry: ["./src/server/binaryscanr.ts"],
+
+    resolve: {
+        extensions: [".ts", ".tsx", ".js", ".json"],
+    },
 
     output: {
         path: "./dist/",
@@ -32,20 +35,13 @@ const config = {
         libraryTarget: "commonjs2",
     },
 
-    resolve: {
-        extensions: ["", ".ts", ".tsx", ".js", ".json"],
-    },
-
     externals: nodeModules,
 
     module: {
-        preLoaders: [
-            { test: /\.ts$/, loader: "tslint" },
-        ],
-
-        loaders: [
-            { test: /\.json$/, loader: "json" },
-            { test: /\.ts$/, loader: "awesome-typescript", exclude: /(\.spec.ts$|node_modules)/ },
+        rules: [
+            { test: /\.ts$/, enforce: "pre", loader: "tslint-loader" },
+            { test: /\.json$/, use: "json-loader" },
+            { test: /\.ts$/, loader: "awesome-typescript-loader", exclude: /(\.spec.ts$|node_modules)/ },
         ],
     },
 
@@ -55,11 +51,14 @@ const config = {
                 "NODE_ENV": JSON.stringify(process.env.NODE_ENV).toLowerCase(),
             },
         }),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                tslint: {
+                    failOnHint: true,
+                }
+            }
+        }),
     ],
-
-    tslint: {
-        failOnHint: true,
-    },
 };
 
 //
@@ -67,15 +66,13 @@ const config = {
 //
 if (process.env.NODE_ENV === "production") {
     config.bail = true;
-    config.debug = false;
-    config.plugins.push(new webpack.optimize.DedupePlugin());
-    config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
+
 //
 // Development Configuration
 //
+
 } else {
     config.bail = true;
-    config.debug = true;
 
     // Include an alternative client for WebpackDevServer (for better error handling)
     config.devtool = "cheap-module-source-map";

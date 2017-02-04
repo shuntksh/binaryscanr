@@ -39,7 +39,7 @@
 }
 
 :local(.selecting) {
-  background:  rgba(191, 238, 255, 0.8);
+  background: rgba(191, 238, 255, 0.8);
 }
 
 :local(.line-container) {
@@ -86,9 +86,11 @@
 }
 
 @keyframes blink {
-  from, to {
+  from,
+  to {
     border-bottom-color: transparent;
   }
+
   50% {
     border-bottom-color: black;
   }

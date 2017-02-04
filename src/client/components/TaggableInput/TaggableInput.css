@@ -62,10 +62,10 @@
 }
 
 @keyframes input-activating {
-  0% {transform: scaleX(0);}
-  60% {transform: scaleX(1);}
-  80% {transform: scaleX(0.98);}
-  100% {transform: scaleX(1);}
+  0% { transform: scaleX(0); }
+  60% { transform: scaleX(1); }
+  80% { transform: scaleX(0.98); }
+  100% { transform: scaleX(1); }
 }
 
 :local(.inactive) {
@@ -75,19 +75,19 @@
 }
 
 @keyframes input-inactivating {
-  40% {transform: scaleX(0);}
-  55% {transform: scaleX(0.04);}
-  70% {transform: scaleX(0);}
-  85% {transform: scaleX(0.02);}
-  100% {transform: scaleX(0);}
+  40% { transform: scaleX(0); }
+  55% { transform: scaleX(0.04); }
+  70% { transform: scaleX(0); }
+  85% { transform: scaleX(0.02); }
+  100% { transform: scaleX(0); }
 }
 
 :local(.invalid-outline) {
-  background: #E25C4B;
+  background: #e25c4b;
 }
 
 :local(.invalid) {
-  background: #E25C4B;
+  background: #e25c4b;
 }
 
 /* Background */
@@ -165,7 +165,7 @@
   flex-direction: row;
   justify-content: center;
   height: 36px;
-  position: absolute;  
+  position: absolute;
   right: 0;
   width: 36px;
 }
@@ -174,7 +174,7 @@
   background: transparent;
   border: 1px solid transparent;
   border-radius: 100px;
-  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
   cursor: pointer;
   display: inline-block;
   color: #585858;
@@ -191,19 +191,19 @@
 }
 
 :local(.clear-button:disabled) {
-    cursor: default;
-    color: #dcdcdc;
-    opacity: 0;
-    pointer-events: none;
+  cursor: default;
+  color: #dcdcdc;
+  opacity: 0;
+  pointer-events: none;
 }
 
 :local(.clear-button:focus:enabled) {
-  background: #E25C4B;
+  background: #e25c4b;
   color: #fff;
 }
 
 :local(.clear-button:hover:enabled) {
-  background: #E25C4B;
+  background: #e25c4b;
   color: #fff;
 }
 
@@ -223,9 +223,9 @@
 }
 
 @keyframes highlighting {
-  0% {transform: scaleY(0.9);}
-  50% {transform: scaleY(1.1);}
-  75% {transform: scaleY(0.9);}
-  85% {transform: scaleY(1.1);}
-  100% {transform: scaleY(1);}
+  0% { transform: scaleY(0.9); }
+  50% { transform: scaleY(1.1); }
+  75% { transform: scaleY(0.9); }
+  85% { transform: scaleY(1.1); }
+  100% { transform: scaleY(1); }
 }
