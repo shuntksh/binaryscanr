@@ -1,43 +1,43 @@
 :local(.invisible-textbox) {
-    position: fixed;
-    top: -20px;
-    width: 3em;
-    height: 1em;
-    padding: 0;
-    border: none;
-    outline: 0;
-    box-shadow: none;
-    background: transparent;
+  position: fixed;
+  top: -20px;
+  width: 3em;
+  height: 1em;
+  padding: 0;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+  background: transparent;
 }
 
 :local(.copy-button) {
-    background: #e0e1e2;
-    border: 1px solid transparent;
-    border-radius: 0.28571429rem;
-    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-    cursor: pointer;
-    display: inline-block;
-    color: #333;
-    font-size: 20pt;
-    font-weight: 400;
-    height: 36px;
-    line-height: 1.42857143;
-    padding: 0;
-    text-align: center;
-    transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
-    user-select: none;
-    vertical-align: middle;
-    width: 36px;
+  background: #e0e1e2;
+  border: 1px solid transparent;
+  border-radius: 0.28571429rem;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  cursor: pointer;
+  display: inline-block;
+  color: #333;
+  font-size: 20pt;
+  font-weight: 400;
+  height: 36px;
+  line-height: 1.42857143;
+  padding: 0;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  vertical-align: middle;
+  width: 36px;
 }
 
 :local(.copy-button:hover) {
-    background-color: #cacbcd;
-    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-    color: rgba(0,0,0,0.8);
+  background-color: #cacbcd;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: rgba(0, 0, 0, 0.8);
 }
 
 :local(.copy-button:active) {
-    background-color: #babbbc;
-    box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34,36,38,.15) inset;
-    color: rgba(0,0,0,0.9);
+  background-color: #babbbc;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: rgba(0, 0, 0, 0.9);
 }

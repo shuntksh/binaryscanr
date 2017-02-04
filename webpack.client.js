@@ -1,7 +1,7 @@
 /* tslint:disable */ 
 "use strict";
 
-const { CheckerPlugin } = require("awesome-typescript-loader");
+const { CheckerPlugin, TsConfigPathsPlugin } = require("awesome-typescript-loader");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const webpack = require("webpack");
@@ -16,9 +16,12 @@ const stylelint = require("stylelint");
 const config = {
     target: "web",
     stats: false,
-    progress: true,
 
     entry: ["./src/client/app.tsx"],
+
+    resolve: {
+        extensions: [".tsx", ".ts", ".js", ".jsx"],
+    },
 
     output: {
         path: "./dist/static/",
@@ -27,25 +30,27 @@ const config = {
         sourceMapFilename: "[name].[chunkhash].map",
     },
 
-    resolve: {
-        extensions: ["", ".ts", ".tsx", ".js"],
-    },
-
     module: {
-        preLoaders: [
-            { test: /\.tsx?$/, loader: "tslint" },
-        ],
-
-        loaders: [
+        rules: [
+            { 
+                test: /\.tsx?$/, 
+                enforce: 'pre',
+                use: ['tslint-loader'],
+            },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png)$/,
-                loader: 'url-loader?limit=30000',
+                use: ['url-loader?limit=30000'],
             }
         ],
     },
 
     plugins: [
-        new ExtractTextPlugin("[name].[chunkhash].css"),
+        new TsConfigPathsPlugin(),
+        new ExtractTextPlugin({
+            filename: "[name].[chunkhash].css",
+            disable: false,
+            allChunks: true,           
+        }),
         new HtmlWebpackPlugin({
             template: "./src/client/index.html",
             inject: "body",
@@ -55,33 +60,35 @@ const config = {
                 "NODE_ENV": JSON.stringify(process.env.NODE_ENV).toLowerCase(),
             },
         }),
-    ],
-
-    postcss: () => [
-        stylefmt(),
-        stylelint(),
-        cssnext({
-                browsers: [
-                ">1%",
-                "last 4 versions",
-                "Firefox ESR",
-                "not ie < 9",
-            ],
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                postcss: () => [
+                    stylefmt(),
+                    stylelint(),
+                    cssnext({
+                            browsers: [
+                            ">1%",
+                            "last 4 versions",
+                            "Firefox ESR",
+                            "not ie < 9",
+                        ],
+                    }),
+                    cssnano({ autoprefixer: false }),
+                    reporter({ clearMessage: true, throwError: true }),
+                ],
+                tslint: {
+                    failOnHint: true,
+                }
+            }
         }),
-        cssnano({ autoprefixer: false }),
-        reporter({ clearMessage: true, throwError: true }),
     ],
-
-    tslint: {
-        failOnHint: true,
-    },
 
     // Learn from create-react-app project.
-    node: {
-        fs: "empty",
-        net: "empty",
-        tls: "empty",
-    },
+    // node: {
+    //     fs: "empty",
+    //     net: "empty",
+    //     tls: "empty",
+    // },
 };
 
 //
@@ -89,21 +96,23 @@ const config = {
 //
 if (process.env.NODE_ENV === "production") {
     config.bail = true;
-    config.debug = false;
-    config.module.loaders.push({
+    config.module.rules.push({
         test: /\.tsx?$/,
-        loader: "awesome-typescript",
+        use: ["awesome-typescript-loader"],
         exclude: /(\.spec.ts$|node_modules)/,
     });
-    config.module.loaders.push({
+
+    config.module.rules.push({
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract("css?importLoaders=1&camelCase!postcss"),
+        use: ExtractTextPlugin.extract({
+            fallback: "style-loader",
+            use: "css-loader?importLoaders=1&camelCase!postcss-loader",
+            publicPath: "/"
+        }),
     });
 
-    config.plugins.push(new webpack.optimize.DedupePlugin());
-    config.plugins.push(new webpack.optimize.OccurrenceOrderPlugin());
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: { screw_ie8: true, warnings: false },
+        compress: { screw_ie8: true },
         mangle: { screw_ie8: true },
         output: { comments: false, screw_ie8: true },
     }));
@@ -116,15 +125,22 @@ if (process.env.NODE_ENV === "production") {
     config.entry.push(require.resolve("react-dev-utils/webpackHotDevClient"));
     config.output.filename = "[name].js";
     config.devtool = "cheap-module-source-map";
-    config.module.loaders.push({
+    config.module.rules.push({
         test: /\.tsx?$/,
-        loader: "react-hot!awesome-typescript",
+        use: [
+            { loader: "react-hot-loader" },
+            { loader: "awesome-typescript-loader" },
+        ],
         exclude: /(\.spec.ts$|node_modules)/,
     });
     // Using style-loader for react hot loader
-    config.module.loaders.push({
+    config.module.rules.push({
         test: /\.css$/,
-        loader: "style!css?importLoaders=1&camelCase&localIdentName='[path][name]__[local]--[hash:base64:5]'!postcss",
+        use: [
+            { loader: "style-loader" },
+            { loader: "css-loader?importLoaders=1&camelCase&localIdentName='[path][name]__[local]--[hash:base64:5]'" },
+            { loader: "postcss-loader" },
+        ],
     });
 
     // Awesome-Typescript-Loader requires this to detect watch mode
