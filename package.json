@@ -20,7 +20,7 @@
     "server:stop": "forever stop dist/binaryscanr.js",
     "start": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run prebuild:css -- --watch\" \"webpack-dev-server --hot --inline --config webpack.client.js\"",
     "test": "mocha -r ts-node/register 'src/**/*.spec.*'",
-    "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run prebuild:css -- --watch\" \"webpack --watch --config webpack.client.js\""
+    "watch": "cross-env NODE_ENV=development concurrently --kill-others --raw \"npm run prebuild:css -- --watch\" \"webpack --watch --config webpack.client.js\" \"webpack --watch --config webpack.server.js\""
   },
   "repository": {
     "type": "git",
@@ -54,7 +54,7 @@
     "@types/helmet": "0.0.33",
     "@types/lodash.throttle": "4.1.1",
     "@types/mocha": "2.2.39",
-    "@types/node": "7.0.4",
+    "@types/node": "7.0.5",
     "@types/path-exists": "1.0.29",
     "@types/react": "15.0.4",
     "@types/react-addons-shallow-compare": "0.14.19",
@@ -65,7 +65,7 @@
     "@types/redux-thunk": "2.1.32",
     "@types/serve-static": "1.7.31",
     "@types/strong-cluster-control": "2.2.0",
-    "awesome-typescript-loader": "3.0.0-beta.18",
+    "awesome-typescript-loader": "3.0.0-beta.19",
     "chai": "3.5.0",
     "concurrently": "3.1.0",
     "cross-env": "3.1.4",

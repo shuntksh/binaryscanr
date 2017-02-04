@@ -64,7 +64,7 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
         }
 
         const hex = parseInt(_char, 16);
-        let asciiChar = (hex >= 0x20 && hex <= 0x7E) ? String.fromCharCode(hex) : '.';
+        let asciiChar = (hex >= 0x21 && hex <= 0xFF) ? String.fromCharCode(hex) : '.';
 
         return (
             <span
