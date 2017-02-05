@@ -277,16 +277,15 @@ proc _scan_and_respond { chan input formatString } {
 
     # Convert input string to hexadecimal
     if [catch { set input [binary format H* $input] } error] {
-        puts "ERROR"
-        HttpRespond $chan 500 "[::json::write object error $error]\n"
+        puts "Error converting string to hex: $input >> $error"
+        HttpRespond $chan 500 "[::json::write object error \"$error\"]\n"
         return
     }
 
     # Run binary scan command and collect results
     set cmd "set matched_count \[binary scan \$input \$formatString $vars \]"
     if [catch { eval $cmd } error] {
-        # puts "Error: $cmd $input $formatString $vars >> $error"
-        # set msg [::json::write array [_scan $input $formatString]]
+        puts "Error: $cmd $input $formatString $vars >> $error"
         HttpRespond $chan 500 "[::json::write object error \"$error\"]\n"
         return 
     }
@@ -298,7 +297,7 @@ proc _scan_and_respond { chan input formatString } {
     }
 
     set msg [::json::write array [string trim $results ", "] ]
-    HttpRespond $chan 200 "[::json::write object results $msg]\n"
+    HttpRespond $chan 200 "[::json::write object results \"$msg\"]\n"
     return
 }
 
