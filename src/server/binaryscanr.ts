@@ -84,8 +84,22 @@ app.post(
                     .then((apiRes: AxiosResponse): void => {
                         res.status(200).json(filterString(apiRes.data));
                     })
-                    .catch((): void => {
-                        res.status(500).json({ error: "Request Failed" });
+                    .catch((err): void => {
+                        let error: string | undefined;
+                        const data = ((err || {}).response || {}).data;
+                        try {
+                            if (typeof data === "string") {
+                                error = (JSON.parse(data) || {}).error;
+                            }
+                            if (Object.prototype.hasOwnProperty.call(data, "error")) {
+                                error = data.error;
+                            }
+                        } catch (e) {
+                            error = e.message;
+                        }
+                        res.status(500).json({
+                            error: `Request Failed: ${error || err.message}`,
+                        });
                     });
             } catch (err) {
                 res.status(500).json({ error: err.message })

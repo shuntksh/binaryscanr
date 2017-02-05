@@ -30,20 +30,15 @@ export interface ActionTypes {
 
 export const types: ActionTypes = {
     api_error: "@@app/HEX/API_ERROR",
-
     hex_clear: "@@app/HEX/CLEAR",
     hex_error: "@@app/HEX/ERROR",
     hex_update: "@@app/HEX/UPDATE",
-
     init: "@@app/INIT",
-
     input_clear: "@@app/INPUT/CLEAR",
     input_error: "@@app/INPUT/ERROR",
     input_update: "@@app/INPUT/UPDATE",
-
     start_loading: "@@app/LOADING/START",
     stop_loading: "@@app/LOADING/STOP",
-
     update_results: "@@/API/SET_RESULTS",
 };
 
@@ -139,7 +134,10 @@ export const selectors = {
         };
         return varNamesStub;
     },
-    isValid: () => (state: AppState): boolean => !!state.get("valid"),
+
+    isValid: () => (state: AppState): boolean => (
+        !!state.get("valid") && !state.get("error")
+    ),
 };
 
 export function reducer(state: AppState, action: Action ): AppState {
@@ -171,6 +169,7 @@ export function reducer(state: AppState, action: Action ): AppState {
 
     case types.input_update: {
         const { input, valid, vars } = payload;
+        const error = input.length ? state.get("error") : "";
         const results = state.get("results").map((result: Result, idx: number) => (
             vars[idx] ?
                 result.set("varName", vars[idx]) :
@@ -178,6 +177,7 @@ export function reducer(state: AppState, action: Action ): AppState {
         ));
 
         return state.withMutations((mState) => mState
+            .set("error", error)
             .set("input", input)
             .set("valid", valid)
             .set("vars", fromJS(vars))
@@ -204,7 +204,9 @@ export function reducer(state: AppState, action: Action ): AppState {
             value,
             varName: state.getIn(["vars", idx]) || `var${idx}`,
         }));
-        return state.set("results", fromJS(results));
+        return state
+            .set("results", fromJS(results))
+            .set("error", "");
     }
 
     default:

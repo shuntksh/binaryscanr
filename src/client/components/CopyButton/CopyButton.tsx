@@ -64,6 +64,7 @@ export class CopyButton extends React.Component<CopyButtonProps, CopyButtonState
                 </svg>
             </button>
             <textarea
+                tabIndex={-1}
                 className={css.invisibleTextbox}
                 ref={this.refHandlers.textarea}
             />

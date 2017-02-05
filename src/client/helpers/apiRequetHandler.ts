@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { fromJS } from "immutable";
 import { Store } from "redux";
 import { AppState } from "../app";
@@ -63,10 +63,11 @@ const apiHandler = (store: Store<AppState>): void => {
                     store.dispatch(actions.updateResults(data.results));
                     store.dispatch(actions.stopLoading());
                 })
-                .catch((err: Error) => {
-                    console.log(err);
+                .catch((err: AxiosError) => {
+                    const errorMsg = err.response ?
+                        err.response.data.error : err.message;
                     store.dispatch(actions.stopLoading());
-                    store.dispatch(actions.apiError(err.message));
+                    store.dispatch(actions.apiError(errorMsg));
                 });
         }
         prevState = state;
