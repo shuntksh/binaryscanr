@@ -80,6 +80,5 @@ body {
 
 :local(.result-section-container) {
   flex-grow: 1;
-  background: red;
   margin-left: 5px;
 }

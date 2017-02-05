@@ -82,7 +82,7 @@ app.post(
                 }
                 axios.post(TCL_BACKEND_PATH, `${body}\n`)
                     .then((apiRes: AxiosResponse): void => {
-                        res.status(200).json(filterString(apiRes.data));
+                        res.status(200).send(filterString(apiRes.data));
                     })
                     .catch((err): void => {
                         let error: string | undefined;

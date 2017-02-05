@@ -16,10 +16,24 @@ const reporter = require("postcss-reporter");
 const stylefmt = require("stylefmt");
 const stylelint = require("stylelint");
 
+const plugins = () => ([
+    stylefmt(),
+    stylelint(),
+    cssnext({
+            browsers: [
+            ">1%",
+            "last 4 versions",
+            "Firefox ESR",
+            "not ie < 9",
+        ],
+    }),
+    cssnano({ autoprefixer: false }),
+    reporter({ clearMessage: true, throwError: true }),
+]);
+
 const config = {
     target: "web",
     stats: false,
-
     entry: ["./src/client/app.tsx"],
 
     resolve: {
@@ -109,7 +123,10 @@ if (process.env.NODE_ENV === "production") {
         test: /\.css$/,
         use: ExtractTextPlugin.extract({
             fallback: "style-loader",
-            use: "css-loader?importLoaders=1&camelCase!postcss-loader",
+            use: [
+                { loader: "css-loader", options: { importLoaders: 1, camelCase: true }},
+                { loader: "postcss-loader", options: { plugins }}
+            ],
             publicPath: "/"
         }),
     });
@@ -141,8 +158,12 @@ if (process.env.NODE_ENV === "production") {
         test: /\.css$/,
         use: [
             { loader: "style-loader" },
-            { loader: "css-loader?importLoaders=1&camelCase&localIdentName='[path][name]__[local]--[hash:base64:5]'" },
-            { loader: "postcss-loader" },
+            { loader: "css-loader", options: { 
+                importLoaders: 1,
+                camelCase: true,
+                localIdentName: '[path][name]__[local]--[hash:base64:5]',
+            }},
+            { loader: "postcss-loader", options: { plugins }},
         ],
     });
 

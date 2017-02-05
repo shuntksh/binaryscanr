@@ -297,7 +297,7 @@ proc _scan_and_respond { chan input formatString } {
     }
 
     set msg [::json::write array [string trim $results ", "] ]
-    HttpRespond $chan 200 "[::json::write object results \"$msg\"]\n"
+    HttpRespond $chan 200 "[::json::write object results $msg]\n"
     return
 }
 
@@ -319,7 +319,7 @@ proc isValidInput { str } {
 # -------------------------------------------------------------------------
 proc isValidFormat { str } {
     global APP
-    if {![regexp {(^\*$|^([\@ABHIQRSWXabcdfhinqrstwx](?:\d+|\*)?)+$)} $str x] } {
+    if {![regexp {(^\*$|^([\@ABHIQRSWXabcdfhinqrstwx](?:[1-9]\d{0,7}|\*)?)+$)} $str x] } {
         return 0 
     }
     return 1

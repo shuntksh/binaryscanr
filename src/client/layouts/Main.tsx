@@ -7,6 +7,7 @@ import * as css from "../app.css";
 import HexEditorContainer from "../containers/HexEditorContainer";
 import InputContainer from "../containers/InputContainer";
 import location from "../containers/LocationHoC";
+import ResultTableContainerProps from "../containers/ResultTableContainer";
 
 export class MainLayout extends React.Component<{}, {}> {
     public displayName: string;
@@ -22,7 +23,7 @@ export class MainLayout extends React.Component<{}, {}> {
                             <HexEditorContainer />
                         </div>
                         <div className={css.resultSectionContainer}>
-                            test
+                            <ResultTableContainerProps />
                         </div>
                     </div>
                 </div>

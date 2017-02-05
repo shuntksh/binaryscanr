@@ -4,6 +4,7 @@ import * as redux from "redux";
 import { AppState, Result } from "../app";
 import { HighlightProps, Intent } from "../components/TaggableInput";
 import c from "../constants";
+import formatStringToArray from "../helpers/formatStringToArray";
 import isValidFilter from "../helpers/isValidFilter";
 
 export interface Action extends redux.Action {
@@ -93,6 +94,10 @@ export const actions: ActionCreators = {
 };
 
 export const selectors = {
+    getError: () => (state: AppState): string => {
+        return state.get("error") || "";
+    },
+
     getFullSentence: () => (state: AppState): string => {
         const input = state.get("input").trim();
         return input ? `[binary scan $str ${input}]` : "";
@@ -170,11 +175,11 @@ export function reducer(state: AppState, action: Action ): AppState {
     case types.input_update: {
         const { input, valid, vars } = payload;
         const error = input.length ? state.get("error") : "";
-        const results = state.get("results").map((result: Result, idx: number) => (
+        const results = input.length ? state.get("results").map((result: Result, idx: number) => (
             vars[idx] ?
                 result.set("varName", vars[idx]) :
                 result.set("varName", `var${idx}`)
-        ));
+        )) : fromJS([]);
 
         return state.withMutations((mState) => mState
             .set("error", error)
@@ -199,7 +204,9 @@ export function reducer(state: AppState, action: Action ): AppState {
     // API Results
     //
     case types.update_results: {
+        const input = fromJS(formatStringToArray(state.get("input")));
         const results = payload.map((value: string, idx: number) => ({
+            formatter: input.get(idx),
             setByUser: !!state.getIn(["vars", idx]),
             value,
             varName: state.getIn(["vars", idx]) || `var${idx}`,

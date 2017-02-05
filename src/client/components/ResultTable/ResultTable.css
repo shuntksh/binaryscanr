@@ -1,0 +1,59 @@
+:root {
+  --font-family: monospace;
+  --font-size: 1em;
+  --spacing: 0.02em;
+  --width: 480px;
+}
+
+:local(.outer) {
+  width: 100%;
+  background: #fff;
+  max-width: 250px;
+  position: relative;
+  transition: background 0.3s ease-in-out;
+  padding-bottom: 3px;
+  margin-bottom: 10px;
+}
+
+:local(.outer):hover {
+  background: #cecece;
+}
+
+:local(.formatter) {
+  display: block;
+  position: absolute;
+  font-family: var(--font-family);
+  font-size: 1.5em;
+  font-weight: 900;
+  border: 2px solid #f6a623;
+  border-radius: 500px;
+  background: #f9d599;
+  color: #f6a623;
+  height: 25px;
+  width: 25px;
+  line-height: 25px;
+  top: -5px;
+  left: -5px;
+  text-align: center;
+}
+
+:local(.var-name) {
+  display: block;
+  font-family: var(--font-family);
+  font-size: 1.1em;
+  font-weight: 500;
+  margin: 5px 0 5px 30px;
+}
+
+:local(.value) {
+  display: block;
+  font-family: var(--font-family);
+  color: #4a4a4a;
+  overflow-wrap: break-word;
+  margin: 5px 3px 0 3px;
+  padding: 5px;
+  background: #fafafa;
+  border-radius: 3px;
+  font-size: 0.8em;
+  line-height: 1em;
+}
