@@ -73,7 +73,7 @@ export class Input extends React.Component<InputProps, InputState> {
     private disableOutline = (): void => { this.setState({ showOutline: false }); };
     private enableOutline = (): void => { this.setState({ showOutline: true }); };
 
-    private renderOutline(background: boolean = false): React.ReactElement<any> {
+    private renderOutline(background: boolean = false): JSX.Element {
         const { isActive } = this.state;
         const classNames = background ?
             [css.outline, css.outlineBackground] :
@@ -84,7 +84,7 @@ export class Input extends React.Component<InputProps, InputState> {
         );
     }
 
-    private renderHighlight(): React.ReactElement<any> {
+    private renderHighlight(): JSX.Element {
         const { highlights } = this.props;
         return (
             <div className={css.inner}>
@@ -103,7 +103,7 @@ export class Input extends React.Component<InputProps, InputState> {
         );
     }
 
-    private renderClearButton(): React.ReactElement<any> {
+    private renderClearButton(): JSX.Element {
         const { handleClear, value } = this.props;
         const { showOutline } = this.state;
         return (
