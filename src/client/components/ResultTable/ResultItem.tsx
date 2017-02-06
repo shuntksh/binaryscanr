@@ -9,12 +9,15 @@ export interface ResultItemProps {
 }
 
 export const ResultItem: React.SFC<ResultItemProps> = (props: ResultItemProps) => {
-    const { result: { value, varName, formatter = "" } } = props;
+    const { result: { value, varName, formatter = "", highlight } } = props;
     const c = formatter.slice(0, 1);
-    // const n = formatter.slice(1);
+    const style: any = {};
+    if (highlight) {
+        style.backgroundColor = highlight;
+    }
     return (
         <div className={css.outer}>
-            <span className={css.formatter}>{c}</span>
+            <span className={css.formatter} style={style}>{c}</span>
             <span className={css.varName}>{varName}</span>
             <span className={css.value}>{value}</span>
         </div>

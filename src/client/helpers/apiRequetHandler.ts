@@ -57,7 +57,6 @@ const apiHandler = (store: Store<AppState>): void => {
             request.post(API_PATH, body)
                 .then((res) => {
                     let data = res.data;
-                    console.log(data, typeof data);
                     if (typeof data === "string") {
                         data = JSON.parse(`${data}`);
                     }

@@ -23,12 +23,11 @@
   display: block;
   position: absolute;
   font-family: var(--font-family);
-  font-size: 1.5em;
+  font-size: 1.4em;
   font-weight: 900;
-  border: 2px solid #f6a623;
   border-radius: 500px;
   background: #f9d599;
-  color: #f6a623;
+  color: #333;
   height: 25px;
   width: 25px;
   line-height: 25px;
@@ -41,6 +40,7 @@
   display: block;
   font-family: var(--font-family);
   font-size: 1.1em;
+  font-style: italic;
   font-weight: 500;
   margin: 5px 0 5px 30px;
 }

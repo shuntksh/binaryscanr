@@ -26,6 +26,7 @@ export interface Result extends Map<string, string | undefined> {
     value?: string;
     varName?: string;
     formatter?: string;
+    highlight?: string;
 }
 
 let hexData: string = "";

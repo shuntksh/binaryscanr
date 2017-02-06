@@ -3,7 +3,7 @@ import * as redux from "redux";
 
 import { AppState, Result } from "../app";
 import { HighlightProps, Intent } from "../components/TaggableInput";
-import c from "../constants";
+import { getColorByIndex } from "../constants";
 import formatStringToArray from "../helpers/formatStringToArray";
 import isValidFilter from "../helpers/isValidFilter";
 
@@ -110,15 +110,26 @@ export const selectors = {
     getHighlights: () => (state: AppState): HighlightProps[] => {
         const highlights: HighlightProps[] = [];
         const input = state.get("input");
+        const inputArr = formatStringToArray(input, false);
 
         // Show placeholder text if the input is empty.
         if (!input) {
             const placeholder = "formatString ?varName varName ...?";
             return [{ placeholder, intent: Intent.None }];
         }
-        if (input.length > 4) {
-            highlights.push({ at: 2, size: input.length, color: c.colors.lime });
-        }
+
+        let cursor = 1;
+        inputArr.forEach((formatter: string, idx: number) => {
+            if (formatter.startsWith("x") || formatter.startsWith("X")) {
+                cursor += formatter.length;
+            } else {
+                const at = cursor;
+                const size = at + formatter.length;
+                const color = getColorByIndex(idx);
+                highlights.push({ at, size, color });
+                cursor += (size - at);
+            }
+        });
         return highlights;
     },
 
@@ -207,6 +218,7 @@ export function reducer(state: AppState, action: Action ): AppState {
         const input = fromJS(formatStringToArray(state.get("input")));
         const results = payload.map((value: string, idx: number) => ({
             formatter: input.get(idx),
+            highlight: getColorByIndex(idx),
             setByUser: !!state.getIn(["vars", idx]),
             value,
             varName: state.getIn(["vars", idx]) || `var${idx}`,

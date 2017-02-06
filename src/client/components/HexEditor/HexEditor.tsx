@@ -112,7 +112,9 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
 
         // Synchlonize external state into local state
         if (this.props.value && typeof this.props.value === "string") {
-            this.setState({ localValue: HexEditor.stringToArray(this.props.value) });
+            const localValue = HexEditor.stringToArray(this.props.value);
+            localValue.push(END_OF_INPUT);
+            this.setState({ localValue });
         }
     }
 
