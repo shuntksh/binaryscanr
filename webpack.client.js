@@ -27,7 +27,7 @@ const plugins = () => ([
             "not ie < 9",
         ],
     }),
-    cssnano({ autoprefixer: false }),
+    cssnano({ autoprefixer: false, reduceIdents: false }),
     reporter({ clearMessage: true, throwError: true }),
 ]);
 
