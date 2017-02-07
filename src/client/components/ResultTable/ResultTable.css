@@ -6,13 +6,32 @@
 }
 
 :local(.outer) {
-  width: 100%;
-  background: #fff;
+  background: transparent;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  margin-bottom: 10px;
   max-width: 250px;
+  padding-bottom: 3px;
   position: relative;
   transition: background 0.3s ease-in-out;
-  padding-bottom: 3px;
-  margin-bottom: 10px;
+  width: 100%;
+}
+
+:local(.outer-bg) {
+  animation-delay: 0.2s;
+  animation: y4mhJrcnEM__slideIn 0.5s forwards;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  bottom: 0;
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform-origin: left;
+  transition: opacity 0.3 ease background 0.3 ease;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  z-index: -1;
 }
 
 :local(.outer):hover {
@@ -20,20 +39,22 @@
 }
 
 :local(.formatter) {
+  animation: y4mhJrcnEM__zoomIn 0.5s forwards;
+  background: #f9d599;
+  border-radius: 500px;
+  color: #333;
   display: block;
-  position: absolute;
   font-family: var(--font-family);
   font-size: 1.4em;
   font-weight: 900;
-  border-radius: 500px;
-  background: #f9d599;
-  color: #333;
   height: 25px;
-  width: 25px;
-  line-height: 25px;
-  top: -5px;
   left: -5px;
+  line-height: 25px;
+  position: absolute;
   text-align: center;
+  top: -5px;
+  transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  width: 25px;
 }
 
 :local(.var-name) {
@@ -46,14 +67,32 @@
 }
 
 :local(.value) {
-  display: block;
-  font-family: var(--font-family);
-  color: #4a4a4a;
-  overflow-wrap: break-word;
-  margin: 5px 3px 0 3px;
-  padding: 5px;
   background: #fafafa;
   border-radius: 3px;
+  color: #4a4a4a;
+  display: block;
+  font-family: var(--font-family);
   font-size: 0.8em;
   line-height: 1em;
+  margin: 5px 3px 0 3px;
+  overflow-wrap: break-word;
+  padding: 5px;
+}
+
+@keyframes y4mhJrcnEM__zoomIn {
+  0% { transform: scale3d(0.3, 0.3, 0.3); opacity: 0; }
+  20% { transform: scale3d(1.1, 1.1, 1.1); }
+  40% { transform: scale3d(0.9, 0.9, 0.9); }
+  60% { transform: scale3d(1.03, 1.03, 1.03); opacity: 1; }
+  80% { transform: scale3d(0.98, 0.98, 0.98); }
+  100% { transform: scale3d(1, 1, 1); }
+}
+
+@keyframes y4mhJrcnEM__slideIn {
+  0% { transform: scaleX(0); opacity: 0; }
+  20% { transform: scaleX(1.03); }
+  40% { transform: scaleX(0.97); }
+  60% { transform: scaleX(1.01); opacity: 0.4; }
+  80% { transform: scaleX(0.99); opacity: 0.4; }
+  100% { transform: scaleX(1); opacity: 0.4; }
 }

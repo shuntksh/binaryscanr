@@ -20,6 +20,7 @@ export const ResultItem: React.SFC<ResultItemProps> = (props: ResultItemProps) =
             <span className={css.formatter} style={style}>{c}</span>
             <span className={css.varName}>{varName}</span>
             <span className={css.value}>{value}</span>
+            <div className={css.outerBg} style={style}/>
         </div>
     );
 };

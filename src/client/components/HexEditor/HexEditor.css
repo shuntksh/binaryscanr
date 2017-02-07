@@ -9,13 +9,13 @@
 }
 
 :local(.ascii-cell) {
-  font-family: monospace;
   color: #757575;
-  user-select: none;
+  cursor: default;
+  font-family: monospace;
   font-size: 0.8em;
   line-height: 1.2em;
   padding: 1px 0.8px;
-  cursor: default;
+  user-select: none;
 }
 
 :local(.ascii-cell:nth-child(9)) {
@@ -23,11 +23,11 @@
 }
 
 :local(.cell) {
+  cursor: text;
   font-family: monospace;
-  user-select: none;
   font-size: 1.2em;
   padding: 1px 3px;
-  cursor: text;
+  user-select: none;
 }
 
 :local(.cell:nth-child(even)) {
@@ -56,12 +56,12 @@
 }
 
 :local(.line) span {
-  font-family: monospace;
   color: #cecece;
-  user-select: none;
+  cursor: default;
+  font-family: monospace;
   line-height: 1.2em;
   min-height: 20px;
-  cursor: default;
+  user-select: none;
 }
 
 :local(.hex-line-container) {
@@ -70,8 +70,8 @@
 }
 
 :local(.ascii-line-container) {
-  font-family: monospace;
   color: #cecece;
+  font-family: monospace;
   margin-left: 5px;
 }
 
@@ -81,8 +81,8 @@
 }
 
 :local(.blink-cursor) {
-  border-bottom: 1px solid black;
   animation: 1s blink step-end infinite;
+  border-bottom: 1px solid black;
 }
 
 @keyframes blink {

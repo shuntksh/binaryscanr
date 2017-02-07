@@ -162,24 +162,24 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         return (
             <div tabIndex={0} className={cx(["hexEditor", css.base])} ref={this.refHandlers.hexEditorElement}>
                 {lines.map((line) => (
-                    <Line
-                        key={line}
-                        lineNum={line}
-                        addrStart={line}
-                        length={BYTES_PER_LINE}
-                        value={value}
-                        onHovering={this.handleHoverOnCell}
-                        cursorAt={this.state.cursorAt}
-                        editingCellAt={editingCellAt}
-                        editingCellTempValue={editingCellTempValue}
-                        isFocused={isFocused}
-                        moveCursor={this.moveCursor}
-                        selection={selection}
-                        selectLine={this.selectLine}
-                        onBeginSelection={this.beginSelection}
-                        onUpdateSelection={this.updateSelection}
-                        onFinishSelection={this.finishSelection}
-                    />
+                <Line
+                    key={line}
+                    lineNum={line}
+                    addrStart={line}
+                    length={BYTES_PER_LINE}
+                    value={value}
+                    onHovering={this.handleHoverOnCell}
+                    cursorAt={this.state.cursorAt}
+                    editingCellAt={editingCellAt}
+                    editingCellTempValue={editingCellTempValue}
+                    isFocused={isFocused}
+                    moveCursor={this.moveCursor}
+                    selection={selection}
+                    selectLine={this.selectLine}
+                    onBeginSelection={this.beginSelection}
+                    onUpdateSelection={this.updateSelection}
+                    onFinishSelection={this.finishSelection}
+                />
                 ))}
             </div>
         );
