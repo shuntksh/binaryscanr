@@ -180,7 +180,9 @@ export function reducer(state: AppState, action: Action ): AppState {
     case types.input_clear: {
         return state
             .set("input", "")
-            .set("valid", true);
+            .set("valid", true)
+            .set("results", fromJS([]))
+            .set("error", "");
     }
 
     case types.input_update: {
