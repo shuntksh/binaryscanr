@@ -13,21 +13,28 @@ export class MainLayout extends React.Component<{}, {}> {
     public displayName: string;
     public render() {
         return (
-            <div>
-                <div className={cx(css.row, css.header)}>
-                    <InputContainer />
-                </div>
-                <div className={css.row}>
-                    <div className={css.hexSection}>
-                        <div className={css.hexEditorContainer}>
-                            <HexEditorContainer />
+        <div>
+            <div className={cx(css.row, css.header)}>
+                <InputContainer />
+            </div>
+            <div className={css.row}>
+                <div className={css.hexSection}>
+                    <div className={css.hexEditorContainer}>
+                        <div className={css.sectionHeader}>
+                            <span>Hexadecimal Input (Max: 1500 bytes)</span>
                         </div>
-                        <div className={css.resultSectionContainer}>
-                            <ResultTableContainerProps />
+                        <HexEditorContainer />
+                    </div>
+                    <div className={css.resultSectionContainer}>
+                        <div className={css.sectionHeader}>
+                            <span className={css.active}>Results</span>
+                            <span className={css.tabs}>Help</span>
                         </div>
+                        <ResultTableContainerProps />
                     </div>
                 </div>
             </div>
+        </div>
         );
     }
 }

@@ -65,6 +65,34 @@ body {
   font-style: italic;
 }
 
+:local(.section-header) {
+  color: rgb(119, 119, 119);
+  font-size: smaller;
+  font-family: arial, sans-serif;
+  font-weight: 600;
+  line-height: 20px;
+  border-bottom: 1px solid #ebebeb;
+  display: block;
+  margin-bottom: 5px;
+  min-height: 20px;
+  padding-left: 5px;
+  width: 98%;
+}
+
+:local(.section-header) span:nth-child(2) {
+  margin-left: 10px;
+}
+
+:local(.tabs) {
+  border-bottom: transparent 2px solid;
+  cursor: pointer; 
+}
+
+:local(.active) {
+  color: rgb(66, 133, 244);
+  border-bottom: rgb(66, 133, 244) 2px solid;
+}
+
 :local(.hex-section) {
   display: flex;
   flex-direction: row;
@@ -79,6 +107,7 @@ body {
 }
 
 :local(.result-section-container) {
+  padding: 3px;
   flex-grow: 1;
   margin-left: 5px;
 }
