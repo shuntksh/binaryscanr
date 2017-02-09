@@ -70,7 +70,7 @@
     "@types/strong-cluster-control": "2.2.0",
     "awesome-typescript-loader": "3.0.3",
     "chai": "3.5.0",
-    "concurrently": "3.1.0",
+    "concurrently": "3.2.0",
     "cross-env": "3.1.4",
     "css-loader": "0.26.1",
     "cssnano": "3.10.0",
