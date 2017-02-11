@@ -86,7 +86,7 @@
     "npm-check": "5.4.0",
     "nsp": "2.6.2",
     "postcss-cssnext": "2.9.0",
-    "postcss-loader": "1.2.2",
+    "postcss-loader": "1.3.0",
     "postcss-reporter": "3.0.0",
     "react": "15.4.2",
     "react-addons-shallow-compare": "15.4.2",
