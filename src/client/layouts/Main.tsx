@@ -1,6 +1,5 @@
 import * as cx from "classnames";
 import * as React from "react";
-import { connect } from "react-redux";
 
 import * as css from "../app.css";
 
@@ -38,4 +37,4 @@ export class MainLayout extends React.Component<{}, {}> {
         );
     }
 }
-export default connect()(location(MainLayout));
+export default location(MainLayout);

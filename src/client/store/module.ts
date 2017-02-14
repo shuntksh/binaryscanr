@@ -24,6 +24,7 @@ export interface ActionTypes {
     readonly input_clear: string;
     readonly input_error: string;
     readonly input_update: string;
+    readonly open_tab: string;
     readonly start_loading: string;
     readonly stop_loading: string;
     readonly update_results: string;
@@ -38,6 +39,7 @@ export const types: ActionTypes = {
     input_clear: "@@app/INPUT/CLEAR",
     input_error: "@@app/INPUT/ERROR",
     input_update: "@@app/INPUT/UPDATE",
+    open_tab: "@@app/OPEN_TAB",
     start_loading: "@@app/LOADING/START",
     stop_loading: "@@app/LOADING/STOP",
     update_results: "@@/API/SET_RESULTS",
@@ -47,6 +49,7 @@ export interface ActionCreators {
     [index: string]: redux.ActionCreator<any>;
     readonly apiError: (errMsg: string) => Action;
     readonly clearInput: () => Action;
+    readonly handleTabUpdate: (tabIdx: number) => Action;
     readonly startLoading: () => Action;
     readonly stopLoading: () => Action;
     readonly updateHexData: (value: string) => Action;
@@ -58,6 +61,11 @@ export const actions: ActionCreators = {
     apiError: (errMsg: string) => ({ type: types.api_error, payload: errMsg }),
 
     clearInput: () => ({ type: types.input_clear }),
+
+    handleTabUpdate: (tabIdx: number) => {
+        const payload = typeof tabIdx === "number" ? tabIdx : 0;
+        return { type: types.open_tab, payload };
+    },
 
     startLoading: () => ({ type: types.start_loading }),
 
@@ -94,6 +102,10 @@ export const actions: ActionCreators = {
 };
 
 export const selectors = {
+    getCurrentTab: () => (state: AppState): number => {
+        return state.get("currentTab") || 0;
+    },
+
     getError: () => (state: AppState): string => {
         return state.get("error") || "";
     },
@@ -159,6 +171,13 @@ export const selectors = {
 export function reducer(state: AppState, action: Action ): AppState {
     const { type, payload } = action;
     switch (type) {
+    //
+    // UI State
+    //
+    case types.open_tab: {
+        return state.set("currentTab", payload);
+    }
+
     //
     // Loading State
     //
