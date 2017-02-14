@@ -63,17 +63,23 @@ export class Line extends React.Component<LineProps, LineState> {
         const {
             isFocused, cursorAt, addrStart, length, scrollTo, onFinishScroll, lineNum, lineCount,
         } = nextProps || this.props;
+
+        // Adding +1 as lineCount is the length of array (not index of)
         const isLastLine = Math.ceil(lineNum / length) + 1 === lineCount;
+        const isFirstLine = Math.ceil(lineNum / length) === 0;
         if (this.ref && scrollTo === cursorAt && isFocused) {
             if (addrStart < cursorAt && cursorAt < (addrStart + length + 1)) {
                 // this line is active
                 const { top, bottom } = this.ref.getBoundingClientRect();
-                if (top > window.innerHeight) {
-                    const height = bottom - top;
-                    console.log("hey", top, top - height, window.innerHeight);
-                    window.scroll(0, top - height);
+                const { innerHeight, scrollY } = window;
+                if (bottom > innerHeight - 20) {
+                    const newY = scrollY + (bottom - innerHeight) + 30;
+                    window.scroll(0, newY);
                     onFinishScroll();
-                } else if (isLastLine) {
+                } else if (top < 0) {
+                    window.scroll(0, top + scrollY);
+                    onFinishScroll();
+                } else if (isLastLine || isFirstLine) {
                     // If last line and no need to scroll, reset scroll flag
                     onFinishScroll();
                 }
