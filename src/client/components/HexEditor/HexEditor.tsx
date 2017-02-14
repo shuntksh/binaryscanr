@@ -104,7 +104,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     //
 
     public componentWillMount() {
-        const debounced = throttle(this.handleKeyDown.bind(this), 15);
+        const debounced = throttle(this.handleKeyDown.bind(this), 30);
         window.addEventListener("keydown", (event: KeyboardEvent) => debounced(event), false);
         window.addEventListener("keyup", (event: KeyboardEvent) => this.handleControlKeyUp(event), false);
         window.addEventListener("focus", () => this.handleFocus(), true);
@@ -113,14 +113,13 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         // Synchlonize external state into local state
         if (this.props.value && typeof this.props.value === "string") {
             const localValue = HexEditor.stringToArray(this.props.value);
-            localValue.push(END_OF_INPUT);
             this.setState({ localValue });
         }
     }
 
     public componentWillReceiveProps(nextProp: HexEditorProps) {
         // Synchlonize external state into local state
-        if (nextProp.value && nextProp.value !== this.props.value) {
+        if (nextProp.value) {
             this.setState({ localValue: HexEditor.stringToArray(nextProp.value) });
         }
     }
@@ -449,8 +448,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         if (typeof to === "number") {
             let cursorAt = to <= 0 ? 0 : to;
             const length = (this.state.localValue).length - 1;
-            if (length <= cursorAt || to === CellState.EOF) {
-                cursorAt = length;
+            if (length < cursorAt || to === CellState.EOF) {
+                if (to === length + 1 && this.state.localValue[length] !== END_OF_INPUT) {
+                    cursorAt = length + 1;
+                } else {
+                    cursorAt = length;
+                }
             }
             // Commit current editing before moving cursor
             if (this.isEditingCell()) {
