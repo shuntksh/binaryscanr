@@ -13,6 +13,7 @@ export interface Value {
 
 export interface LineProps {
     lineNum: number;
+    lineCount: number;
     addrStart: number;
     length: number;
     cursorAt: number;
@@ -22,6 +23,8 @@ export interface LineProps {
     onHovering: (pos: number) => void;
     isFocused: boolean;
     value: Value;
+    scrollTo: number;
+    onFinishScroll: () => void;
     selection: Selection;
     selectLine: (lineNum: number) => void;
     onBeginSelection: (from: number) => void;
@@ -44,6 +47,8 @@ const formatString = (str: string, width: number, padChar: string = "0"): string
 
 export class Line extends React.Component<LineProps, LineState> {
     public state: LineState = { isHovering: false, line: [] };
+    public ref: HTMLDivElement;
+    public setRef = (ref: HTMLDivElement) => { this.ref = ref; };
 
     public handleHoverOnCell = (currentCursorPosition: number): void => {
         if (typeof currentCursorPosition === "number") {
@@ -51,6 +56,28 @@ export class Line extends React.Component<LineProps, LineState> {
                 this.props.onHovering(currentCursorPosition);
             }
             this.setState({ currentCursorPosition });
+        }
+    }
+
+    public handleScroll = (nextProps?: LineProps): void => {
+        const {
+            isFocused, cursorAt, addrStart, length, scrollTo, onFinishScroll, lineNum, lineCount,
+        } = nextProps || this.props;
+        const isLastLine = Math.ceil(lineNum / length) + 1 === lineCount;
+        if (this.ref && scrollTo === cursorAt && isFocused) {
+            if (addrStart < cursorAt && cursorAt < (addrStart + length + 1)) {
+                // this line is active
+                const { top, bottom } = this.ref.getBoundingClientRect();
+                if (top > window.innerHeight) {
+                    const height = bottom - top;
+                    console.log("hey", top, top - height, window.innerHeight);
+                    window.scroll(0, top - height);
+                    onFinishScroll();
+                } else if (isLastLine) {
+                    // If last line and no need to scroll, reset scroll flag
+                    onFinishScroll();
+                }
+            }
         }
     }
 
@@ -69,8 +96,13 @@ export class Line extends React.Component<LineProps, LineState> {
         this.setState({ line: this.getLineArray() });
     }
 
+    public componentDidMount() {
+        this.handleScroll();
+    }
+
     public componentWillReceiveProps(nextProp: LineProps) {
         this.setState({ line: this.getLineArray(nextProp) });
+        this.handleScroll(nextProp);
     }
 
     public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
@@ -91,6 +123,7 @@ export class Line extends React.Component<LineProps, LineState> {
                 onMouseEnter={this.handleEnter}
                 onMouseMove={this.handleEnter}
                 onMouseLeave={this.handleLeave}
+                ref={this.setRef}
             >
                 <div
                     className={css.line}

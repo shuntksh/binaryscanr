@@ -36,6 +36,7 @@ export interface HexEditorState {
     editingCellTempValue: string;
     isCtrlPressing: boolean;
     isFocused: boolean;
+    scrollTo: number;
     selection: Selection;
     localValue: string[];
 }
@@ -70,6 +71,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         editingCellTempValue: "",
         isCtrlPressing: false,
         isFocused: false,
+        scrollTo: -1,
         selection: { from: -1, to: -1, isSelecting: false },
         localValue: [...strArr, END_OF_INPUT],
     };
@@ -151,8 +153,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
     }
 
+    public handleFinishScroll = (): void => {
+        this.setState({ scrollTo: -1 });
+    }
+
     public render() {
-        const { editingCellAt, editingCellTempValue, localValue, selection, isFocused } = this.state;
+        const { editingCellAt, editingCellTempValue, localValue, selection, scrollTo, isFocused } = this.state;
         const value = { data: localValue };
         const lines = [];
         for (let i = 0; i < Math.ceil(localValue.length / BYTES_PER_LINE); i += 1) {
@@ -160,10 +166,11 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
         return (
             <div tabIndex={0} className={cx(["hexEditor", css.base])} ref={this.refHandlers.hexEditorElement}>
-                {lines.map((line) => (
+                {lines.map((line, idx, lines) => (
                 <Line
-                    key={line}
+                    key={idx}
                     lineNum={line}
+                    lineCount={lines.length}
                     addrStart={line}
                     length={BYTES_PER_LINE}
                     value={value}
@@ -172,7 +179,9 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                     editingCellAt={editingCellAt}
                     editingCellTempValue={editingCellTempValue}
                     isFocused={isFocused}
-                    moveCursor={this.moveCursor}
+                    moveCursor={this.moveCursorWithoutScroll}
+                    scrollTo={scrollTo}
+                    onFinishScroll={this.handleFinishScroll}
                     selection={selection}
                     selectLine={this.selectLine}
                     onBeginSelection={this.beginSelection}
@@ -444,7 +453,15 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         this.handleChange(_value, cursorAt - 1);
     }
 
-    private moveCursor = (to: number = 0, resetSelection: boolean = true, cb?: () => any): void => {
+    private moveCursorWithoutScroll = (
+        to: number = 0, resetSelection: boolean = true, cb?: () => any,
+    ): void => {
+        this.moveCursor(to, resetSelection, false, cb);
+    }
+
+    private moveCursor = (
+        to: number = 0, resetSelection: boolean = true, scroll: boolean = true, cb?: () => any
+    ): void => {
         if (typeof to === "number") {
             let cursorAt = to <= 0 ? 0 : to;
             const length = (this.state.localValue).length - 1;
@@ -459,10 +476,9 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             if (this.isEditingCell()) {
                 this.commitEditCell(false, false);
             }
-            this.setState({ cursorAt }, () => {
-                if (resetSelection) {
-                    this.resetSelection();
-                }
+            const scrollTo = scroll ? cursorAt : -1;
+            this.setState({ cursorAt, scrollTo }, () => {
+                if (resetSelection) { this.resetSelection(); }
                 if (typeof cb === "function") { cb(); }
             });
         }
