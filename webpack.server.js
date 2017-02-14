@@ -1,7 +1,7 @@
 /* tslint:disable */ 
 "use strict";
 
-const { CheckerPlugin } = require("awesome-typescript-loader");
+const CheckerPlugin = require("awesome-typescript-loader").CheckerPlugin;
 const fs = require('fs');
 const path = require('path');
 const webpack = require("webpack");
@@ -18,7 +18,7 @@ fs.readdirSync('node_modules')
 
 const config = {
     target: "node",
-    stats: false,
+    stats: true,
 
     entry: ["./src/server/binaryscanr.ts"],
 

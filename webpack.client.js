@@ -33,7 +33,7 @@ const plugins = () => ([
 
 const config = {
     target: "web",
-    stats: false,
+    stats: true,
     entry: ["./src/client/app.tsx"],
 
     resolve: {
@@ -52,7 +52,14 @@ const config = {
             { 
                 test: /\.tsx?$/, 
                 enforce: 'pre',
-                use: ['tslint-loader'],
+                use: [{
+                    loader: 'tslint-loader',
+                    options: {
+                        emitErrors: true,
+                        failOnHint: true,
+                    }
+                }],
+            
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png)$/,
