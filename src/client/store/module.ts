@@ -116,7 +116,7 @@ export const selectors = {
     },
 
     getHexData: () => (state: AppState): string => {
-        return state.get("data") || "";
+        return state.get("hexData") || "";
     },
 
     getHighlights: () => (state: AppState): HighlightProps[] => {
