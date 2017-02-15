@@ -68,7 +68,7 @@
     "@types/react-virtualized": "8.9.2",
     "@types/redux-thunk": "2.1.32",
     "@types/serve-static": "1.7.31",
-    "@types/strong-cluster-control": "2.2.0",
+    "@types/strong-cluster-control": "2.2.1",
     "awesome-typescript-loader": "3.0.4-rc.0",
     "chai": "3.5.0",
     "concurrently": "3.3.0",
