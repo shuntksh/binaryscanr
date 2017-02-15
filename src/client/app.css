@@ -16,6 +16,18 @@ body {
   padding: 0;
 }
 
+:local(.logo) {
+  background: url(./assets/logo.png) 0 0/76px 76px no-repeat;
+  color: #545454;
+  min-width: 76px;
+  min-height: 100%;
+  left: 10px;
+  display: block;
+  position: absolute;
+  letter-spacing: -0.025em;
+  opacity: 0.4;
+}
+
 :local(.row) {
   display: flex;
   flex-direction: row;
@@ -41,6 +53,7 @@ body {
   box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.2);
   cursor: default;
   display: flex;
+  position: relative;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
@@ -110,4 +123,33 @@ body {
   padding: 3px;
   flex-grow: 1;
   margin-left: 5px;
+}
+
+:local(.error-box) {
+  left: -20px;
+  top: -20px;
+  right: -10px;
+  min-height: 50px;
+  position: absolute;
+  display: block;
+  background: #e25c4b;
+  border: #dcdcdc solid 2px;
+  opacity: 0.9;
+  padding: 15px;
+  color: #fff;
+  font-weight: bold;
+  animation: QLDuNQsGz0__slideDown 0.3s;
+  border-radius: 10px;
+}
+
+@keyframes QLDuNQsGz0__slideDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10%, 0);
+  }
+
+  to {
+    opacity: 0.9;
+    transform: none;
+  }
 }

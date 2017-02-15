@@ -107,6 +107,9 @@ export const selectors = {
     },
 
     getError: () => (state: AppState): string => {
+        if (!state.get("valid")) {
+            return "Erorr: Invalid input.";
+        }
         return state.get("error") || "";
     },
 

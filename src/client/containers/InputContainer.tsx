@@ -43,6 +43,7 @@ export class InputContainer extends React.Component<InputContainerProps & Dispat
         } = this.props;
         return (
             <div className={css.inputSection}>
+                <div className={css.logo} />
                 <div className={css.inputContainer}>
                     <span className={css.inputCaption}>
                         [binary scan  $str

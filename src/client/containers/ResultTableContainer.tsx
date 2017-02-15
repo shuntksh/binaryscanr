@@ -2,6 +2,7 @@ import * as React from "react";
 import { connect } from "react-redux";
 
 import { AppState, Result } from "../app";
+import * as css from "../app.css";
 import ResultTable from "../components/ResultTable";
 import { selectors } from "../store/module";
 
@@ -19,10 +20,10 @@ export class ResultTableContainer extends React.Component<ResultTableContainerPr
     public render() {
         const { error, results } = this.props;
         return (
-            <ResultTable
-                results={results}
-                error={error}
-            />
+            <div style={{ position: "relative" }} >
+                <ResultTable results={results} />
+                {error && <span className={css.errorBox}>{error}</span>}
+            </div>
         );
     }
 }

@@ -1,3 +1,4 @@
+export const logo: string;
 export const row: string;
 export const header: string;
 export const inputSection: string;
@@ -9,3 +10,5 @@ export const active: string;
 export const hexSection: string;
 export const hexEditorContainer: string;
 export const resultSectionContainer: string;
+export const errorBox: string;
+export const qlduNqsGz0SlideDown: string;
