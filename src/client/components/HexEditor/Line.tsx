@@ -3,6 +3,8 @@ import * as shallowCompare from "react-addons-shallow-compare";
 
 import * as css from "./HexEditor.css";
 
+import { Highlight } from "./";
+
 import AsciiCell from "./AsciiCell";
 import HexCell from "./HexCell";
 import { Selection } from "./HexEditor";
@@ -12,30 +14,31 @@ export interface Value {
 }
 
 export interface LineProps {
-    lineNum: number;
-    lineCount: number;
     addrStart: number;
-    length: number;
     cursorAt: number;
     editingCellAt: number;
     editingCellTempValue: string;
-    moveCursor: (to: number) => void;
-    onHovering: (pos: number) => void;
+    highlights?: Highlight[];
     isFocused: boolean;
-    value: Value;
-    scrollTo: number;
+    length: number;
+    lineCount: number;
+    lineNum: number;
+    moveCursor: (to: number) => void;
+    onBeginSelection: (from: number) => void;
     onFinishScroll: () => void;
+    onFinishSelection: (to: number) => void;
+    onHovering: (pos: number) => void;
+    onUpdateSelection: (to: number) => void;
+    scrollTo: number;
     selection: Selection;
     selectLine: (lineNum: number) => void;
-    onBeginSelection: (from: number) => void;
-    onUpdateSelection: (to: number) => void;
-    onFinishSelection: (to: number) => void;
+    value: Value;
 }
 
 export interface LineState {
-    line: string[];
     currentCursorPosition?: number;
     isHovering?: boolean;
+    line: string[];
 }
 
 const formatString = (str: string, width: number, padChar: string = "0"): string => {
@@ -139,24 +142,24 @@ export class Line extends React.Component<LineProps, LineState> {
                 </div>
 
                 <div className={css.hexLineContainer}>
-                {line.map((char, idx) => (
+                    {line.map((char, idx) => (
                     <HexCell
                         key={idx}
                         char={char}
-                        cursorAt={cursorAt}
                         currentCursorPosition={currentCursorPosition}
+                        cursorAt={cursorAt}
                         editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
-                        pos={addrStart + idx}
-                        onHovering={this.handleHoverOnCell}
-                        onClick={moveCursor}
-                        selection={selection}
-                        onBeginSelection={onBeginSelection}
-                        onUpdateSelection={onUpdateSelection}
-                        onFinishSelection={onFinishSelection}
                         isFocused={isFocused}
+                        onBeginSelection={onBeginSelection}
+                        onClick={moveCursor}
+                        onFinishSelection={onFinishSelection}
+                        onHovering={this.handleHoverOnCell}
+                        onUpdateSelection={onUpdateSelection}
+                        pos={addrStart + idx}
+                        selection={selection}
                     />
-                ))}
+                    ))}
                 </div>
 
                 <div className={css.asciiLineContainer}>
@@ -164,18 +167,18 @@ export class Line extends React.Component<LineProps, LineState> {
                     <AsciiCell
                         key={idx}
                         char={char}
-                        cursorAt={cursorAt}
                         currentCursorPosition={currentCursorPosition}
+                        cursorAt={cursorAt}
                         editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
-                        pos={addrStart + idx}
-                        onHovering={this.handleHoverOnCell}
-                        onClick={moveCursor}
-                        selection={selection}
-                        onBeginSelection={onBeginSelection}
-                        onUpdateSelection={onUpdateSelection}
-                        onFinishSelection={onFinishSelection}
                         isFocused={isFocused}
+                        onBeginSelection={onBeginSelection}
+                        onClick={moveCursor}
+                        onFinishSelection={onFinishSelection}
+                        onHovering={this.handleHoverOnCell}
+                        onUpdateSelection={onUpdateSelection}
+                        pos={addrStart + idx}
+                        selection={selection}
                     />
                 ))}
                 </div>

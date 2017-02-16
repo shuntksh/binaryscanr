@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { ActionCreator, Dispatch } from "redux";
 
 import { AppState } from "../app";
-import HexEditor from "../components/HexEditor";
+import HexEditor, { HighlightProps } from "../components/HexEditor";
 import { actions, selectors } from "../store/module";
 
 export interface HexEditorProps {
-    // readonly highlights: HexEditorProps[];
+    readonly highlights?: HighlightProps[];
     readonly value: string;
     readonly valid?: boolean;
 };
@@ -19,6 +19,7 @@ export interface DispatchedProps {
 // export interface HexEditorState {}
 
 const mapState = (state: AppState): HexEditorProps => ({
+    highlights: selectors.getHighlights()(state),
     value: selectors.getHexData()(state),
 });
 
@@ -28,9 +29,10 @@ const mapDispatch = (dispatch: Dispatch<ActionCreator<any>>): DispatchedProps =>
 
 export class HexEditorContainer extends React.Component<HexEditorProps & DispatchedProps, {}> {
     public render() {
-        const { value, updateHexData } = this.props;
+        const { value, updateHexData, highlights } = this.props;
         return (
             <HexEditor
+                highlights={highlights}
                 onChange={updateHexData}
                 value={value}
             />
