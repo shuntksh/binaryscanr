@@ -4,6 +4,8 @@ import * as React from "react";
 // Using commonJS module syntax for lodash.throttle
 const throttle = require("lodash.throttle");
 
+import { HighlightProps, Highlight } from "./";
+
 import * as css from "./HexEditor.css";
 import * as KEY from "./keymaps";
 import Line from "./Line";
@@ -17,6 +19,7 @@ export enum CellState {
 }
 
 export interface HexEditorProps {
+    highlights?: HighlightProps[];
     onBlur?: () => any;
     onChange?: (value: string) => any;
     onFocus?: () => any;
@@ -158,35 +161,41 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     public render() {
-        const { editingCellAt, editingCellTempValue, localValue, selection, scrollTo, isFocused } = this.state;
+        const {
+            editingCellAt, editingCellTempValue, localValue, selection, scrollTo, isFocused,
+        } = this.state;
         const value = { data: localValue };
+
+        // Split input into lines
         const lines = [];
         for (let i = 0; i < Math.ceil(localValue.length / BYTES_PER_LINE); i += 1) {
             lines.push(i * BYTES_PER_LINE);
         }
+
         return (
             <div tabIndex={0} className={cx(["hexEditor", css.base])} ref={this.refHandlers.hexEditorElement}>
                 {lines.map((line, idx, lines) => (
                 <Line
                     key={idx}
-                    lineNum={line}
-                    lineCount={lines.length}
                     addrStart={line}
-                    length={BYTES_PER_LINE}
-                    value={value}
-                    onHovering={this.handleHoverOnCell}
                     cursorAt={this.state.cursorAt}
                     editingCellAt={editingCellAt}
                     editingCellTempValue={editingCellTempValue}
+                    highlights={this.getHighlights()}
                     isFocused={isFocused}
+                    length={BYTES_PER_LINE}
+                    lineCount={lines.length}
+                    lineNum={line}
                     moveCursor={this.moveCursorWithoutScroll}
-                    scrollTo={scrollTo}
+                    onBeginSelection={this.beginSelection}
                     onFinishScroll={this.handleFinishScroll}
+                    onFinishSelection={this.finishSelection}
+                    onHovering={this.handleHoverOnCell}
+                    onUpdateSelection={this.updateSelection}
+                    scrollTo={scrollTo}
                     selection={selection}
                     selectLine={this.selectLine}
-                    onBeginSelection={this.beginSelection}
-                    onUpdateSelection={this.updateSelection}
-                    onFinishSelection={this.finishSelection}
+                    value={value}
                 />
                 ))}
             </div>
@@ -523,6 +532,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     private resetSelection = (cb?: () => any): void => {
         this.setState({ selection: { from: -1, to: -1, isSelecting: false } }, cb);
     }
+
+    private getHighlights = (): Highlight[] => {
+        const highlights: Highlight[] = [];
+        return highlights;
+    }
+
 }
 
 export default HexEditor;

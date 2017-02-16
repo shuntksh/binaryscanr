@@ -1,3 +1,10 @@
+:root {
+  --font-family: monospace;
+  --font-size: 1em;
+  --spacing: 0.02em;
+  --width: 480px;
+}
+
 :local(.base) {
   background: #fff;
   padding: 5px;
@@ -67,12 +74,14 @@
 :local(.hex-line-container) {
   margin-left: 5px;
   min-width: 410px;
+  position: relative;
 }
 
 :local(.ascii-line-container) {
   color: #cecece;
   font-family: monospace;
   margin-left: 5px;
+  position: relative;
 }
 
 :local(.cursor) {
