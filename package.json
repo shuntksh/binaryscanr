@@ -47,7 +47,7 @@
     "strong-cluster-control": "2.2.3"
   },
   "devDependencies": {
-    "@types/body-parser": "0.0.33",
+    "@types/body-parser": "0.0.34",
     "@types/chai": "3.4.34",
     "@types/classnames": "0.0.32",
     "@types/compression": "0.0.33",
