@@ -98,7 +98,7 @@
     "react-redux": "5.0.2",
     "react-virtualized": "8.11.4",
     "redux": "3.6.0",
-    "rimraf": "2.5.4",
+    "rimraf": "2.6.0",
     "style-loader": "0.13.1",
     "stylefmt": "5.1.2",
     "stylelint": "7.8.0",
