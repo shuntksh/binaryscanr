@@ -47,8 +47,8 @@
     "strong-cluster-control": "2.2.3"
   },
   "devDependencies": {
-    "@types/body-parser": "0.0.33",
-    "@types/chai": "3.4.34",
+    "@types/body-parser": "0.0.34",
+    "@types/chai": "3.4.35",
     "@types/classnames": "0.0.32",
     "@types/compression": "0.0.33",
     "@types/cookie-parser": "1.3.30",
@@ -60,7 +60,7 @@
     "@types/mocha": "2.2.39",
     "@types/node": "7.0.5",
     "@types/path-exists": "1.0.29",
-    "@types/react": "15.0.9",
+    "@types/react": "15.0.11",
     "@types/react-addons-shallow-compare": "0.14.19",
     "@types/react-addons-test-utils": "0.14.17",
     "@types/react-dom": "0.14.23",
@@ -68,8 +68,8 @@
     "@types/react-virtualized": "8.9.2",
     "@types/redux-thunk": "2.1.32",
     "@types/serve-static": "1.7.31",
-    "@types/strong-cluster-control": "2.2.0",
-    "awesome-typescript-loader": "3.0.4-rc.0",
+    "@types/strong-cluster-control": "2.2.1",
+    "awesome-typescript-loader": "3.0.4",
     "chai": "3.5.0",
     "concurrently": "3.3.0",
     "cross-env": "3.1.4",
@@ -87,7 +87,7 @@
     "npm-check": "5.4.0",
     "nsp": "2.6.2",
     "postcss-cssnext": "2.9.0",
-    "postcss-loader": "1.3.0",
+    "postcss-loader": "1.3.1",
     "postcss-reporter": "3.0.0",
     "react": "15.4.2",
     "react-addons-shallow-compare": "15.4.2",
@@ -96,12 +96,12 @@
     "react-dom": "15.4.2",
     "react-hot-loader": "1.3.1",
     "react-redux": "5.0.2",
-    "react-virtualized": "8.11.4",
+    "react-virtualized": "9.0.0",
     "redux": "3.6.0",
-    "rimraf": "2.5.4",
+    "rimraf": "2.6.0",
     "style-loader": "0.13.1",
     "stylefmt": "5.1.2",
-    "stylelint": "7.8.0",
+    "stylelint": "7.9.0",
     "stylelint-config-standard": "16.0.0",
     "ts-node": "2.1.0",
     "tslint": "4.4.2",
@@ -111,6 +111,6 @@
     "typescript": "2.1.6",
     "url-loader": "0.5.7",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.3.0"
+    "webpack-dev-server": "2.4.1"
   }
 }
