@@ -428,7 +428,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 onChange((input).join(""));
             } else {
                 this.setState({ localValue: input }, () => {
-                    if (moveCursorTo >= 0) {
+                    if (moveCursorTo && moveCursorTo >= 0) {
                         this.moveCursor(moveCursorTo, !isSelecting);
                     }
                 });
@@ -532,12 +532,11 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         this.setState({ selection: { from: -1, to: -1, isSelecting: false } }, cb);
     }
 
-    private getHighlights = (): Highlight[] => {
-        const { highlights } = this.props;
-        console.log(highlights);
-        const out: Highlight[] = highlights
+    private getHighlights = (): HighlightProps[] => {
+        const { highlights = [] } = this.props;
+        return highlights
             .filter(h => Object.prototype.hasOwnProperty.call(h, "at") && typeof h.at === "number")
-            .map((h) => {
+            .map((h: Highlight) => {
                 const highlight: Highlight = {
                     at: h.at,
                     color: h.color,
@@ -545,7 +544,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 };
                 return highlight;
             });
-        return out;
     }
 
 }

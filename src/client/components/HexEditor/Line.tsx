@@ -3,7 +3,7 @@ import * as shallowCompare from "react-addons-shallow-compare";
 
 import * as css from "./HexEditor.css";
 
-import { Highlight } from "./";
+import { HighlightProps } from "./";
 
 import AsciiCell from "./AsciiCell";
 import HexCell from "./HexCell";
@@ -18,7 +18,7 @@ export interface LineProps {
     cursorAt: number;
     editingCellAt: number;
     editingCellTempValue: string;
-    highlights?: Highlight[];
+    highlights?: HighlightProps[];
     isFocused: boolean;
     length: number;
     lineCount: number;
