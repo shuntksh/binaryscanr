@@ -15,6 +15,7 @@ export interface AppState extends Map<string, any> {
     valid?: boolean;
     isLoading?: boolean;
     results?: Result[];
+    tab?: string;
 };
 
 export interface AppWindow extends Window {
@@ -39,6 +40,7 @@ const initialState: AppState = fromJS(
         input: "",
         isLoading: false,
         results: [],
+        tab: "help",
         valid: true,
         vars: [],
     },

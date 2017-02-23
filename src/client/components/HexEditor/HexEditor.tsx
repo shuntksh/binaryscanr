@@ -142,7 +142,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     //
 
     public appendZero = (numChar: number = 100): string => {
-        // const { localValue } = this.state;
         let out = "";
         for (let i = 0; i < numChar; i += 1) {
             out += "0";
@@ -534,8 +533,19 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private getHighlights = (): Highlight[] => {
-        const highlights: Highlight[] = [];
-        return highlights;
+        const { highlights } = this.props;
+        console.log(highlights);
+        const out: Highlight[] = highlights
+            .filter(h => Object.prototype.hasOwnProperty.call(h, "at") && typeof h.at === "number")
+            .map((h) => {
+                const highlight: Highlight = {
+                    at: h.at,
+                    color: h.color,
+                    bytes: h.bytes,
+                };
+                return highlight;
+            });
+        return out;
     }
 
 }

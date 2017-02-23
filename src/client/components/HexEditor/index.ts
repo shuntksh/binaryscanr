@@ -11,6 +11,7 @@ export enum Intent {
 export interface Highlight {
     at: number;
     color: string;
+    bytes: number;
 }
 
 export interface HighlightProps {
