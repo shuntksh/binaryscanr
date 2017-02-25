@@ -77,7 +77,7 @@
     "cssnano": "3.10.0",
     "enzyme": "2.7.1",
     "extract-text-webpack-plugin": "^2.0.0-beta",
-    "file-loader": "0.10.0",
+    "file-loader": "0.10.1",
     "html-webpack-plugin": "2.28.0",
     "json-loader": "0.5.4",
     "lodash.throttle": "4.1.1",
