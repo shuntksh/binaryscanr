@@ -92,7 +92,7 @@ export class Line extends React.Component<LineProps, LineState> {
         const { highlights = []} = this.props;
         let color;
         highlights.map((h: Highlight) => {
-            if (h.at <= pos && pos < h.at + h.size) {
+            if (h.at && h.size && h.color && h.at <= pos && pos < h.at + h.size) {
                 color = h.color;
             }
         });

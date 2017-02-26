@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { ActionCreator, Dispatch } from "redux";
 
 import { AppState } from "../app";
-import HexEditor, { HighlightProps } from "../components/HexEditor";
+import HexEditor, { HexHighlightProps } from "../components/HexEditor";
 import { actions, selectors } from "../store/module";
 
 export interface HexEditorProps {
-    readonly highlights?: HighlightProps[];
+    readonly highlights?: HexHighlightProps[];
     readonly value: string;
     readonly valid?: boolean;
 };
