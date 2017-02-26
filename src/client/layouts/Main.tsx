@@ -40,7 +40,7 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
             <div className={css.row}>
                 <div className={css.hexSection}>
                     <div className={css.hexEditorContainer}>
-                        <div className={css.sectionHeader}>
+                    <div className={css.sectionHeader}>
                             <span>Hexadecimal Input (Max: 1500 bytes)</span>
                         </div>
                         <HexEditorContainer />

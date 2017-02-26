@@ -545,15 +545,20 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     private getHighlights = (): HexHighlightProps[] => {
         const { highlights = [] } = this.props;
         const _highlights: Highlight[] = [];
-        highlights
-            .filter((h) => Object.prototype.hasOwnProperty.call(h, "at") && typeof h.at === "number")
-            .map((h: HexHighlightProps) => {
-                if (h && h.bitsAt && h.bits) {
-                    const at = Math.floor(h.bitsAt / 8);
-                    const size = Math.round(h.bits / 8);
-                    _highlights.push({ at, size, color: h.color });
-                }
-            });
+        highlights.map((h: HexHighlightProps) => {
+            if (
+                Object.prototype.hasOwnProperty.call(h, "bitsAt") &&
+                Object.prototype.hasOwnProperty.call(h, "bits") &&
+                Object.prototype.hasOwnProperty.call(h, "color") &&
+                typeof h.bitsAt !== "undefined" &&
+                typeof h.bits !== "undefined" &&
+                typeof h.color !== "undefined"
+            ) {
+                const at = Math.floor(h.bitsAt / 8);
+                const size = Math.round(h.bits / 8);
+                _highlights.push({ at, size, color: h.color });
+            }
+        });
         return _highlights;
     }
 

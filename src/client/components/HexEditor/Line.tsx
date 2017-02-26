@@ -92,8 +92,17 @@ export class Line extends React.Component<LineProps, LineState> {
         const { highlights = []} = this.props;
         let color;
         highlights.map((h: Highlight) => {
-            if (h.at && h.size && h.color && h.at <= pos && pos < h.at + h.size) {
-                color = h.color;
+            if (
+                Object.prototype.hasOwnProperty.call(h, "at") &&
+                Object.prototype.hasOwnProperty.call(h, "size") &&
+                Object.prototype.hasOwnProperty.call(h, "color") &&
+                typeof h.at !== "undefined" &&
+                typeof h.size !== "undefined" &&
+                typeof h.color !== "undefined"
+            ) {
+                if (h.at <= pos && pos < h.at + h.size) {
+                    color = h.color;
+                }
             }
         });
         return color;

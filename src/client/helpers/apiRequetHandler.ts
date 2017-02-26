@@ -4,9 +4,7 @@ import { Store } from "redux";
 import { AppState } from "../app";
 import { actions } from "../store/module";
 
-// @types/lodash.throttle only allow commonJS import.
-/* tslint:disable-next-line:no-var-requires */
-const throttle = require("lodash.throttle");
+import throttle = require("lodash.throttle");
 
 interface APIBody {
     formatString: string;
