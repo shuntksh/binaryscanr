@@ -11,6 +11,7 @@ export interface HexCellProps {
     onHovering?: (idx: number) => void;
     editingCellTempValue: string;
     pos: number;
+    highlight?: string;
     isFocused: boolean;
     isHoveringOnPeer: boolean;
     isCursorOn: boolean;
@@ -35,19 +36,29 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
 
     public render() {
         const {
-            char, isCursorOn, isEditing, editingCellTempValue, isFocused, isHoveringOnPeer,
+            isSelectingCell, highlight, char, isCursorOn, isEditing, editingCellTempValue,
+            isFocused, isHoveringOnPeer,
         } = this.props;
         const { isHovering } = this.state;
         const styles: any = {};
         const classNames = [css.cell];
 
         let _char = char;
+
+        if (highlight) {
+            if (!isCursorOn && !isHovering && !isSelectingCell) {
+                styles.background = highlight;
+                styles.opacity = 0.6;
+            }
+            styles.borderBottom = `${highlight} solid 1px`;
+        }
+
         if (isEditing && editingCellTempValue) {
             _char = editingCellTempValue;
             if (_char.length === 1) { _char += "_"; }
         }
 
-        if (this.isSelectingCell() && !isHovering) {
+        if (isSelectingCell && !isHovering) {
             classNames.push(css.selecting);
         }
 
@@ -82,11 +93,6 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
                 {_char}
             </span>
         );
-    }
-
-    private isSelectingCell(props?: HexCellProps): boolean {
-        const { isSelectingCell } = props || this.props;
-        return isSelectingCell;
     }
 
     private handleClick = (): void => {

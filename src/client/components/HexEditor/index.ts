@@ -9,13 +9,15 @@ export enum Intent {
 }
 
 export interface Highlight {
-    at: number;
-    color: string;
-    bytes: number;
+    at?: number;
+    size?: number;
+    color?: string;
 }
 
-export interface HighlightProps {
+export interface HexHighlightProps {
     at?: number;
+    bitsAt?: number;
+    bits?: number;
     color?: string;
     intent?: Intent;
     placeholder?: string;

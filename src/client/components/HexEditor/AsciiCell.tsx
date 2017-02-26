@@ -11,6 +11,7 @@ export interface AsciiCellProps {
     onHovering?: (idx: number) => void;
     editingCellTempValue: string;
     pos: number;
+    highlight?: string;
     isFocused: boolean;
     isCursorOn: boolean;
     isHoveringOnPeer: boolean;
@@ -36,7 +37,8 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
 
     public render() {
         const {
-            char, isCursorOn, isEditing, editingCellTempValue, isFocused, isHoveringOnPeer
+            isSelectingCell, highlight, char, isCursorOn, isEditing, editingCellTempValue,
+            isFocused, isHoveringOnPeer,
         } = this.props;
         const { isHovering } = this.state;
         let _char = char;
@@ -48,7 +50,15 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
         const styles: any = {};
         const classNames = [css.asciiCell];
 
-        if (this.isSelectingCell()) {
+        if (highlight) {
+            if (!isCursorOn && !isHovering && !isSelectingCell) {
+                styles.background = highlight;
+                styles.opacity = 0.6;
+            }
+            styles.borderBottom = `${highlight} solid 1px`;
+        }
+
+        if (isSelectingCell) {
             classNames.push(css.selecting);
         }
 
@@ -80,11 +90,6 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
                 {asciiChar}
             </span>
         );
-    }
-
-    private isSelectingCell(props?: AsciiCellProps): boolean {
-        const { isSelectingCell } = props || this.props;
-        return isSelectingCell;
     }
 
     private handleClick = (): void => {

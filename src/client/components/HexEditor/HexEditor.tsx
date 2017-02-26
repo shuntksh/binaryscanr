@@ -4,7 +4,7 @@ import * as React from "react";
 // Using commonJS module syntax for lodash.throttle
 const throttle = require("lodash.throttle");
 
-import { HighlightProps, Highlight } from "./";
+import { HexHighlightProps, Highlight } from "./";
 
 import * as css from "./HexEditor.css";
 import * as KEY from "./keymaps";
@@ -19,7 +19,7 @@ export enum CellState {
 }
 
 export interface HexEditorProps {
-    highlights?: HighlightProps[];
+    highlights?: HexHighlightProps[];
     onBlur?: () => any;
     onChange?: (value: string) => any;
     onFocus?: () => any;
@@ -542,18 +542,21 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
     }
 
-    private getHighlights = (): HighlightProps[] => {
+    private getHighlights = (): HexHighlightProps[] => {
         const { highlights = [] } = this.props;
         return highlights
             .filter(h => Object.prototype.hasOwnProperty.call(h, "at") && typeof h.at === "number")
-            .map((h: Highlight) => {
+            .map((h: HexHighlightProps) => {
+                const at = Math.floor(h.bitsAt / 8);
+                const size = Math.round(h.bits / 8);
+                console.log(h.bitsAt, at, size);
                 const highlight: Highlight = {
-                    at: h.at,
+                    at,
                     color: h.color,
-                    bytes: h.bytes,
+                    size,
                 };
                 return highlight;
-            });
+            })
     }
 
 }

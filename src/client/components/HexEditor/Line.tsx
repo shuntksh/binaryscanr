@@ -3,7 +3,7 @@ import * as shallowCompare from "react-addons-shallow-compare";
 
 import * as css from "./HexEditor.css";
 
-import { HighlightProps } from "./";
+import { HexHighlightProps, Highlight } from "./";
 
 import AsciiCell from "./AsciiCell";
 import HexCell from "./HexCell";
@@ -18,7 +18,7 @@ export interface LineProps {
     cursorAt: number;
     editingCellAt: number;
     editingCellTempValue: string;
-    highlights?: HighlightProps[];
+    highlights?: HexHighlightProps[];
     isFocused: boolean;
     length: number;
     lineCount: number;
@@ -68,7 +68,110 @@ export class Line extends React.Component<LineProps, LineState> {
     public ref: HTMLDivElement;
     public setRef = (ref: HTMLDivElement) => { this.ref = ref; };
 
-    public handleHoverOnCell = (currentCursorPosition: number): void => {
+    public componentWillMount() {
+        this.setState({ line: this.props.value });
+    }
+
+    public componentDidMount() {
+        this.handleScroll();
+    }
+
+    public componentWillReceiveProps(nextProps: LineProps) {
+        this.setState({ line: nextProps.value });
+        this.handleScroll(nextProps);
+    }
+
+    public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
+        if (isEqual( this.props.value, nextProps.value)) {
+            return false;
+        }
+        return shallowCompare(this, nextProps, nextState);
+    }
+
+    public getHighlightColor(pos: number): string | undefined {
+        const { highlights = []} = this.props;
+        let color;
+        highlights.map((h: Highlight) => {
+            if (h.at <= pos && pos < h.at + h.size) {
+                color = h.color;
+            }
+        });
+        return color;
+    }
+
+    public render() {
+        const {
+            addrStart, moveCursor, cursorAt, editingCellTempValue, isFocused,
+            selection, onBeginSelection, onUpdateSelection, onFinishSelection, lineNum,
+        } = this.props;
+        const { line, currentCursorPosition } = this.state;
+        const num = lineNum.toString(16).toUpperCase();
+        return (
+            <div
+                className={css.lineContainer}
+                onDoubleClick={this.handleClickLine}
+                onMouseEnter={this.handleEnter}
+                onMouseMove={this.handleEnter}
+                onMouseLeave={this.handleLeave}
+                ref={this.setRef}
+            >
+                <div
+                    className={css.line}
+                    onClick={this.handleClickLine}
+                >
+                    <span>{formatString(num, 8)}</span>
+                </div>
+
+                <div className={css.hexLineContainer}>
+                    {line.map((char, idx) => (
+                    <HexCell
+                        key={idx}
+                        char={char}
+                        editingCellTempValue={editingCellTempValue}
+                        highlight={this.getHighlightColor(addrStart + idx)}
+                        isCursorOn={addrStart + idx === cursorAt}
+                        isEditing={this.isEditing(idx)}
+                        isFocused={isFocused}
+                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
+                        isSelecting={selection.isSelecting}
+                        isSelectingCell={this.isSelecting(idx)}
+                        onBeginSelection={onBeginSelection}
+                        onClick={moveCursor}
+                        onFinishSelection={onFinishSelection}
+                        onHovering={this.handleHoverOnCell}
+                        onUpdateSelection={onUpdateSelection}
+                        pos={addrStart + idx}
+                    />
+                    ))}
+                </div>
+
+                <div className={css.asciiLineContainer}>
+                {line.map((char, idx) => (
+                    <AsciiCell
+                        key={idx}
+                        char={char}
+                        editingCellTempValue={editingCellTempValue}
+                        highlight={this.getHighlightColor(addrStart + idx)}
+                        isFocused={isFocused}
+                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
+                        isCursorOn={addrStart + idx === cursorAt}
+                        isEditing={this.isEditing(idx)}
+                        isSelecting={selection.isSelecting}
+                        isSelectingCell={this.isSelecting(idx)}
+                        onBeginSelection={onBeginSelection}
+                        onClick={moveCursor}
+                        onFinishSelection={onFinishSelection}
+                        onHovering={this.handleHoverOnCell}
+                        onUpdateSelection={onUpdateSelection}
+                        pos={addrStart + idx}
+                    />
+                ))}
+                </div>
+            </div>
+        );
+    }
+
+    private handleHoverOnCell = (currentCursorPosition: number): void => {
         if (typeof currentCursorPosition === "number") {
             if (typeof this.props.onHovering === "function") {
                 this.props.onHovering(currentCursorPosition);
@@ -77,7 +180,7 @@ export class Line extends React.Component<LineProps, LineState> {
         }
     }
 
-    public handleScroll = (nextProps?: LineProps): void => {
+    private handleScroll = (nextProps?: LineProps): void => {
         const {
             isFocused, cursorAt, addrStart, length, scrollTo, onFinishScroll, lineNum, lineCount,
         } = nextProps || this.props;
@@ -104,98 +207,6 @@ export class Line extends React.Component<LineProps, LineState> {
             }
         }
     }
-
-    public componentWillMount() {
-        this.setState({ line: this.props.value });
-    }
-
-    public componentDidMount() {
-        this.handleScroll();
-    }
-
-    public componentWillReceiveProps(nextProps: LineProps) {
-        this.setState({ line: nextProps.value });
-        this.handleScroll(nextProps);
-    }
-
-    public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
-        if (isEqual( this.props.value, nextProps.value)) {
-            return false;
-        }
-        return shallowCompare(this, nextProps, nextState);
-    }
-
-    public render() {
-        const {
-            addrStart, moveCursor, cursorAt, editingCellTempValue, isFocused,
-            selection, onBeginSelection, onUpdateSelection, onFinishSelection, lineNum,
-        } = this.props;
-        const { line, currentCursorPosition } = this.state;
-        const num = lineNum.toString(16).toUpperCase();
-        // console.log(lineNum, this.props.value);
-        return (
-            <div
-                className={css.lineContainer}
-                onDoubleClick={this.handleClickLine}
-                onMouseEnter={this.handleEnter}
-                onMouseMove={this.handleEnter}
-                onMouseLeave={this.handleLeave}
-                ref={this.setRef}
-            >
-                <div
-                    className={css.line}
-                    onClick={this.handleClickLine}
-                >
-                    <span>{formatString(num, 8)}</span>
-                </div>
-
-                <div className={css.hexLineContainer}>
-                    {line.map((char, idx) => (
-                    <HexCell
-                        key={idx}
-                        char={char}
-                        editingCellTempValue={editingCellTempValue}
-                        isFocused={isFocused}
-                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
-                        isCursorOn={addrStart + idx === cursorAt}
-                        isEditing={this.isEditing(idx)}
-                        isSelecting={selection.isSelecting}
-                        isSelectingCell={this.isSelecting(idx)}
-                        onBeginSelection={onBeginSelection}
-                        onClick={moveCursor}
-                        onFinishSelection={onFinishSelection}
-                        onHovering={this.handleHoverOnCell}
-                        onUpdateSelection={onUpdateSelection}
-                        pos={addrStart + idx}
-                    />
-                    ))}
-                </div>
-
-                <div className={css.asciiLineContainer}>
-                {line.map((char, idx) => (
-                    <AsciiCell
-                        key={idx}
-                        char={char}
-                        editingCellTempValue={editingCellTempValue}
-                        isFocused={isFocused}
-                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
-                        isCursorOn={addrStart + idx === cursorAt}
-                        isEditing={this.isEditing(idx)}
-                        isSelecting={selection.isSelecting}
-                        isSelectingCell={this.isSelecting(idx)}
-                        onBeginSelection={onBeginSelection}
-                        onClick={moveCursor}
-                        onFinishSelection={onFinishSelection}
-                        onHovering={this.handleHoverOnCell}
-                        onUpdateSelection={onUpdateSelection}
-                        pos={addrStart + idx}
-                    />
-                ))}
-                </div>
-            </div>
-        );
-    }
-
 
     private isSelecting(at: number): boolean {
         const { addrStart, selection: { from, to } } = this.props;

@@ -8,6 +8,8 @@ export enum Intent {
 
 export interface HighlightProps {
     at?: number;
+    bitsAt?: number;
+    bits?: number;
     size?: number;
     placeholder?: string;
     style?: {};

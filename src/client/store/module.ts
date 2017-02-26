@@ -5,6 +5,7 @@ import { AppState, Result } from "../app";
 import { HighlightProps, Intent } from "../components/TaggableInput";
 import { getColorByIndex } from "../constants";
 import formatStringToArray from "../helpers/formatStringToArray";
+import formatStringToBits from "../helpers/formatStringToBits";
 import isValidFilter from "../helpers/isValidFilter";
 
 export interface Action extends redux.Action {
@@ -126,6 +127,7 @@ export const selectors = {
         const highlights: HighlightProps[] = [];
         const input = state.get("input");
         const inputArr = formatStringToArray(input, false);
+        const valueLength = (state.get("hexData") as string).length * 4;
 
         // Show placeholder text if the input is empty.
         if (!input) {
@@ -134,16 +136,22 @@ export const selectors = {
         }
 
         let cursor = 1;
+        let bits = 0;
         inputArr.forEach((formatter: string, idx: number) => {
+            let len = formatStringToBits(formatter);
+            if (len === -1) {
+                len = valueLength - bits;
+            }
             if (formatter.startsWith("x") || formatter.startsWith("X")) {
                 cursor += formatter.length;
             } else {
                 const at = cursor;
                 const size = at + formatter.length;
                 const color = getColorByIndex(idx);
-                highlights.push({ at, size, color });
+                highlights.push({ at, size, color, bitsAt: bits, bits: len });
                 cursor += (size - at);
             }
+            bits += len;
         });
         return highlights;
     },
