@@ -4,20 +4,19 @@ import * as shallowCompare from "react-addons-shallow-compare";
 
 import { END_OF_INPUT } from "./HexEditor";
 import * as css from "./HexEditor.css";
-import { Selection } from "./HexEditor";
 
 export interface HexCellProps {
     char: string;
     onClick?: (pos: number) => any;
     onHovering?: (idx: number) => void;
-    cursorAt: number;
-    currentCursorPosition?: number;
-    editingCellAt: number;
     editingCellTempValue: string;
     pos: number;
     isFocused: boolean;
-    selection: Selection;
-
+    isHoveringOnPeer: boolean;
+    isCursorOn: boolean;
+    isEditing: boolean;
+    isSelecting: boolean;
+    isSelectingCell: boolean;
     onBeginSelection: (from: number) => void;
     onUpdateSelection: (to: number) => void;
     onFinishSelection: (to: number) => void;
@@ -30,20 +29,20 @@ export interface HexCellState {
 export class HexCell extends React.Component<HexCellProps, HexCellState> {
     public state: HexCellState = { isHovering: false };
 
-    public shouldComponentUpdate(nextProps: HexCellProps, nextState: HexCellState) {
+    public shouldComponentUpdate(nextProps: HexCellProps, nextState: HexCellState) { 
         return shallowCompare(this, nextProps, nextState);
     }
 
     public render() {
         const {
-            char, cursorAt, editingCellAt, editingCellTempValue, pos, currentCursorPosition, isFocused
+            char, isCursorOn, isEditing, editingCellTempValue, isFocused, isHoveringOnPeer,
         } = this.props;
         const { isHovering } = this.state;
         const styles: any = {};
         const classNames = [css.cell];
 
         let _char = char;
-        if (editingCellAt === pos && editingCellTempValue) {
+        if (isEditing && editingCellTempValue) {
             _char = editingCellTempValue;
             if (_char.length === 1) { _char += "_"; }
         }
@@ -52,11 +51,11 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
             classNames.push(css.selecting);
         }
 
-        if (isHovering || currentCursorPosition === pos) {
+        if (isHovering || isHoveringOnPeer) {
             classNames.push(css.hovering);
         }
 
-        if (cursorAt === pos) {
+        if (isCursorOn) {
             classNames.push(css.cursor);
             if (isFocused === false) {
                 styles.opacity = "0.5"
@@ -85,11 +84,9 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
         );
     }
 
-    private isSelectingCell(): boolean {
-        const { selection: { from, to }, pos } = this.props;
-        const _from = from < to ? from : to;
-        const _to = from < to ? to : from;
-        return (_from <= pos && pos <= _to);
+    private isSelectingCell(props?: HexCellProps): boolean {
+        const { isSelectingCell } = props || this.props;
+        return isSelectingCell;
     }
 
     private handleClick = (): void => {
@@ -100,35 +97,36 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
 
     private handleMouseDown = (): void => {
         const {
-            char, selection: { isSelecting }, onBeginSelection, pos,
+            char, onBeginSelection, pos, isSelecting,
         } = this.props;
+
+        const _pos = char === END_OF_INPUT ? pos - 1 : pos;
         if (!isSelecting) {
-            const _pos = char === END_OF_INPUT ? pos - 1 : pos;
             onBeginSelection(_pos);
         }
     }
 
     private handleMouseMove = (): void => {
-        const { char, selection: { isSelecting }, onUpdateSelection, pos } = this.props;
-        if (isSelecting && char !== END_OF_INPUT) {
-            onUpdateSelection(pos);
-        }
-        this.handleEnter();
+        // this.handleEnter();
     }
 
     private handleMouseUp = (): void => {
-        const { char, selection: { isSelecting }, onFinishSelection, pos } = this.props;
+        const { char, isSelecting, onFinishSelection, pos } = this.props;
+        const _pos = char === END_OF_INPUT ? pos - 1 : pos;
         if (isSelecting) {
-            const _pos = char === END_OF_INPUT ? pos - 1 : pos;
             onFinishSelection(_pos);
         }
     }
 
     private handleEnter = (): void => {
+        const { char, isSelecting, onHovering, onUpdateSelection, pos } = this.props;
+        if (isSelecting && char !== END_OF_INPUT) {
+            onUpdateSelection(pos);
+        }
         if (!this.state.isHovering) {
             this.setState({ isHovering: true });
-            if (typeof this.props.onHovering === "function") {
-                this.props.onHovering(this.props.pos);
+            if (typeof onHovering === "function" && char !== END_OF_INPUT) {
+                onHovering(pos);
             }
         }
     }

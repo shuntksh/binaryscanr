@@ -32,7 +32,7 @@ export interface LineProps {
     scrollTo: number;
     selection: Selection;
     selectLine: (lineNum: number) => void;
-    value: Value;
+    value: string[];
 }
 
 export interface LineState {
@@ -46,6 +46,21 @@ const formatString = (str: string, width: number, padChar: string = "0"): string
     let pad = "";
     for (let i = 0; i < (width - str.length); i += 1) { pad += padChar; }
     return pad + str;
+}
+
+const isEqual = (from: any[], to: any[]): boolean => {
+    if (!Array.isArray(from) || !Array.isArray(to)) {
+        return false;
+    }
+    if (from.length !== to.length) {
+        return false;
+    }
+    for (const i of from) {
+        if (to.indexOf(i) > -1) {
+            return false;
+        }
+    }
+    return true;
 }
 
 export class Line extends React.Component<LineProps, LineState> {
@@ -90,41 +105,34 @@ export class Line extends React.Component<LineProps, LineState> {
         }
     }
 
-    public getLineArray = (props?: LineProps): string[] => {
-        const { addrStart, length, value: { data = [] } } = props ? props : this.props;
-        const newData = [];
-        for (let i = addrStart; i < addrStart + length; i += 1) {
-            if (data[i]) {
-                newData.push(data[i]);
-            }
-        }
-        return newData;
-    }
-
     public componentWillMount() {
-        this.setState({ line: this.getLineArray() });
+        this.setState({ line: this.props.value });
     }
 
     public componentDidMount() {
         this.handleScroll();
     }
 
-    public componentWillReceiveProps(nextProp: LineProps) {
-        this.setState({ line: this.getLineArray(nextProp) });
-        this.handleScroll(nextProp);
+    public componentWillReceiveProps(nextProps: LineProps) {
+        this.setState({ line: nextProps.value });
+        this.handleScroll(nextProps);
     }
 
     public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
+        if (isEqual( this.props.value, nextProps.value)) {
+            return false;
+        }
         return shallowCompare(this, nextProps, nextState);
     }
 
     public render() {
         const {
-            addrStart, moveCursor, cursorAt, editingCellAt, editingCellTempValue, isFocused,
+            addrStart, moveCursor, cursorAt, editingCellTempValue, isFocused,
             selection, onBeginSelection, onUpdateSelection, onFinishSelection, lineNum,
         } = this.props;
         const { line, currentCursorPosition } = this.state;
         const num = lineNum.toString(16).toUpperCase();
+        // console.log(lineNum, this.props.value);
         return (
             <div
                 className={css.lineContainer}
@@ -146,18 +154,19 @@ export class Line extends React.Component<LineProps, LineState> {
                     <HexCell
                         key={idx}
                         char={char}
-                        currentCursorPosition={currentCursorPosition}
-                        cursorAt={cursorAt}
-                        editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
                         isFocused={isFocused}
+                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
+                        isCursorOn={addrStart + idx === cursorAt}
+                        isEditing={this.isEditing(idx)}
+                        isSelecting={selection.isSelecting}
+                        isSelectingCell={this.isSelecting(idx)}
                         onBeginSelection={onBeginSelection}
                         onClick={moveCursor}
                         onFinishSelection={onFinishSelection}
                         onHovering={this.handleHoverOnCell}
                         onUpdateSelection={onUpdateSelection}
                         pos={addrStart + idx}
-                        selection={selection}
                     />
                     ))}
                 </div>
@@ -167,18 +176,19 @@ export class Line extends React.Component<LineProps, LineState> {
                     <AsciiCell
                         key={idx}
                         char={char}
-                        currentCursorPosition={currentCursorPosition}
-                        cursorAt={cursorAt}
-                        editingCellAt={editingCellAt}
                         editingCellTempValue={editingCellTempValue}
                         isFocused={isFocused}
+                        isHoveringOnPeer={addrStart + idx === currentCursorPosition}
+                        isCursorOn={addrStart + idx === cursorAt}
+                        isEditing={this.isEditing(idx)}
+                        isSelecting={selection.isSelecting}
+                        isSelectingCell={this.isSelecting(idx)}
                         onBeginSelection={onBeginSelection}
                         onClick={moveCursor}
                         onFinishSelection={onFinishSelection}
                         onHovering={this.handleHoverOnCell}
                         onUpdateSelection={onUpdateSelection}
                         pos={addrStart + idx}
-                        selection={selection}
                     />
                 ))}
                 </div>
@@ -186,9 +196,24 @@ export class Line extends React.Component<LineProps, LineState> {
         );
     }
 
+
+    private isSelecting(at: number): boolean {
+        const { addrStart, selection: { from, to } } = this.props;
+        const _at = addrStart + at;
+        const _from = from < to ? from : to;
+        const _to = from < to ? to : from;
+        return _from <= _at && _at <= _to;
+    }
+
+    private isEditing(at: number): boolean {
+        const { editingCellAt, addrStart } = this.props;
+        return editingCellAt === (addrStart + at);
+    }
+
     private handleClickLine = (): void => {
-        const { selectLine, lineNum } = this.props;
+        const { selectLine, lineNum, onBeginSelection, addrStart } = this.props;
         if (typeof selectLine === "function") {
+            onBeginSelection(addrStart);
             selectLine(lineNum);
         }
     }

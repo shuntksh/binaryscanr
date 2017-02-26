@@ -167,8 +167,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
 
         // Split input into lines
         const lines = [];
+        const lineVal: string[][] = [];
         for (let i = 0; i < Math.ceil(localValue.length / BYTES_PER_LINE); i += 1) {
-            lines.push(i * BYTES_PER_LINE);
+            const from = i * BYTES_PER_LINE;
+            lines.push(from);
+            const line = (value.data ||[]).slice(from, from + BYTES_PER_LINE);
+            lineVal.push(line);
         }
 
         return (
@@ -194,7 +198,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                     scrollTo={scrollTo}
                     selection={selection}
                     selectLine={this.selectLine}
-                    value={value}
+                    value={lineVal[idx]}
                 />
                 ))}
             </div>
@@ -217,9 +221,11 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
         if (document.activeElement === this.hexEditorElement) {
-            this.setState({ isFocused: true });
-            if (typeof this.props.onFocus === "function") {
-                this.props.onFocus();
+            if (!this.state.isFocused) {
+                this.setState({ isFocused: true });
+                if (typeof this.props.onFocus === "function") {
+                   this.props.onFocus();
+                }
             }
         } else {
             if (this.state.isFocused) {
@@ -470,6 +476,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     private moveCursor = (
         to: number = 0, resetSelection: boolean = true, scroll: boolean = true, cb?: () => any
     ): void => {
+        const { selection: { from } } = this.state;
         if (typeof to === "number") {
             let cursorAt = to <= 0 ? 0 : to;
             const length = (this.state.localValue).length - 1;
@@ -486,7 +493,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             }
             const scrollTo = scroll ? cursorAt : -1;
             this.setState({ cursorAt, scrollTo }, () => {
-                if (resetSelection) { this.resetSelection(); }
+                if (resetSelection && from >= 0) { this.resetSelection(); }
                 if (typeof cb === "function") { cb(); }
             });
         }
@@ -529,7 +536,10 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private resetSelection = (cb?: () => any): void => {
-        this.setState({ selection: { from: -1, to: -1, isSelecting: false } }, cb);
+        const { selection: { from } } = this.state;
+        if (from >= 0) {
+            this.setState({ selection: { from: -1, to: -1, isSelecting: false } }, cb);
+        }
     }
 
     private getHighlights = (): HighlightProps[] => {

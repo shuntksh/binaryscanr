@@ -106,13 +106,6 @@ const config = {
             }
         }),
     ],
-
-    // Learn from create-react-app project.
-    // node: {
-    //     fs: "empty",
-    //     net: "empty",
-    //     tls: "empty",
-    // },
 };
 
 //
