@@ -2,7 +2,7 @@
   --font-family: monospace;
   --font-size: 1em;
   --spacing: 0.02em;
-  --width: 480px;
+  --width: 520px;
 }
 
 :local(.taggable-outer) {

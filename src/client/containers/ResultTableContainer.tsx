@@ -36,7 +36,7 @@ export class ResultTableContainer extends React.Component<ResultTableContainerPr
                         <div className={css.tabItem}>
                             <ResultTable results={results} />
                         </div>
-                        <div className={css.tabItem} style={{ marginLeft: "10px" }}>
+                        <div className={css.tabItem}>
                             <HelpTable />
                         </div>
                     </div>

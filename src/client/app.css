@@ -12,7 +12,7 @@
 body {
   background: rgba(1, 1, 1, 0.01);
   margin: 0;
-  min-width: 800px;
+  min-width: 900px;
   padding: 0;
 }
 
@@ -37,6 +37,7 @@ body {
 }
 
 :local(.header) {
+  box-sizing: border-box;
   background: #fafafa;
   border-bottom: 1px solid #ebebeb;
   color: #666;
@@ -60,7 +61,7 @@ body {
   min-height: 80px;
   transition: box-shadow 0.3s ease;
   user-select: none;
-  width: 900px;
+  width: 920px;
 }
 
 :local(.input-section:hover) {
@@ -69,6 +70,7 @@ body {
 
 :local(.input-container) {
   display: inline-block;
+  padding-left: 40px;
 }
 
 :local(.input-caption) {
@@ -100,7 +102,6 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  margin-left: 30px;
   width: 900px;
 }
 
@@ -168,6 +169,10 @@ body {
   text-decoration: none;
 }
 
+:local(.tab-item):nth-child(2) {
+  margin-left: 10px;
+}
+
 :local(.to-left) {
   transform: translate3d(-247px,0,0);
 }
@@ -181,6 +186,10 @@ body {
   border-bottom: transparent 2px solid;
   text-decoration: none;
   cursor: pointer; 
+}
+
+:local(.tabs):nth-child(2) {
+  margin-left: 10px;
 }
 
 :local(.tabs:active) {

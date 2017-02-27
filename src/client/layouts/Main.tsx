@@ -58,7 +58,7 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
                             <a href="#" className={cx(results)} onClick={this.switchToResult}>
                                 Results
                             </a>
-                            <a href="#" className={cx(help)} style={{ marginLeft: "10px" }} onClick={this.switchToHelp}>
+                            <a href="#" className={cx(help)} onClick={this.switchToHelp}>
                                 Help
                             </a>
                         </div>
