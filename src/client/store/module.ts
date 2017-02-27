@@ -15,23 +15,9 @@ export interface Action extends redux.Action {
     readonly error?: any;
 }
 
-export interface ActionTypes {
-    [index: string]: string;
-    readonly api_error: string;
-    readonly hex_clear: string;
-    readonly hex_error: string;
-    readonly hex_update: string;
-    readonly init: string;
-    readonly input_clear: string;
-    readonly input_error: string;
-    readonly input_update: string;
-    readonly start_loading: string;
-    readonly stop_loading: string;
-    readonly switch_tab: string;
-    readonly update_results: string;
-}
-
-export const types: ActionTypes = {
+export const types: {
+    readonly [index: string]: string;
+} = {
     api_error: "@@app/HEX/API_ERROR",
     hex_clear: "@@app/HEX/CLEAR",
     hex_error: "@@app/HEX/ERROR",
@@ -47,15 +33,15 @@ export const types: ActionTypes = {
 };
 
 export interface ActionCreators {
-    [index: string]: redux.ActionCreator<any>;
-    readonly apiError: (errMsg: string) => Action;
-    readonly clearInput: () => Action;
-    readonly startLoading: () => Action;
-    readonly stopLoading: () => Action;
-    readonly switchTab: (tab: string) => Action;
-    readonly updateHexData: (value: string) => Action;
-    readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => Action;
-    readonly updateResults: (results: string[]) => Action;
+    readonly [index: string]: redux.ActionCreator<any>;
+    apiError: (errMsg: string) => Action;
+    clearInput: () => Action;
+    startLoading: () => Action;
+    stopLoading: () => Action;
+    switchTab: (tab: string) => Action;
+    updateHexData: (value: string) => Action;
+    updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => Action;
+    updateResults: (results: string[]) => Action;
 };
 
 export const actions: ActionCreators = {
@@ -145,10 +131,11 @@ export const selectors = {
             if (formatter.startsWith("x") || formatter.startsWith("X")) {
                 cursor += formatter.length;
             } else {
+                const id = idx;
                 const at = cursor;
                 const size = at + formatter.length;
                 const color = getColorByIndex(idx);
-                highlights.push({ at, size, color, bitsAt: bits, bits: len });
+                highlights.push({ id, at, size, color, bitsAt: bits, bits: len });
                 cursor += (size - at);
             }
             bits += len;

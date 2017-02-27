@@ -15,6 +15,7 @@ export interface Highlight {
 }
 
 export interface HexHighlightProps {
+    id?: number;
     at?: number;
     bitsAt?: number;
     bits?: number;

@@ -32,6 +32,14 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
 export class MainLayout extends React.Component<MainLayoutProps & DispatchedProps, {}> {
     public displayName: string;
     public render() {
+        const { tab } = this.props;
+        const help = [css.tabs];
+        const results = [css.tabs];
+        if (tab === "help") {
+            help.push(css.active);
+        } else {
+            results.push(css.active);
+        }
         return (
         <div>
             <div className={cx(css.row, css.header)}>
@@ -47,8 +55,12 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
                     </div>
                     <div className={css.resultSectionContainer}>
                         <div className={css.sectionHeader}>
-                            <span className={css.active}>Results</span>
-                            <span className={css.tabs}>Help</span>
+                            <a href="#" className={cx(results)} onClick={this.switchToResult}>
+                                Results
+                            </a>
+                            <a href="#" className={cx(help)} style={{ marginLeft: "10px" }} onClick={this.switchToHelp}>
+                                Help
+                            </a>
                         </div>
                         <ResultTableContainerProps />
                     </div>
@@ -57,6 +69,9 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
         </div>
         );
     }
+
+    private switchToHelp = () => this.props.switchTab("help");
+    private switchToResult = () => this.props.switchTab("results");
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(location(MainLayout));

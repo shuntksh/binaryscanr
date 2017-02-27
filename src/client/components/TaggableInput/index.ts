@@ -7,6 +7,7 @@ export enum Intent {
 }
 
 export interface HighlightProps {
+    id?: number;
     at?: number;
     bitsAt?: number;
     bits?: number;
