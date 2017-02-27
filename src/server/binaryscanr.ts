@@ -113,7 +113,7 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
             return next(err);
         }
         console.log(req.cookies);
-        res.status(403).json({"error": "session has expired or tampered with"});
+        res.status(403).json({ "error": "session has expired or tampered with" });
     });
 
 module.exports = app;
