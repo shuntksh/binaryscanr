@@ -174,11 +174,11 @@ body {
 }
 
 :local(.to-left) {
-  transform: translate3d(-247px,0,0);
+  transform: translate3d(-247px, 0, 0);
 }
 
 :local(.to-right) {
-  transform: translate3d(5px,0,0);
+  transform: translate3d(5px, 0, 0);
 }
 
 :local(.tabs) {
