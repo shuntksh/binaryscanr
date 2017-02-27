@@ -15,12 +15,12 @@ const MAX_FILTER_LEN = 254;
 const MAX_HEX_LEN = 1500;
 
 const pathExistSync = (pathName: string): boolean => {
-	try {
-		fs.accessSync(pathName);
-		return true;
-	} catch (err) {
-		return false;
-	}
+    try {
+        fs.accessSync(pathName);
+        return true;
+    } catch (err) {
+        return false;
+    }
 };
 
 // Set Up Express Server
@@ -109,7 +109,9 @@ app.post(
 );
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction): void => {
-        if (err.code !== 'EBADCSRFTOKEN') return next(err);
+        if (err.code !== 'EBADCSRFTOKEN') {
+            return next(err);
+        }
         console.log(req.cookies);
         res.status(403).json({"error": "session has expired or tampered with"});
     });

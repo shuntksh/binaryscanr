@@ -30,7 +30,7 @@ export interface HexCellState {
 export class HexCell extends React.Component<HexCellProps, HexCellState> {
     public state: HexCellState = { isHovering: false };
 
-    public shouldComponentUpdate(nextProps: HexCellProps, nextState: HexCellState) { 
+    public shouldComponentUpdate(nextProps: HexCellProps, nextState: HexCellState) {
         return shallowCompare(this, nextProps, nextState);
     }
 
@@ -74,7 +74,7 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
                 classNames.push(css.blinkCursor);
             }
         }
-        
+
         if (_char === "<") {
             styles.color = "black";
         }

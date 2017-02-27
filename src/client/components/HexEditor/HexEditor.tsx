@@ -1,8 +1,6 @@
 import * as cx from "classnames";
+import throttle = require("lodash.throttle");
 import * as React from "react";
-
-// Using commonJS module syntax for lodash.throttle
-const throttle = require("lodash.throttle");
 
 import { HexHighlightProps, Highlight } from "./";
 
@@ -171,7 +169,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         for (let i = 0; i < Math.ceil(localValue.length / BYTES_PER_LINE); i += 1) {
             const from = i * BYTES_PER_LINE;
             lines.push(from);
-            const line = (value.data ||[]).slice(from, from + BYTES_PER_LINE);
+            const line = (value.data || []).slice(from, from + BYTES_PER_LINE);
             lineVal.push(line);
         }
 
@@ -398,7 +396,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
     }
 
-    private cancelEditCell():void {
+    private cancelEditCell(): void {
         this.setState({ editingCellAt: CellState.EOF, editingCellTempValue: "" });
     }
 
@@ -474,7 +472,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     }
 
     private moveCursor = (
-        to: number = 0, resetSelection: boolean = true, scroll: boolean = true, cb?: () => any
+        to: number = 0, resetSelection: boolean = true, scroll: boolean = true, cb?: () => any,
     ): void => {
         const { selection: { from } } = this.state;
         if (typeof to === "number") {
@@ -509,7 +507,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     private updateSelection = (to: number, newFrom?: number, finishAfter: boolean = false): void => {
         const { selection: { from }, localValue } = this.state;
         const maxLen = localValue.length - 2;
-        const _from = Math.max(0, (typeof newFrom === 'number') ? newFrom : from);
+        const _from = Math.max(0, (typeof newFrom === "number") ? newFrom : from);
         const _to = Math.min(to, maxLen);
         this.setState({ selection: { from: _from, to: _to, isSelecting: !finishAfter } });
     }

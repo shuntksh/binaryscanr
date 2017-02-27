@@ -46,7 +46,7 @@ const formatString = (str: string, width: number, padChar: string = "0"): string
     let pad = "";
     for (let i = 0; i < (width - str.length); i += 1) { pad += padChar; }
     return pad + str;
-}
+};
 
 const isEqual = (from: any[], to: any[]): boolean => {
     if (!Array.isArray(from) || !Array.isArray(to)) {
