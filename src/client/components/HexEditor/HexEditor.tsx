@@ -283,7 +283,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
         
-        case KEY.CODE["x"]:
+        case KEY.CODE.x:
         case KEY.DEL: {
             event.preventDefault();
             this.handleDelete(); 
@@ -291,13 +291,13 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         }
 
         // Move Cursor <IJKL>
-        case KEY.CODE["i"]:
+        case KEY.CODE.i:
         case KEY.UP: {
             event.preventDefault(); // Prevent Page Scroll
             const to = isCtrlPressing ? 0 : cursorAt - BYTES_PER_LINE;
             if (event.shiftKey) {
                 if (this.isSelectingCell()) {
-                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                    this.updateSelection(to, undefined, isCtrlPressing);
                 } else {
                     this.updateSelection(to, cursorAt - 1, isCtrlPressing);
                 }
@@ -308,7 +308,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
 
-        case KEY.CODE["j"]:
+        case KEY.CODE.j:
         case KEY.LEFT: {
             event.preventDefault(); // Prevent Page Scroll
             if (cursorAt === 0) { 
@@ -321,7 +321,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             }
             if (event.shiftKey) {
                 if (this.isSelectingCell()) {
-                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                    this.updateSelection(to, undefined, isCtrlPressing);
                 } else {
                     this.updateSelection(to, cursorAt - 1, isCtrlPressing);
                 }
@@ -332,13 +332,13 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
 
-        case KEY.CODE["k"]:
+        case KEY.CODE.k:
         case KEY.DOWN: {
             event.preventDefault(); // Prevent Page Scroll
             const to = isCtrlPressing ? length - 1 : cursorAt + BYTES_PER_LINE;
             if (event.shiftKey) {
                 if (this.isSelectingCell()) {
-                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                    this.updateSelection(to, undefined, isCtrlPressing);
                 } else {
                     this.updateSelection(to, cursorAt, isCtrlPressing);
                 }
@@ -349,7 +349,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
 
-        case KEY.CODE["l"]:
+        case KEY.CODE.l:
         case KEY.RIGHT: {
             event.preventDefault(); // Prevent Page Scroll
             let to = cursorAt + 1;
@@ -358,7 +358,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             }
             if (event.shiftKey) {
                 if (this.isSelectingCell()) {
-                    this.updateSelection(to, undefined, isCtrlPressing);                    
+                    this.updateSelection(to, undefined, isCtrlPressing);
                 } else {
                     this.updateSelection(to, cursorAt, isCtrlPressing);
                 }
