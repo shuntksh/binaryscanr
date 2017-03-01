@@ -30,6 +30,6 @@ const filterString = (input: string): string => {
         throw new Error("Invalid format is passed");
     }
     return output;
-}
+};
 
 export default filterString;

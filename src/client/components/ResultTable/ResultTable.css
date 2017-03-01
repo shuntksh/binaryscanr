@@ -74,18 +74,32 @@
   font-family: var(--font-family);
   font-size: 0.8em;
   line-height: 1em;
-  margin: 5px 3px 0 3px;
+  margin: 5px 3px 0;
   overflow-wrap: break-word;
   padding: 5px;
 }
 
 @keyframes y4mhJrcnEM__zoomIn {
-  0% { transform: scale3d(0.3, 0.3, 0.3); opacity: 0; }
-  20% { transform: scale3d(1.1, 1.1, 1.1); }
-  40% { transform: scale3d(0.9, 0.9, 0.9); }
-  60% { transform: scale3d(1.03, 1.03, 1.03); opacity: 1; }
-  80% { transform: scale3d(0.98, 0.98, 0.98); }
-  100% { transform: scale3d(1, 1, 1); }
+  0% { 
+    transform: scale3d(0.3, 0.3, 0.3);
+    opacity: 0;
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    transform: scale3d(1.03, 1.03, 1.03);
+    opacity: 1;
+  }
+  80% {
+    transform: scale3d(0.98, 0.98, 0.98);
+  }
+  100% {
+    transform: scale3d(1, 1, 1);
+  }
 }
 
 @keyframes y4mhJrcnEM__slideIn {

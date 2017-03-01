@@ -187,7 +187,7 @@ body {
   user-select: none;
   border-bottom: transparent 2px solid;
   text-decoration: none;
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 :local(.tabs):nth-child(2) {
@@ -203,7 +203,7 @@ body {
 }
 
 :local(.active) {
-  color: rgb(66, 133, 244) !important; 
+  color: rgb(66, 133, 244) !important;
   text-decoration: none;
   border-bottom: rgb(66, 133, 244) 2px solid;
 }

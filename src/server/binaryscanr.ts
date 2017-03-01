@@ -54,8 +54,9 @@ app.get(
     csrfProtection,
     (req: express.Request, res: express.Response): void => {
         res.set("Content-Type", "application/json");
-        res.json({ "_csrf": req.csrfToken() });
-    })
+        res.json({ _csrf: req.csrfToken() });
+    },
+);
 
 app.post(
     "/api/process",
@@ -109,11 +110,11 @@ app.post(
 );
 
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction): void => {
-        if (err.code !== 'EBADCSRFTOKEN') {
+        if (err.code !== "EBADCSRFTOKEN") {
             return next(err);
         }
         console.log(req.cookies);
-        res.status(403).json({ "error": "session has expired or tampered with" });
+        res.status(403).json({ error: "session has expired or tampered with" });
     });
 
 module.exports = app;
