@@ -1,23 +1,49 @@
 import * as React from "react";
 
+import * as css from "./HelpTable.css";
+
 export const HelpTable: React.SFC<{}> = () => {
     return (
-    <div>
-        <div>
-            <span>a/A</span>
-            <span>help</span>
+    <div className={css.container}>
+        <div className={css.box}>
+            <span className={css.formatString}>
+                a/A
+            </span>
+            <span className={css.description}>
+                help
+            </span>
         </div>
-        <div>
-            <span>h/H</span>
-            <span>help</span>
+        <div className={css.box}>
+            <span className={css.formatString}>
+                a/A
+            </span>
+            <span className={css.description}>
+                help
+            </span>
         </div>
-        <div>
-            <span>i/I</span>
-            <span>help</span>
+        <div className={css.box}>
+            <span className={css.formatString}>
+                a/A
+            </span>
+            <span className={css.description}>
+                help
+            </span>
         </div>
-        <div>
-            <span>h/H</span>
-            <span>help</span>
+        <div className={css.box}>
+            <span className={css.formatString}>
+                a/A
+            </span>
+            <span className={css.description}>
+                help
+            </span>
+        </div>
+        <div className={css.box}>
+            <span className={css.formatString}>
+                a/A
+            </span>
+            <span className={css.description}>
+                help
+            </span>
         </div>
     </div>
     );

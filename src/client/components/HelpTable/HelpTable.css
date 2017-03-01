@@ -1,0 +1,20 @@
+
+:local(.container) {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
+:local(.box) {
+  margin: 3px 0;;
+  padding: 5px;
+  background: red;
+}
+
+:local(.format-string) {
+  display: block;
+}
+
+:local(.description) {
+  display: block;
+}
