@@ -61,7 +61,7 @@ export const RIGHT  = 39;
 export const DOWN   = 40;
 export const DEL    = 46;
 
-export const ARROW_KEYS = [ UP, DOWN, LEFT, RIGHT, ENTER, CODE["i"], CODE["j"], CODE["k"], CODE["l"] ];
+export const ARROW_KEYS = [ UP, DOWN, LEFT, RIGHT, ENTER, CODE.i, CODE.j, CODE.k, CODE.l ];
 export const HEX_KEYS = [48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 65, 66, 67, 68, 69, 70];
-export const ALLOWED_KEYS = [BS, DEL, SPACE, TAB, ESC, CODE["x"], ...ARROW_KEYS, ...HEX_KEYS];
+export const ALLOWED_KEYS = [BS, DEL, SPACE, TAB, ESC, CODE.x, ...ARROW_KEYS, ...HEX_KEYS];
 export const CTRL_KEYS = [224, 17, 91, 93];

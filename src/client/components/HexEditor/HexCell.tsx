@@ -1,6 +1,5 @@
 import * as cx from "classnames";
 import * as React from "react";
-import * as shallowCompare from "react-addons-shallow-compare";
 
 import { END_OF_INPUT } from "./HexEditor";
 import * as css from "./HexEditor.css";
@@ -27,12 +26,8 @@ export interface HexCellState {
     isHovering: boolean;
 }
 
-export class HexCell extends React.Component<HexCellProps, HexCellState> {
+export class HexCell extends React.PureComponent<HexCellProps, HexCellState> {
     public state: HexCellState = { isHovering: false };
-
-    public shouldComponentUpdate(nextProps: HexCellProps, nextState: HexCellState) {
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     public render() {
         const {
@@ -69,7 +64,7 @@ export class HexCell extends React.Component<HexCellProps, HexCellState> {
         if (isCursorOn) {
             classNames.push(css.cursor);
             if (isFocused === false) {
-                styles.opacity = "0.5"
+                styles.opacity = "0.5";
             } else {
                 classNames.push(css.blinkCursor);
             }

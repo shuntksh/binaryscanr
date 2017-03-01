@@ -1,6 +1,5 @@
 import * as cx from "classnames";
 import * as React from "react";
-import * as shallowCompare from "react-addons-shallow-compare";
 
 import { END_OF_INPUT } from "./HexEditor";
 import * as css from "./HexEditor.css";
@@ -27,13 +26,8 @@ export interface AsciiCellState {
     isHovering: boolean;
 }
 
-export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
+export class AsciiCell extends React.PureComponent<AsciiCellProps, AsciiCellState> {
     public state: AsciiCellState = { isHovering: false };
-
-    public shouldComponentUpdate(nextProps: AsciiCellProps, nextState: AsciiCellState) {
-        // return false;
-        return shallowCompare(this, nextProps, nextState);
-    }
 
     public render() {
         const {
@@ -69,12 +63,12 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
         if (isCursorOn) {
             classNames.push(css.cursor);
             if (isFocused === false) {
-                styles.opacity = "0.5"
+                styles.opacity = "0.5";
             }
         }
 
         const hex = parseInt(_char, 16);
-        let asciiChar = (hex >= 0x21 && hex <= 0xFF) ? String.fromCharCode(hex) : '.';
+        const asciiChar = (hex >= 0x21 && hex <= 0xFF) ? String.fromCharCode(hex) : ".";
 
         return (
             <span
@@ -83,11 +77,10 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
                 onClick={this.handleClick}
                 onMouseDown={this.handleMouseDown}
                 onMouseUp={this.handleMouseUp}
-                onMouseOver={this.handleMouseMove}
                 onMouseEnter={this.handleEnter}
                 onMouseLeave={this.handleLeave}
             >
-                {asciiChar}
+                {asciiChar || "."}
             </span>
         );
     }
@@ -104,14 +97,6 @@ export class AsciiCell extends React.Component<AsciiCellProps, AsciiCellState> {
         if (isSelecting) {
             onFinishSelection(_pos);
         }
-    }
-
-    private handleMouseMove = (): void => {
-        // const { char, selection: { isSelecting }, onUpdateSelection, pos } = this.props;
-        // if (isSelecting && char !== END_OF_INPUT) {
-        //     onUpdateSelection(pos);
-        // }
-        // this.handleEnter();
     }
 
     private handleMouseUp = (): void => {

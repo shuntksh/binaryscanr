@@ -1,4 +1,4 @@
-/* tslint:disable: object-literal-sort-keys */
+/* tslint:disable:object-literal-sort-keys */
 
 export interface Colors {
     [key: string]: string;

@@ -72,9 +72,9 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         editingCellTempValue: "",
         isCtrlPressing: false,
         isFocused: false,
+        localValue: [...strArr, END_OF_INPUT],
         scrollTo: -1,
         selection: { from: -1, to: -1, isSelecting: false },
-        localValue: [...strArr, END_OF_INPUT],
     };
 
     private hexEditorElement: HTMLDivElement;
@@ -82,7 +82,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     private refHandlers: any = {
         hexEditorElement: (ref: HTMLDivElement): void => { this.hexEditorElement = ref; },
     };
-
 
     //
     // Getters / Setters
@@ -134,7 +133,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         window.removeEventListener("blur", () => this.handleFocus());
     }
 
-
     //
     // Public Methods
     //
@@ -175,7 +173,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
 
         return (
             <div tabIndex={0} className={cx(["hexEditor", css.base])} ref={this.refHandlers.hexEditorElement}>
-                {lines.map((line, idx, lines) => (
+                {lines.map((line, idx, _lines) => (
                 <Line
                     key={idx}
                     addrStart={line}
@@ -185,7 +183,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                     highlights={this.getHighlights()}
                     isFocused={isFocused}
                     length={BYTES_PER_LINE}
-                    lineCount={lines.length}
+                    lineCount={_lines.length}
                     lineNum={line}
                     moveCursor={this.moveCursorWithoutScroll}
                     onBeginSelection={this.beginSelection}
@@ -208,7 +206,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
     //
 
     /**
-     * @param [onFocus=true] - Handler that set focus state. false means blur 
+     * @param [onFocus=true] - Handler that set focus state. false means blur
      */
     private handleFocus(onFocus: boolean = true): void {
         // Handle the situation where user clicks body or outside of browser tab / window
@@ -275,16 +273,16 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             return void 0;
         }
 
-        case KEY.BS: { 
+        case KEY.BS: {
             event.preventDefault();
             this.handleDelete(true);
             return void 0;
         }
-        
+
         case KEY.CODE.x:
         case KEY.DEL: {
             event.preventDefault();
-            this.handleDelete(); 
+            this.handleDelete();
             return void 0;
         }
 
@@ -301,7 +299,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 }
                 this.moveCursor(to, false);
                 return void 0;
-            } 
+            }
             this.moveCursor(to);
             return void 0;
         }
@@ -309,11 +307,11 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         case KEY.CODE.j:
         case KEY.LEFT: {
             event.preventDefault(); // Prevent Page Scroll
-            if (cursorAt === 0) { 
+            if (cursorAt === 0) {
                 this.resetSelection();
                 return void 0;
             }
-            let to = cursorAt -1;
+            let to = cursorAt - 1;
             if (isCtrlPressing) {
                 to = BYTES_PER_LINE * Math.floor(cursorAt / BYTES_PER_LINE);
             }
@@ -325,7 +323,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 }
                 this.moveCursor(to, false);
                 return void 0;
-            } 
+            }
             this.moveCursor(to);
             return void 0;
         }
@@ -342,7 +340,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 }
                 this.moveCursor(to, false);
                 return void 0;
-            } 
+            }
             this.moveCursor(to);
             return void 0;
         }
@@ -362,12 +360,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 }
                 this.moveCursor(to, false);
                 return void 0;
-            } 
+            }
             this.moveCursor(to);
             return void 0;
         }
 
-        default: { 
+        default: {
             if (KEY.HEX_KEYS.includes(code)) {
                 this.editCell(code);
             }
@@ -416,7 +414,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
                 }
                 this.handleChange(localValue);
                 if (moveCursor === true) {
-                    let moveCursorTo: number = cursorAt + 1;
+                    const moveCursorTo: number = cursorAt + 1;
                     this.moveCursor(moveCursorTo, resetSelection);
                 }
             });
@@ -517,7 +515,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const totalLines = Math.ceil(localValue.length / BYTES_PER_LINE);
         const currentLine = Math.ceil((from + BYTES_PER_LINE) / BYTES_PER_LINE);
         const isLastLine = totalLines === currentLine;
-        const to = isLastLine ? localValue.length - 2: from + BYTES_PER_LINE - 1;
+        const to = isLastLine ? localValue.length - 2 : from + BYTES_PER_LINE - 1;
         this.setState({ selection: { from, to, isSelecting: false } }, () => {
             this.moveCursor(to + 1, false);
         });
@@ -530,7 +528,7 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const _to = Math.min(to, maxLen);
         this.setState({ selection: { from: _from, to: _to, isSelecting: false } }, () => {
             this.moveCursor(_to, false);
-        });        
+        });
     }
 
     private resetSelection = (cb?: () => any): void => {

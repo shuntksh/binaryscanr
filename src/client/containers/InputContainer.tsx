@@ -43,7 +43,7 @@ export class InputContainer extends React.Component<InputContainerProps & Dispat
         } = this.props;
         return (
             <div className={css.inputSection}>
-                <a href="/" className={css.logo} />
+                <a href="/" draggable={false} className={css.logo} />
                 <div className={css.inputContainer}>
                     <span className={css.inputCaption}>
                         [binary scan  $str

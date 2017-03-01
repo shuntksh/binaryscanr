@@ -1,4 +1,3 @@
-// import * as cx from "classnames";
 import * as React from "react";
 
 import { Result } from "../../app";

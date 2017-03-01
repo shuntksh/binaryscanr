@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as shallowCompare from "react-addons-shallow-compare";
 
 import * as css from "./HexEditor.css";
 
@@ -48,22 +47,7 @@ const formatString = (str: string, width: number, padChar: string = "0"): string
     return pad + str;
 };
 
-const isEqual = (from: any[], to: any[]): boolean => {
-    if (!Array.isArray(from) || !Array.isArray(to)) {
-        return false;
-    }
-    if (from.length !== to.length) {
-        return false;
-    }
-    for (const i of from) {
-        if (to.indexOf(i) > -1) {
-            return false;
-        }
-    }
-    return true;
-}
-
-export class Line extends React.Component<LineProps, LineState> {
+export class Line extends React.PureComponent<LineProps, LineState> {
     public state: LineState = { isHovering: false, line: [] };
     public ref: HTMLDivElement;
     public setRef = (ref: HTMLDivElement) => { this.ref = ref; };
@@ -79,13 +63,6 @@ export class Line extends React.Component<LineProps, LineState> {
     public componentWillReceiveProps(nextProps: LineProps) {
         this.setState({ line: nextProps.value });
         this.handleScroll(nextProps);
-    }
-
-    public shouldComponentUpdate(nextProps: LineProps, nextState: LineState) {
-        if (isEqual( this.props.value, nextProps.value)) {
-            return false;
-        }
-        return shallowCompare(this, nextProps, nextState);
     }
 
     public getHighlightColor(pos: number): string | undefined {
@@ -155,7 +132,7 @@ export class Line extends React.Component<LineProps, LineState> {
                 </div>
 
                 <div className={css.asciiLineContainer}>
-                {line.map((char, idx) => (
+                    {line.map((char, idx) => (
                     <AsciiCell
                         key={idx}
                         char={char}
@@ -174,7 +151,7 @@ export class Line extends React.Component<LineProps, LineState> {
                         onUpdateSelection={onUpdateSelection}
                         pos={addrStart + idx}
                     />
-                ))}
+                    ))}
                 </div>
             </div>
         );

@@ -1,5 +1,5 @@
 :root {
-  --font-family: monospace;
+  --font-family: 'Source Code Pro', monospace;
   --font-size: 1em;
   --spacing: 0.02em;
   --width: 480px;
@@ -15,14 +15,26 @@
   opacity: 0.5;
 }
 
+:local(.ascii-line-container) {
+  color: #cecece;
+  font-family: var(--font-family);
+  margin-left: 5px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-content: flex-start;
+  justify-content: flex-start;
+  position: relative;
+}
+
 :local(.ascii-cell) {
   color: #757575;
   cursor: default;
-  font-family: monospace;
-  font-size: 0.8em;
-  line-height: 1.2em;
-  padding: 1px 0.8px;
+  font-family: var(--font-family);
+  font-size: 0.6em;
+  line-height: 18px;
   user-select: none;
+  min-width: 6px;
 }
 
 :local(.ascii-cell:nth-child(9)) {
@@ -31,8 +43,9 @@
 
 :local(.cell) {
   cursor: text;
-  font-family: monospace;
-  font-size: 1.2em;
+  font-family: var(--font-family);
+  font-size: 0.9em;
+  line-height: 18px;
   padding: 1px 3px;
   user-select: none;
 }
@@ -65,22 +78,16 @@
 :local(.line) span {
   color: #cecece;
   cursor: default;
-  font-family: monospace;
-  line-height: 1.2em;
+  font-family: var(--font-family);
+  font-size: 0.9em;
+  line-height: 18px;
   min-height: 20px;
   user-select: none;
 }
 
 :local(.hex-line-container) {
   margin-left: 5px;
-  min-width: 410px;
-  position: relative;
-}
-
-:local(.ascii-line-container) {
-  color: #cecece;
-  font-family: monospace;
-  margin-left: 5px;
+  min-width: 390px;
   position: relative;
 }
 

@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
 :root {
-  --font-family: monospace;
+  --font-family: 'Source Code Pro', monospace;
   --font-size: 16px;
   --spacing: 0.02em;
 }
@@ -130,7 +132,7 @@ body {
   padding: 15px;
   position: absolute;
   right: -10px;
-  top: -20px;
+  top: 10px;
 }
 
 @keyframes QLDuNQsGz0__slideDown {

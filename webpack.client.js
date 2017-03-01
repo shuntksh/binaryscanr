@@ -52,13 +52,11 @@ const config = {
             { 
                 test: /\.tsx?$/, 
                 enforce: 'pre',
-                use: [{
-                    loader: 'tslint-loader',
-                    options: {
-                        emitErrors: true,
-                        failOnHint: true,
-                    }
-                }],
+                loader: 'tslint-loader',
+                options: {
+                    emitErrors: true,
+                    failOnHint: true,
+                },
             
             },
             {

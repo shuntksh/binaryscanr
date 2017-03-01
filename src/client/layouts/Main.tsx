@@ -5,7 +5,7 @@ import { ActionCreator, Dispatch } from "redux";
 
 import * as css from "../app.css";
 
-import { AppState } from "../app";
+import { AppState, Result } from "../app";
 import HexEditorContainer from "../containers/HexEditorContainer";
 import InputContainer from "../containers/InputContainer";
 import location from "../containers/LocationHoC";
@@ -15,6 +15,7 @@ import { actions, selectors } from "../store/module";
 
 export interface MainLayoutProps {
     readonly tab: string;
+    readonly results: Result[];
 };
 
 export interface DispatchedProps {
@@ -22,6 +23,7 @@ export interface DispatchedProps {
 }
 
 const mapStateToProps = (state: AppState): MainLayoutProps => ({
+    results: selectors.getResults()(state),
     tab: selectors.getCurrentTab()(state),
 });
 
@@ -31,15 +33,17 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
 
 export class MainLayout extends React.Component<MainLayoutProps & DispatchedProps, {}> {
     public displayName: string;
-    public render() {
-        const { tab } = this.props;
-        const help = [css.tabs];
-        const results = [css.tabs];
-        if (tab === "help") {
-            help.push(css.active);
-        } else {
-            results.push(css.active);
+
+    public componentWillReceiveProps(nextProps: MainLayoutProps & DispatchedProps) {
+        if (!this.props.results.length && nextProps.results.length) {
+            this.switchToResult();
         }
+        if (this.props.results.length && !nextProps.results.length) {
+            this.switchToHelp();
+        }
+    }
+
+    public render() {
         return (
         <div>
             <div className={cx(css.row, css.header)}>
@@ -54,18 +58,42 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
                         <HexEditorContainer />
                     </div>
                     <div className={css.resultSectionContainer}>
-                        <div className={css.sectionHeader}>
-                            <a href="#" className={cx(results)} onClick={this.switchToResult}>
-                                Results
-                            </a>
-                            <a href="#" className={cx(help)} onClick={this.switchToHelp}>
-                                Help
-                            </a>
-                        </div>
+                        {this.renderTabs()}
                         <ResultTableContainerProps />
                     </div>
                 </div>
             </div>
+        </div>
+        );
+    }
+
+    private renderTabs() {
+        const { tab } = this.props;
+        const help = [css.tabs];
+        const results = [css.tabs];
+        if (tab === "help") {
+            help.push(css.active);
+        } else {
+            results.push(css.active);
+        }
+        return (
+        <div className={css.sectionHeader}>
+            <a
+                href="#"
+                className={cx(results)}
+                draggable={false}
+                onClick={this.switchToResult}
+            >
+                Results
+            </a>
+            <a
+                href="#"
+                className={cx(help)}
+                draggable={false}
+                onClick={this.switchToHelp}
+            >
+                Help
+            </a>
         </div>
         );
     }

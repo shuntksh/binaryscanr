@@ -7,7 +7,7 @@ export interface ResultTableProps {
     results: Result[];
 }
 
-export class ResultTable extends React.Component<ResultTableProps, {}> {
+export class ResultTable extends React.PureComponent<ResultTableProps, {}> {
     public render() {
         const { results } = this.props;
         return (

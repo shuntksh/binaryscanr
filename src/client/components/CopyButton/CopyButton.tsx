@@ -25,7 +25,7 @@ export interface CopyButtonState {
     tooltip?: string;
 }
 
-export class CopyButton extends React.Component<CopyButtonProps, CopyButtonState> {
+export class CopyButton extends React.PureComponent<CopyButtonProps, CopyButtonState> {
     public state: CopyButtonState = {
         showOutline: true,
         tooltip: msg.TOOLTIP_DEFAULT,
