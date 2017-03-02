@@ -9,7 +9,7 @@
 :local(.box) {
   margin: 2px 0;
   padding: 3px 5px;
-  background: #fcf8e3;
+  background: #fbfbf2;
   color: #8a6d3b;
   border: 1px solid #faebcc;
   border-radius: 4px;
@@ -32,6 +32,8 @@
   background: #faebcc;
   max-height: 23px;
   min-height: 23px;
+  user-select: none;
+  cursor: default;
 }
 
 :local(.description) {

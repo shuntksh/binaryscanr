@@ -87,7 +87,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <span className={css.footNote}>
             (*) Floating-point value may vary depends on platform.&nbsp;
-            More information can be found in&nbsp;
+            For a complete Tcl binary scan syntax guide, see the&nbsp;
             <a href="https://www.tcl.tk/man/tcl8.0/TclCmd/binary.htm">reference manual</a>.
         </span>
     </div>

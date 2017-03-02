@@ -55,6 +55,8 @@
   top: -5px;
   transition-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
   width: 25px;
+  user-select: none;
+  cursor: default;
 }
 
 :local(.var-name) {
@@ -64,6 +66,8 @@
   font-style: italic;
   font-weight: 500;
   margin: 5px 0 5px 30px;
+  user-select: none;
+  cursor: default;
 }
 
 :local(.value) {
