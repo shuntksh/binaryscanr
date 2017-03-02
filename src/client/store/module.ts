@@ -130,6 +130,10 @@ export const selectors = {
             }
             if (formatter.startsWith("x") || formatter.startsWith("X")) {
                 cursor += formatter.length;
+                bits += len;
+            } else if (formatter.startsWith("@")) {
+                cursor += formatter.length;
+                bits = parseInt((formatter.match(/(\d+)/) || [])[1] || "0", 10) * 8;
             } else {
                 const id = idx;
                 const at = cursor;
@@ -137,8 +141,9 @@ export const selectors = {
                 const color = getColorByIndex(idx);
                 highlights.push({ id, at, size, color, bitsAt: bits, bits: len });
                 cursor += (size - at);
+                bits += len;
             }
-            bits += len;
+            console.log(bits);
         });
         return highlights;
     },

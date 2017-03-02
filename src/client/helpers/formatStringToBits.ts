@@ -13,7 +13,7 @@ export const FIELD_SPECIFIER_DICT: { readonly[index: string]: number } = {
     "H": 4,
     "I": 32,
     "W": 64,
-    "X": 8,
+    "X": -8,
     "a": 8,
     "b": 1,
     "c": 8,

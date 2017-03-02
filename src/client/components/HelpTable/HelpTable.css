@@ -6,15 +6,24 @@
 }
 
 :local(.box) {
-  margin: 3px 0;;
-  padding: 5px;
-  background: red;
+  margin: 2px 0;
+  padding: 3px 5px;
+  background: #fcf8e3;
+  color: #8a6d3b;
+  border: 1px solid #faebcc;
+  border-radius: 4px;
 }
 
 :local(.format-string) {
   display: block;
+  margin-bottom: 2px;
+  font-family: 'Source Code Pro', monospace;
+  font-weight: 900;
+  text-decoration: underline;
 }
 
 :local(.description) {
   display: block;
+  font-family: sans-serif;
+  font-size: small;
 }
