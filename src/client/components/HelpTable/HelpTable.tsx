@@ -7,7 +7,7 @@ export const HelpTable: React.SFC<{}> = () => {
     <div className={css.container}>
         <div className={css.box}>
             <span className={css.formatString}>
-                a/A
+                aA
             </span>
             <span className={css.description}>
                 an ASCII formatted character string. <strong>A</strong> uses space for padding instead of null.
@@ -15,7 +15,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <div className={css.box}>
             <span className={css.formatString}>
-                b/B
+                bB
             </span>
             <span className={css.description}>
                binary digits in litte-endian with <strong>b</strong> and big-endian with <strong>B</strong>.
@@ -23,7 +23,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <div className={css.box}>
             <span className={css.formatString}>
-                h/H
+                hH
             </span>
             <span className={css.description}>
                 hexadecimal digits in litte-endian with <strong>h</strong> and big-endian with <strong>H</strong>.
@@ -39,7 +39,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <div className={css.box}>
             <span className={css.formatString}>
-                s/S
+                sS
             </span>
             <span className={css.description}>
                 16-bit integer values in litte-endian with <strong>s</strong> and big-endian with <strong>S</strong>.
@@ -47,7 +47,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <div className={css.box}>
             <span className={css.formatString}>
-                i/I
+                iI
             </span>
             <span className={css.description}>
                 32-bit integer values in litte-endian with <strong>i</strong> and big-endian with <strong>I</strong>.
@@ -71,7 +71,7 @@ export const HelpTable: React.SFC<{}> = () => {
         </div>
         <div className={css.box}>
             <span className={css.formatString}>
-                x/X
+                xX
             </span>
             <span className={css.description}>
                 Moves cursor count bytes forward with <strong>x</strong> and backward with <strong>X</strong>
@@ -85,6 +85,11 @@ export const HelpTable: React.SFC<{}> = () => {
                 Moves cursor to the absolute location.
             </span>
         </div>
+        <span className={css.footNote}>
+            (*) Floating-point value may vary depends on platform.&nbsp;
+            More information can be found in&nbsp;
+            <a href="https://www.tcl.tk/man/tcl8.0/TclCmd/binary.htm">reference manual</a>.
+        </span>
     </div>
     );
 };
