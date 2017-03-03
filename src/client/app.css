@@ -94,10 +94,17 @@ body {
   min-height: 20px;
   padding-left: 5px;
   width: 98%;
+  position:relative;
 }
 
 :local(.section-header) span:nth-child(2) {
   margin-left: 10px;
+}
+
+:local(.left-menu) {
+  display: inline-block;
+  position: absolute;
+  right: 10px;
 }
 
 :local(.hex-section) {
@@ -205,5 +212,8 @@ body {
 :local(.active) {
   color: rgb(66, 133, 244) !important;
   text-decoration: none;
+  padding-bottom: 2px;
   border-bottom: rgb(66, 133, 244) 2px solid;
+  cursor: default;
+  pointer-events: none;
 }

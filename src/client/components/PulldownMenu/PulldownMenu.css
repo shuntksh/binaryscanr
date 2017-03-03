@@ -1,0 +1,26 @@
+
+:local(.container) {
+    box-sizing: border-box;
+    display: inline-block;
+    cursor: pointer;
+    border: transparent 1px solid;
+    padding: 0 3px;
+    transition: 0.1s ease-in-out;
+    user-select: none;
+}
+
+:local(.container:hover) {
+    background: #fff;
+    color: rgb(66, 133, 244);
+}
+
+:local(.label) {
+    font-size: 0.9em;
+}
+
+:local(.label)::after {
+    content: '▼';
+    margin-left: 2px;
+    font-size: 0.8em;
+    line-height: 0.9em;
+}
