@@ -10,7 +10,7 @@ export const HelpTable: React.SFC<{}> = () => {
                 aA
             </span>
             <span className={css.description}>
-                an ASCII formatted character string. <strong>A</strong> uses space for padding instead of null.
+                An ASCII formatted character string. <strong>A</strong> uses space for padding instead of null.
             </span>
         </div>
         <div className={css.box}>
@@ -18,7 +18,7 @@ export const HelpTable: React.SFC<{}> = () => {
                 bB
             </span>
             <span className={css.description}>
-               binary digits in litte-endian with <strong>b</strong> and big-endian with <strong>B</strong>.
+               Binary digits in litte-endian with <strong>b</strong> and big-endian with <strong>B</strong>.
             </span>
         </div>
         <div className={css.box}>
@@ -26,7 +26,7 @@ export const HelpTable: React.SFC<{}> = () => {
                 hH
             </span>
             <span className={css.description}>
-                hexadecimal digits in litte-endian with <strong>h</strong> and big-endian with <strong>H</strong>.
+                Hexadecimal digits in litte-endian with <strong>h</strong> and big-endian with <strong>H</strong>.
             </span>
         </div>
         <div className={css.box}>
@@ -58,7 +58,7 @@ export const HelpTable: React.SFC<{}> = () => {
                 f
             </span>
             <span className={css.description}>
-                Returns a string of one or more single-precision floating point values. (*)
+                Single-precision floating point values. (*)
             </span>
         </div>
         <div className={css.box}>
@@ -66,7 +66,7 @@ export const HelpTable: React.SFC<{}> = () => {
                 d
             </span>
             <span className={css.description}>
-                Returns a string of one or more double-precision floating point values. (*)
+                Double-precision floating point values. (*)
             </span>
         </div>
         <div className={css.box}>
