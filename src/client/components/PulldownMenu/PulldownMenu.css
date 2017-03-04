@@ -24,3 +24,10 @@
     font-size: 0.8em;
     line-height: 0.9em;
 }
+
+:local(.menu-outer) {
+    position: fixed;
+    z-index: 100;
+    display: inline-block;
+    background: red;
+}
