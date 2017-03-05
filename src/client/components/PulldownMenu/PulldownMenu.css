@@ -14,7 +14,7 @@
 }
 
 :local(.label) {
-    font-size: 0.9em;
+    font-size: 1em;
 }
 
 :local(.label)::after {
@@ -50,5 +50,10 @@
 
 :local(.clickable) {
     cursor: pointer;
+}
+
+:local(.seperator) {
+    border-bottom: 1px solid rgba(1, 1, 1, 0.15);
+    margin: 5px 0;
 }
 

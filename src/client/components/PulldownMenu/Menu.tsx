@@ -11,7 +11,8 @@ export interface MenuProps {
 }
 
 export interface MenuState {
-    width?: number;
+    left?: number;
+    top?: number;
 }
 
 export interface Menu {
@@ -19,26 +20,27 @@ export interface Menu {
 }
 
 export class Menu extends React.PureComponent<MenuProps, MenuState> {
-    public state = { width: 0 };
+    public state = { top: 0, left: 0 };
 
     private refHandlers: any = {
         container:  (ref: HTMLDivElement): void => { this.menuContainer = ref; },
     };
 
     public componentDidMount() {
-        if (this.menuContainer) {
-            const width = this.menuContainer.getBoundingClientRect().width;
-            this.setState({ width });
-        }
+        this.handleResize();
+        window.addEventListener("resize", this.handleResize);
+    }
+
+    public componentWillUnmount() {
+        window.removeEventListener("resize", this.handleResize);
     }
 
     public render() {
         const { parent, menus = [] } = this.props;
         const styles: any = {};
         if (parent) {
-            const rect = parent.getBoundingClientRect();
-            styles.top = rect.bottom + 2;
-            styles.left = rect.right - (this.state.width || 0);
+            styles.top = this.state.top || 0;
+            styles.left = this.state.left || 0;
         }
         return (
         <div ref={this.refHandlers.container} className={css.menuOuter} style={styles}>
@@ -46,11 +48,28 @@ export class Menu extends React.PureComponent<MenuProps, MenuState> {
             <MenuItem
                 key={idx}
                 value={menu.value}
-                onClick={menu.onClick}
+                onClick={this.handleCkick}
+                _onClick={menu.onClick}
                 label={menu.label}
             />)}
         </div>
         );
+    }
+
+    private handleResize = () => {
+        if (this.menuContainer && this.props.parent) {
+            const { bottom, right } = this.props.parent.getBoundingClientRect();
+            const { width } = this.menuContainer.getBoundingClientRect();
+            const top = bottom + 2;
+            const left = right - width;
+            this.setState({ top, left });
+        }
+    }
+
+    private handleCkick = (value: string) => {
+        if (typeof this.props.onChange === "function") {
+            this.props.onChange(value);
+        }
     }
 }
 

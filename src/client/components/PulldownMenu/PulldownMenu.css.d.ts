@@ -3,3 +3,4 @@ export const label: string;
 export const menuOuter: string;
 export const menuItem: string;
 export const clickable: string;
+export const seperator: string;
