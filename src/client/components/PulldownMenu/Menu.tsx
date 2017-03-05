@@ -2,8 +2,11 @@ import * as React from "react";
 
 import * as css from "./PulldownMenu.css";
 
+import { MenuItem, MenuItemProps } from "./";
+
 export interface MenuProps {
     parent?: HTMLElement;
+    menus: MenuItemProps[];
 }
 
 export interface MenuState {
@@ -29,14 +32,24 @@ export class Menu extends React.PureComponent<MenuProps, MenuState> {
     }
 
     public render() {
-        const { parent } = this.props;
+        const { parent, menus = [] } = this.props;
         const styles: any = {};
         if (parent) {
             const rect = parent.getBoundingClientRect();
-            styles.top = rect.bottom + 5;
+            styles.top = rect.bottom + 2;
             styles.left = rect.right - (this.state.width || 0);
         }
-        return <div ref={this.refHandlers.container} className={css.menuOuter} style={styles}>test</div>;
+        return (
+        <div ref={this.refHandlers.container} className={css.menuOuter} style={styles}>
+        {menus.map((menu, idx) =>
+            <MenuItem
+                key={idx}
+                value={menu.value}
+                onClick={menu.onClick}
+                label={menu.label}
+            />)}
+        </div>
+        );
     }
 }
 

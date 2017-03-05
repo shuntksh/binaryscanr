@@ -1,8 +1,16 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
+import { MenuItemProps } from "./";
 import Menu from "./Menu";
 import * as css from "./PulldownMenu.css";
+
+export interface PulldownMenuProps {
+    menus: MenuItemProps[];
+    value: string;
+    placeholder: string;
+    onChange(value: string): any;
+}
 
 export interface PulldownMenuState {
     show?: boolean;
@@ -13,7 +21,7 @@ export interface PulldownMenu {
     menuNode?: HTMLDivElement;
 }
 
-export class PulldownMenu extends React.PureComponent<{}, PulldownMenuState> {
+export class PulldownMenu extends React.PureComponent<PulldownMenuProps, PulldownMenuState> {
     public state = { show: false };
 
     private refHandlers: any = {
@@ -42,7 +50,7 @@ export class PulldownMenu extends React.PureComponent<{}, PulldownMenuState> {
     }
 
     public render() {
-        const label = "Examples";
+        const { placeholder, value } = this.props;
         return (
             <div
                 tabIndex={1}
@@ -50,9 +58,15 @@ export class PulldownMenu extends React.PureComponent<{}, PulldownMenuState> {
                 ref={this.refHandlers.container}
                 onClick={this.toggleMenu}
             >
-                <span className={css.label}>{label}</span>
+                <span className={css.label}>{value || placeholder}</span>
             </div>
         );
+    }
+
+    private handleChange = (value: string): void => {
+        if (typeof this.props.onChange === "function") {
+            this.props.onChange(value);
+        }
     }
 
     private handleClickOutside = (ev: any): void => {
@@ -69,11 +83,7 @@ export class PulldownMenu extends React.PureComponent<{}, PulldownMenuState> {
     private renderMenu = (): void => {
         if (!this.state.show && this.menuNode) {
             document.body.appendChild(this.menuNode);
-            ReactDOM.render((
-            <Menu
-                parent={this.container}
-            />
-            ), this.menuNode);
+            ReactDOM.render(<Menu parent={this.container} menus={this.props.menus}/>, this.menuNode);
         }
     }
 
