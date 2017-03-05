@@ -5,6 +5,7 @@ export const inputSection: string;
 export const inputContainer: string;
 export const inputCaption: string;
 export const sectionHeader: string;
+export const leftMenu: string;
 export const hexSection: string;
 export const hexEditorContainer: string;
 export const resultSectionContainer: string;

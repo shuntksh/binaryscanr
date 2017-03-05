@@ -6,9 +6,9 @@ import { ActionCreator, Dispatch } from "redux";
 import * as css from "../app.css";
 
 import { AppState, Result } from "../app";
+import ExampleSelectorContainer from "../containers/ExampleSelectorContainer";
 import HexEditorContainer from "../containers/HexEditorContainer";
 import InputContainer from "../containers/InputContainer";
-import location from "../containers/LocationHoC";
 import ResultTableContainerProps from "../containers/ResultTableContainer";
 
 import { actions, selectors } from "../store/module";
@@ -52,7 +52,7 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
             <div className={css.row}>
                 <div className={css.hexSection}>
                     <div className={css.hexEditorContainer}>
-                    <div className={css.sectionHeader}>
+                        <div className={css.sectionHeader}>
                             <span>Hexadecimal Input (Max: 1500 bytes)</span>
                         </div>
                         <HexEditorContainer />
@@ -94,6 +94,9 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
             >
                 Help
             </a>
+            <div className={css.leftMenu}>
+                <ExampleSelectorContainer />
+            </div>
         </div>
         );
     }
@@ -102,4 +105,4 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
     private switchToResult = () => this.props.switchTab("results");
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(location(MainLayout));
+export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);

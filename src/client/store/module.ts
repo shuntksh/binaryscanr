@@ -26,6 +26,7 @@ export const types: {
     input_clear: "@@app/INPUT/CLEAR",
     input_error: "@@app/INPUT/ERROR",
     input_update: "@@app/INPUT/UPDATE",
+    set_example: "@@app/EXAMPLE/SET",
     start_loading: "@@app/LOADING/START",
     stop_loading: "@@app/LOADING/STOP",
     switch_tab: "@@/API/SWITCH_TAB",
@@ -36,6 +37,7 @@ export interface ActionCreators {
     readonly [index: string]: redux.ActionCreator<any>;
     apiError: (errMsg: string) => Action;
     clearInput: () => Action;
+    setExample: (name: string) => Action;
     startLoading: () => Action;
     stopLoading: () => Action;
     switchTab: (tab: string) => Action;
@@ -48,6 +50,8 @@ export const actions: ActionCreators = {
     apiError: (errMsg: string) => ({ type: types.api_error, payload: errMsg }),
 
     clearInput: () => ({ type: types.input_clear }),
+
+    setExample: (name: string) => ({ type: types.set_example, payload: name }),
 
     startLoading: () => ({ type: types.start_loading }),
 
@@ -89,6 +93,10 @@ export const actions: ActionCreators = {
 };
 
 export const selectors = {
+    getCurrentExample: () => (state: AppState): string | undefined => {
+        return state.get("example") || "";
+    },
+
     getCurrentTab: () => (state: AppState): string => {
         return state.get("tab") || "help";
     },
@@ -179,6 +187,13 @@ export function reducer(state: AppState, action: Action ): AppState {
     //
     case types.switch_tab: {
         return state.set("tab", payload);
+    }
+
+    //
+    // Example
+    //
+    case types.set_example: {
+        return state.set("example", payload);
     }
 
     //

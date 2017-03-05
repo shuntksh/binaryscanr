@@ -40,8 +40,8 @@ if (pathExistSync("dist")) {
 const STATIC_PATH = process.cwd() + "/static/";
 
 // Adjust HTTP header setting for security
-//  - Enabled: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
-//  - Disabled: contentSecurityPolicy, HTTP Public Key Pinning, noCache
+//  - Enables: dnsPrefetchControl, framegurd, hidePoweredBy, hsts, isNoOpen, xssFilter
+//  - Disables: contentSecurityPolicy, HTTP Public Key Pinning, noCache
 app.use(helmet());
 app.use(cookieParser());
 app.use(compression());
@@ -86,24 +86,28 @@ app.post(
                         res.status(200).send(filterString(apiRes.data));
                     })
                     .catch((err): void => {
-                        let error: string | undefined;
-                        const data = ((err || {}).response || {}).data;
-                        try {
-                            if (typeof data === "string") {
-                                error = (JSON.parse(data) || {}).error;
+                        let error: string = err.message;
+                        if (err.code === "ECONNREFUSED") {
+                            error = "Connection to the backend has timed out.";
+                        } else {
+                            const data = ((err || {}).response || {}).data;
+                            try {
+                                if (data && typeof data === "string") {
+                                    error = (JSON.parse(data) || {}).error;
+                                }
+                                if (data && Object.prototype.hasOwnProperty.call(data, "error")) {
+                                    error = (data.error || {}).message || data.code;
+                                }
+                            } catch (e) {
+                                error = e.message;
                             }
-                            if (Object.prototype.hasOwnProperty.call(data, "error")) {
-                                error = data.error;
-                            }
-                        } catch (e) {
-                            error = e.message;
                         }
                         res.status(500).json({
                             error: `Request Failed: ${error || err.message}`,
                         });
                     });
             } catch (err) {
-                res.status(500).json({ error: err.message })
+                res.status(500).json({ error: err.message || "Uknown Error" });
             }
         }
     },
