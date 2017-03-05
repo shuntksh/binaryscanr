@@ -7,6 +7,7 @@ import { MenuItem, MenuItemProps } from "./";
 export interface MenuProps {
     parent?: HTMLElement;
     menus: MenuItemProps[];
+    onChange?(value: string): any;
 }
 
 export interface MenuState {

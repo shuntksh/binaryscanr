@@ -83,7 +83,10 @@ export class PulldownMenu extends React.PureComponent<PulldownMenuProps, Pulldow
     private renderMenu = (): void => {
         if (!this.state.show && this.menuNode) {
             document.body.appendChild(this.menuNode);
-            ReactDOM.render(<Menu parent={this.container} menus={this.props.menus}/>, this.menuNode);
+            ReactDOM.render(
+                <Menu parent={this.container} menus={this.props.menus} onChange={this.handleChange}/>,
+                this.menuNode,
+            );
         }
     }
 
