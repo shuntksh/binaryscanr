@@ -11,11 +11,11 @@ export const clearTimeouts = (arry: number[], id?: number): void => {
         const _id = arry[idx];
         if (typeof id === "number" && id >= 0) {
             if (id === _id) {
-                (window || global).clearTimeout(id);
+                (window || global).clearTimeout(_id);
                 arry.splice(idx, 1);
             }
         } else {
-            (window || global).clearTimeout(id);
+            (window || global).clearTimeout(_id);
             arry.splice(idx, 1);
         }  
     }
