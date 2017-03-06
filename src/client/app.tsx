@@ -34,7 +34,7 @@ export interface Result extends Map<string, string | undefined> {
 let hexData: string = "";
 for (let i = 0; i < 440; i += 1) { hexData += "00"; }
 
-const initialState: AppState = fromJS(
+export const initialState: AppState = fromJS(
     (window as AppWindow).__PRELOADED_STATE__ ||
     {
         hexData,

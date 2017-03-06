@@ -15,15 +15,18 @@ const _setTimeout = (callback: () => any, ms: number): number => {
     return id;
 };
 
+const _cancelReplay = (): void => {
+    if (_timerRef.length) {
+        _timerRef.forEach((id) => (window || global).clearTimeout(id));
+    }
+};
+
 const _exampleReplayer = (
     value: string,
     filter: string,
     store: Store<AppState>,
 ): void => {
-    if (_timerRef.length) {
-        _timerRef.forEach((id) => (window || global).clearTimeout(id));
-    }
-
+    _cancelReplay();
     store.dispatch(actions.updateHexData(value));
     let delay = 500;
     const interval = 100;
@@ -46,6 +49,10 @@ const exampleHandler = (store: Store<AppState>): void => {
         const state = store.getState(); // The state is immutable Map.
         const example = state.get("example");
         if (!example || example === prevState) {
+            if (prevState && !example) {
+                prevState = "";
+                _cancelReplay();
+            }
             return void 0;
         }
         if (example && example !== prevState) {

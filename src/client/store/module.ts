@@ -1,7 +1,7 @@
 import { fromJS } from "immutable";
 import * as redux from "redux";
 
-import { AppState, Result } from "../app";
+import { AppState, initialState, Result } from "../app";
 import { HighlightProps, Intent } from "../components/TaggableInput";
 import { getColorByIndex } from "../constants";
 import formatStringToArray from "../helpers/formatStringToArray";
@@ -26,6 +26,7 @@ export const types: {
     input_clear: "@@app/INPUT/CLEAR",
     input_error: "@@app/INPUT/ERROR",
     input_update: "@@app/INPUT/UPDATE",
+    reset: "@@app/RESET",
     set_example: "@@app/EXAMPLE/SET",
     start_loading: "@@app/LOADING/START",
     stop_loading: "@@app/LOADING/STOP",
@@ -37,6 +38,7 @@ export interface ActionCreators {
     readonly [index: string]: redux.ActionCreator<any>;
     apiError: (errMsg: string) => Action;
     clearInput: () => Action;
+    resetApp: () => Action;
     setExample: (name: string) => Action;
     startLoading: () => Action;
     stopLoading: () => Action;
@@ -50,6 +52,8 @@ export const actions: ActionCreators = {
     apiError: (errMsg: string) => ({ type: types.api_error, payload: errMsg }),
 
     clearInput: () => ({ type: types.input_clear }),
+
+    resetApp: () => ({ type: types.reset }),
 
     setExample: (name: string) => ({ type: types.set_example, payload: name }),
 
@@ -203,6 +207,10 @@ export function reducer(state: AppState, action: Action ): AppState {
         return state.set("tab", payload);
     }
 
+    case types.reset: {
+        return fromJS(initialState);
+    }
+
     //
     // Example
     //
@@ -245,7 +253,7 @@ export function reducer(state: AppState, action: Action ): AppState {
                 result.set("varName", `var${idx}`)
         )) : fromJS([]);
 
-        return state.withMutations((mState) => mState
+        return state.withMutations((s) => s
             .set("error", error)
             .set("input", input)
             .set("valid", valid)

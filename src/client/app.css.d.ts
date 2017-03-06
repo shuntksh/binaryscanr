@@ -18,3 +18,4 @@ export const toLeft: string;
 export const toRight: string;
 export const tabs: string;
 export const active: string;
+export const button: string;

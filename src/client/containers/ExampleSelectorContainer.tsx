@@ -27,7 +27,7 @@ export class ExapmleSelectorContainer extends React.Component<HexEditorProps & D
         const { example, setExample } = this.props;
         const menus: MenuItemProps[] = [
             { label: "Random", value: "random" },
-            { label: "---", value: "-" },
+            { label: "---", value: "--" },
             { label: "Radius", value: "radius" },
             { label: "HTTP", value: "http" },
             { label: "DHCPv4", value: "dhcp4" },

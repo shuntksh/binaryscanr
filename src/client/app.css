@@ -19,11 +19,12 @@ body {
 }
 
 :local(.logo) {
-  background: url(./assets/logo.png) 0 0/76px 76px no-repeat;
+  background: url(./assets/logo.png) 0 0/70px 70px no-repeat;
   color: #545454;
-  min-width: 76px;
+  min-width: 70px;
   min-height: 100%;
-  left: 10px;
+  margin-top: 3px;
+  left: 5px;
   display: block;
   position: absolute;
   letter-spacing: -0.025em;
@@ -217,3 +218,37 @@ body {
   cursor: default;
   pointer-events: none;
 }
+
+:local(.button) {
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0.28571429rem;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  cursor: pointer;
+  display: inline-block;
+  color: #e25c4b;
+  font-size: 14pt;
+  font-weight: 400;
+  height: 36px;
+  line-height: 1.42857143;
+  padding: 0;
+  text-align: center;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  user-select: none;
+  vertical-align: middle;
+  width: 36px;
+  margin-left: 5px;
+}
+
+:local(.button:hover) {
+  background-color: #e0e1e2;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: #e25c4b
+}
+
+:local(.button:active) {
+  background-color: #babbbc;
+  box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
+  color: #fff
+}
+

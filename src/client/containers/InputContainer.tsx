@@ -18,6 +18,7 @@ export interface InputContainerProps {
 
 export interface DispatchedProps {
     readonly clearInput: () => void;
+    readonly resetApp: () => void;
     readonly updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => void;
 }
 
@@ -31,6 +32,7 @@ const mapStateToProps = (state: AppState): InputContainerProps => ({
 
 const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedProps => ({
     clearInput: () => dispatch(actions.clearInput()),
+    resetApp: () => dispatch(actions.resetApp()),
     updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => dispatch(actions.updateInput(ev)),
 });
 
@@ -39,7 +41,7 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
 export class InputContainer extends React.Component<InputContainerProps & DispatchedProps, {}> {
     public render() {
         const {
-            clearInput, input, updateInput, valid, highlights, strToCopy, varNameStub,
+            clearInput, input, updateInput, valid, highlights, resetApp, strToCopy, varNameStub,
         } = this.props;
         return (
             <div className={css.inputSection}>
@@ -61,6 +63,7 @@ export class InputContainer extends React.Component<InputContainerProps & Dispat
                     </span>
                 </div>
                 <CopyButton value={strToCopy} style={{ marginLeft: "15px" }}/>
+                <button className={css.button} onClick={resetApp}>✕</button>
             </div>
         );
     }
