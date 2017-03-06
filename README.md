@@ -1,12 +1,9 @@
 # binaryscanr
 
+[![Demo](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/doc/demo.gif)](https://binaryscanr.com/)
 
-A Tcl Binary Scan Tester
+A Tcl Binary Scan Tester App written in React.js / TypeScript.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/shuntksh/binaryscanr.svg)](https://greenkeeper.io/)
 [![build status](https://travis-ci.org/shuntksh/binaryscanr.svg?branch=master)](https://travis-ci.org/shuntksh/binaryscanr)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/672d5dca2c154c5cba660fcad52dedef)](https://www.codacy.com/app/shuntksh/binaryscanr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shuntksh/binaryscanr&amp;utm_campaign=Badge_Grade)
-
-Demo:
-
-[![Demo](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/doc/demo.gif)](https://binaryscanr.com/)
