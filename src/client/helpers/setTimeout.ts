@@ -9,7 +9,7 @@ export const clearTimeouts = (arry: number[], id?: number): void => {
     let idx = arry.length;
     while (--idx) {
         const id = arry[idx];
-        if (typoef id === "number" && id >= 0) {
+        if (typeof id === "number" && id >= 0) {
             if (id === _id) {
                 (window || global).clearTimeout(id);
                 arry.splice(idx, 1);
