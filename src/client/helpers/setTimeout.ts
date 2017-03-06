@@ -8,7 +8,7 @@ export const removeElementById = (id: number, arry: number[]): void => {
 export const clearTimeouts = (arry: number[], id?: number): void => {
     let idx = arry.length;
     while (--idx) {
-        const id = arry[idx];
+        const _id = arry[idx];
         if (typeof id === "number" && id >= 0) {
             if (id === _id) {
                 (window || global).clearTimeout(id);
