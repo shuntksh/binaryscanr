@@ -26,7 +26,7 @@ const _exampleReplayer = (
 
     store.dispatch(actions.updateHexData(value));
     let delay = 500;
-    const interval = 50;
+    const interval = 100;
     const _filterArr = filter.split("");
     for (let i = 1; i <= _filterArr.length; i++) {
         delay += interval;
