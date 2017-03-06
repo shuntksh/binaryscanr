@@ -4,9 +4,10 @@ import { Provider } from "react-redux";
 
 import { fromJS, Map } from "immutable";
 
-import apiHandler from "./helpers/apiRequetHandler";
 import MainLayout from "./layouts/Main";
+import apiHandler from "./store/apiRequetHandler";
 import configureStore from "./store/configureStore";
+import exampleHandler from "./store/exampleHandler";
 
 export interface AppState extends Map<string, any> {
     input?: string;
@@ -49,6 +50,7 @@ const initialState: AppState = fromJS(
 // Load initial state from passed by the backend
 const store = configureStore(initialState);
 apiHandler(store);
+exampleHandler(store);
 
 ReactDom.render(
     <Provider store={store}><MainLayout /></Provider>,

@@ -86,6 +86,21 @@ export const actions: ActionCreators = {
         return { type: types.input_update, payload };
     },
 
+    updateInputValue: (input: string): Action => {
+        if (typeof input !== "string") {
+            const error = { input: `Invalid Filter Type: ${typeof input}` };
+            return { type: types.input_error, error };
+        }
+        const vars = input.trim().split(" ");
+        vars.shift();
+        const payload = {
+            input: input || "",
+            valid: isValidFilter(input || ""),
+            vars,
+        };
+        return { type: types.input_update, payload };
+    },
+
     updateResults: (results: string[]): Action => {
         const payload = results.every((r: string) => typeof r === "string") ? results : [];
         return { type: types.update_results, payload };
@@ -151,7 +166,6 @@ export const selectors = {
                 cursor += (size - at);
                 bits += len;
             }
-            console.log(bits);
         });
         return highlights;
     },

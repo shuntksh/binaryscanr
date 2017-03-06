@@ -2,7 +2,7 @@ import axios, { AxiosError, AxiosRequestConfig } from "axios";
 import { fromJS } from "immutable";
 import { Store } from "redux";
 import { AppState } from "../app";
-import { actions } from "../store/module";
+import { actions } from "./module";
 
 import throttle = require("lodash.throttle");
 

@@ -428,13 +428,11 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             if (typeof onChange === "function") {
                 if (input[input.length - 1] === END_OF_INPUT) { input.pop(); }
                 onChange((input).join(""));
-                console.log(moveCursorTo);
                 if (typeof moveCursorTo === "number" && moveCursorTo >= 0) {
                     this.moveCursor(moveCursorTo, !isSelecting);
                 }
             } else {
                 this.setState({ localValue: input }, () => {
-                    console.log(moveCursorTo);
                     if (typeof moveCursorTo === "number" && moveCursorTo >= 0) {
                         this.moveCursor(moveCursorTo, !isSelecting);
                     }
@@ -469,7 +467,6 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             del = del - 1;
             newCursorAt = Math.max(0, newCursorAt - 1);
         }
-        console.log(del, newCursorAt);
         const _value = HexEditor.deleteRange(localValue, del, del);
         this.resetSelection();
         this.handleChange(_value, newCursorAt);
