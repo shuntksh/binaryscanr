@@ -1,5 +1,9 @@
 /* tslint:disable:object-literal-sort-keys */
 
+export const examples: string[] = [
+    "radius", "dhcp", "http",
+];
+
 export interface Colors {
     [key: string]: string;
 }

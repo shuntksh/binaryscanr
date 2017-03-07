@@ -1,13 +1,14 @@
-export const removeElementById = (id: number, arry: number[]): void => {
+
+export const removeElementById = <T>(id: T, arry: T[]): void => {
     const idx = arry.indexOf(id);
     if (Array.isArray(arry) && idx === -1) {
         arry.splice(idx, 1);
     }
-}
+};
 
 export const clearTimeouts = (arry: number[], id?: number): void => {
     let idx = arry.length;
-    while (--idx) {
+    while (--idx >= 0) {
         const _id = arry[idx];
         if (typeof id === "number" && id >= 0) {
             if (id === _id) {
@@ -17,9 +18,9 @@ export const clearTimeouts = (arry: number[], id?: number): void => {
         } else {
             (window || global).clearTimeout(_id);
             arry.splice(idx, 1);
-        }  
+        }
     }
-}
+};
 
 /**
  * A wrapper function for setTimeout to automatically populate an array

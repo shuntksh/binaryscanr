@@ -8,6 +8,8 @@ import formatStringToArray from "../helpers/formatStringToArray";
 import formatStringToBits from "../helpers/formatStringToBits";
 import isValidFilter from "../helpers/isValidFilter";
 
+const MAX_LEN = 1500; // bytes
+
 export interface Action extends redux.Action {
     [index: string]: any;
     readonly type: string;
@@ -269,7 +271,8 @@ export function reducer(state: AppState, action: Action ): AppState {
     }
 
     case types.hex_update: {
-        return state.set("hexData", payload.toUpperCase() || "");
+        const hexData = (payload.toUpperCase() || "").substring(0, MAX_LEN * 2);
+        return state.set("hexData", hexData);
     }
 
     //

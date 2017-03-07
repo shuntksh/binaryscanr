@@ -62,8 +62,9 @@ const apiHandler = (store: Store<AppState>): void => {
                     store.dispatch(actions.stopLoading());
                 })
                 .catch((err: AxiosError) => {
-                    const errorMsg = err.response ?
-                        err.response.data.error : err.message;
+                    const errorMsg = (err.response ? err.response.data.error : err.message) ||
+                                     err.message ||
+                                     "Unknown Error";
                     store.dispatch(actions.stopLoading());
                     store.dispatch(actions.apiError(errorMsg));
                 });
