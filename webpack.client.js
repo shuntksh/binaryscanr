@@ -84,20 +84,6 @@ const config = {
         }),
         new webpack.LoaderOptionsPlugin({
             options: {
-                postcss: () => [
-                    stylefmt(),
-                    stylelint(),
-                    cssnext({
-                            browsers: [
-                            ">1%",
-                            "last 4 versions",
-                            "Firefox ESR",
-                            "not ie < 9",
-                        ],
-                    }),
-                    cssnano({ autoprefixer: false }),
-                    reporter({ clearMessage: true, throwError: true }),
-                ],
                 tslint: {
                     failOnHint: true,
                 }
