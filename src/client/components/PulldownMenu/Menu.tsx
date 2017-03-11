@@ -44,14 +44,15 @@ export class Menu extends React.PureComponent<MenuProps, MenuState> {
         }
         return (
         <div ref={this.refHandlers.container} className={css.menuOuter} style={styles}>
-        {menus.map((menu, idx) =>
+        {menus.map((menu, idx) => (
             <MenuItem
                 key={idx}
                 value={menu.value}
                 onClick={this.handleCkick}
                 _onClick={menu.onClick}
                 label={menu.label}
-            />)}
+            />
+        ))}
         </div>
         );
     }
