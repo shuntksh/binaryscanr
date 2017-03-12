@@ -1,2 +1,24 @@
 ---
 version: '2'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: binaryscanr:api
+    ports:
+    - "3000:3000"
+    volumes:
+    - .:/opt
+    depends_on:
+    - tcl
+  tcl:
+    build:
+      context: .
+      dockerfile: Dockerfile.tcl
+    image: binaryscanr:tcl
+    ports:
+    - "8001:8001"
+    volumes:
+    - .:/opt
+  
