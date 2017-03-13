@@ -34,7 +34,7 @@ const plugins = () => ([
 const config = {
     target: "web",
     stats: true,
-    entry: ["./src/client/app.tsx"],
+    entry: ["./client/app.tsx"],
 
     resolve: {
         extensions: [".tsx", ".ts", ".js", ".jsx"],
@@ -74,7 +74,7 @@ const config = {
             allChunks: true,           
         }),
         new HtmlWebpackPlugin({
-            template: "./src/client/index.html",
+            template: "./client/index.html",
             inject: "body",
         }),
         new webpack.DefinePlugin({

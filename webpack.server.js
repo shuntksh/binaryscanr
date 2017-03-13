@@ -20,7 +20,7 @@ const config = {
     target: "node",
     stats: true,
 
-    entry: ["./src/server/binaryscanr.ts"],
+    entry: ["./server/binaryscanr.ts"],
 
     resolve: {
         extensions: [".ts", ".tsx", ".js", ".json"],
