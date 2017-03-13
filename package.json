@@ -42,7 +42,7 @@
     "express": "4.15.2",
     "forever": "0.15.3",
     "helmet": "3.5.0",
-    "immutable": "3.8.1",
+    "immutable": "4.0.0-rc.1",
     "serve-static": "1.12.1",
     "strong-cluster-control": "2.2.3"
   },
