@@ -9,6 +9,18 @@ A Tcl Binary Scan Tester
 
 [![Demo](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/demo.gif)](https://binaryscanr.com/)
 
+## About
+
+The primary goal of this project was to learn to write "React/Redux" application using TypeScript by making something substantial. This was my first TypeScript experience and so far it is all positive thanks to active community support on `typeing`. That said, Tcl's binary scan command has been always something I wanted to visualize and understand what's going on behind the scene especially when I write a protocol dissector.
+
+### A simple API server
+
+Backend is implemented in `Tcl` + `express.js` that provides a simple API layer. Front end app is also being served by the express.js application as a static html / css /js files.
+
+### A front-end "editor" application
+
+It consist of two main components. One is to edit tcl filter string called "TaggableInput" and the other to edit hexadecimal input called "HexEditor". Both are connected to a redux store using "react-redux" npm module. API calls are made by helper functions that is subscribing to the store without using Redux middle ware stack.
+
 ## How to build
 
 ```bash
@@ -21,4 +33,7 @@ yarn build
 
 ```bash
 docker-compose up .
+# or
+tclsh src/tcl/binaryscanr.tcl &
+yarn server:start
 ```
