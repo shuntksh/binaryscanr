@@ -33,8 +33,8 @@ const csrfProtection = csrf({ cookie: true });
 // Constants
 const TCL_BACKEND_PATH = "http://localhost:8001/api/process";
 
-if (pathExistSync("dist")) {
-    process.chdir("dist");
+if (pathExistSync("build")) {
+    process.chdir("build");
 }
 
 const STATIC_PATH = process.cwd() + "/static/";
@@ -64,7 +64,7 @@ app.post(
     csrfProtection,
     (req: express.Request, res: express.Response): void => {
         res.set("Content-Type", "application/json");
-        if (!req.body || !(req || {}).body.formatString.length) {
+        if (!req.body || !req.body.formatString.length) {
             res.sendStatus(400);
         } else {
             try {

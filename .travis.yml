@@ -1,6 +1,8 @@
-sudo: false
+sudo: required
 language: node_js
 node_js: stable
+services:
+  - docker
 branches:
   only:
     - master 
@@ -8,3 +10,9 @@ branches:
 script:
   - yarn test
   - yarn build
+
+# after_success:
+#   - if [ "$TRAVIS_BRANCH" == "master" ]; then
+#     docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+#     docker push USER/REPO;
+#     fi
