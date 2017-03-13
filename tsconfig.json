@@ -21,13 +21,14 @@
     },
     "include": [
         "./index.d.ts",
-        "src/**/*.tsx",
-        "src/**/*.ts"
+        "./client/**/*.tsx",
+        "./client/**/*.ts",
+        "./server/**/*.tx"
     ],
     "exclude": [
         "config",
         "node_modules",
-        "dist",
-        "src/**/*.spec.t*"
+        "build",
+        "client/**/*.spec.t*"
     ]
 }

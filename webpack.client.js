@@ -41,7 +41,7 @@ const config = {
     },
 
     output: {
-        path: path.resolve(process.cwd(), "./dist/static/"),
+        path: path.resolve(process.cwd(), "./build/static/"),
         publicPath: "/",
         filename: "[name].[chunkhash].js",
         sourceMapFilename: "[name].[chunkhash].map",

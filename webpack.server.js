@@ -27,7 +27,7 @@ const config = {
     },
 
     output: {
-        path: path.resolve(process.cwd(), "./dist/"),
+        path: path.resolve(process.cwd(), "./build/"),
         publicPath: "/",
         filename: "binaryscanr.js",
         sourceMapFilename: "binaryscanr.map",
