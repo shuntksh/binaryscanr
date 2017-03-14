@@ -7,6 +7,7 @@ const CheckerPlugin = require("awesome-typescript-loader").CheckerPlugin;
 const TsConfigPathsPlugin = require("awesome-typescript-loader").TsConfigPathsPlugin;
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin');
 const webpack = require("webpack");
 
 // For CSSNext
@@ -77,6 +78,9 @@ const config = {
             template: "./client/index.html",
             inject: "body",
         }),
+        new WatchMissingNodeModulesPlugin(
+            path.resolve('node_modules')
+        ),
         new webpack.DefinePlugin({
             "process.env": {
                 "NODE_ENV": JSON.stringify(process.env.NODE_ENV).toLowerCase(),
