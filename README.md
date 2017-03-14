@@ -1,6 +1,5 @@
 # binaryscanr
 
-
 A Tcl Binary Scan Tester
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/shuntksh/binaryscanr.svg)](https://greenkeeper.io/)
@@ -11,7 +10,7 @@ A Tcl Binary Scan Tester
 
 ## About
 
-The primary goal of this project was to learn to write "React/Redux" application using TypeScript by making something substantial. This was my first TypeScript experience and so far it is all positive thanks to active community support on `typeing`. That said, Tcl's binary scan command has been always something I wanted to visualize and understand what's going on behind the scene especially when I write a protocol dissector.
+The primary goal of this project was to learn to write "[React](https://facebook.github.io/react/)/[Redux](http://redux.js.org/)" app in [TypeScript](http://www.typescriptlang.org/) by making something substantial. This was my first project involves TypeScript and so far it is all positive thanks to active community support especially around [@types](http://definitelytyped.org/). I personally wrote [couple](https://www.npmjs.com/package/@types/strong-cluster-control) [of](https://www.npmjs.com/package/@types/forever-monitor) [type](https://www.npmjs.com/package/@types/react-portal) files along the way. That said, Tcl's binary scan command has been always something I wanted to visualize and understand what's going on behind the scene especially when I write a protocol dissector using it.
 
 ### A simple API server
 
