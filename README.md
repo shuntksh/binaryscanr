@@ -1,6 +1,6 @@
 # binaryscanr
 
-A Tcl Binary Scan command editor / testor app that help you learn and use the command by visualizing your real data.
+A Tcl Binary Scan command editor / testor app that help you learn and use the tcl binary command by visualizing actions with your real data.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/shuntksh/binaryscanr.svg)](https://greenkeeper.io/)
 [![build status](https://travis-ci.org/shuntksh/binaryscanr.svg?branch=master)](https://travis-ci.org/shuntksh/binaryscanr)
