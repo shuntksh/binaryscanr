@@ -10,7 +10,7 @@ A Tcl Binary Scan command editor / testor app that help you learn and use the co
 
 ## About
 
-The primary goal of this project is to learn to write app using "[React](https://facebook.github.io/react/)/[Redux](http://redux.js.org/)/[TypeScript](http://www.typescriptlang.org/)" stack by making something substantial. This is my first project involves TypeScript and so far it is all positive thanks to active and welcoming community especially around [@types](http://definitelytyped.org/). I personally wrote [couple](https://www.npmjs.com/package/@types/strong-cluster-control) [of](https://www.npmjs.com/package/@types/forever-monitor) [type](https://www.npmjs.com/package/@types/react-portal) files along the way.
+The primary goal of this project is to learn to write in "[React](https://facebook.github.io/react/)/[Redux](http://redux.js.org/)/[TypeScript](http://www.typescriptlang.org/)" stack by making something substantial. This is my first project involves TypeScript and so far it is all positive thanks to active and welcoming community especially around [@types](http://definitelytyped.org/). I personally wrote [couple](https://www.npmjs.com/package/@types/strong-cluster-control) [of](https://www.npmjs.com/package/@types/forever-monitor) [type](https://www.npmjs.com/package/@types/react-portal) files along the way.
 
 That said, Tcl's binary scan command has been always something I wanted to visualize and understand what's going on behind the scene especially when I write network protocol dissectors in Tcl. Although official reference guide made it really clear on how it works, it will be a great tool to get yourself "ah ha" into binary command, and I myself learned a lot from using this tool!
 
