@@ -67,7 +67,7 @@
     "chai": "3.5.0",
     "classnames": "2.2.5",
     "concurrently": "3.4.0",
-    "cross-env": "3.2.3",
+    "cross-env": "3.2.4",
     "css-loader": "0.27.3",
     "cssnano": "3.10.0",
     "extract-text-webpack-plugin": "2.1.0",
@@ -103,6 +103,6 @@
     "typescript": "2.2.1",
     "url-loader": "0.5.8",
     "webpack": "2.2.1",
-    "webpack-dev-server": "2.4.1"
+    "webpack-dev-server": "2.4.2"
   }
 }
