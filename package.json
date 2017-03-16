@@ -80,7 +80,7 @@
     "ncp": "2.0.0",
     "npm-check": "5.4.0",
     "nsp": "2.6.3",
-    "postcss-cssnext": "2.9.0",
+    "postcss-cssnext": "2.10.0",
     "postcss-loader": "1.3.3",
     "postcss-reporter": "3.0.0",
     "react": "15.4.2",
