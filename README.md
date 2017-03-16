@@ -1,10 +1,11 @@
-# binaryscanr
-
-A Tcl Binary Scan command editor / testor app that help you learn and use the tcl binary command by visualizing actions with your real data.
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/shuntksh/binaryscanr.svg)](https://greenkeeper.io/)
 [![build status](https://travis-ci.org/shuntksh/binaryscanr.svg?branch=master)](https://travis-ci.org/shuntksh/binaryscanr)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/672d5dca2c154c5cba660fcad52dedef)](https://www.codacy.com/app/shuntksh/binaryscanr?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=shuntksh/binaryscanr&amp;utm_campaign=Badge_Grade)
+
+# binaryscanr
+
+A Tcl Binary Scan command editor / testor app that help you learn and use the tcl binary command by visualizing actions with your real data.
 
 [![Demo](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/demo.gif)](https://binaryscanr.com/)
 
