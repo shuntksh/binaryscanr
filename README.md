@@ -14,13 +14,17 @@ The primary goal of this project is to learn to write in "[React](https://facebo
 
 That said, Tcl's binary scan command has been always something I wanted to visualize and understand what's going on behind the scene especially when I write network protocol dissectors in Tcl. Although official reference guide made it really clear on how it works, it will be a great tool to get yourself "ah ha" into binary command, and I myself learned a lot from using this tool!
 
-## Backend - An express-base simple API server (+Tclsh)
+## Design
 
-Backend is implemented in `Tcl` + `express.js` that provides a simple API layer. Front end app is also being served by the express.js application as a static html / css /js files.
+![Design](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/highlevel_design.gif)
 
-## Frontend - An react-base "editor" application
+### Frontend - An react-base "editor" application
 
 It consist of two main components. One is to edit tcl filter string called "TaggableInput" and the other to edit hexadecimal input called "HexEditor". Both are connected to a redux store using "react-redux" npm module. API calls are handled by helper functions that subscribe to the Redux store without using Redux middleware.
+
+### Backend - An express-base simple API server (+Tclsh)
+
+Backend is implemented in `Tcl` + `express.js` that provides a simple API layer. Front end app is also being served by the express.js application as a static html / css /js files.
 
 ## How to build
 
