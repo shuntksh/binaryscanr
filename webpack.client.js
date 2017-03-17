@@ -18,14 +18,7 @@ const stylelint = require("stylelint");
 
 const plugins = () => ([
     stylelint(),
-    cssnext({
-            browsers: [
-            ">1%",
-            "last 4 versions",
-            "Firefox ESR",
-            "not ie < 9",
-        ],
-    }),
+    cssnext({ browsers: [">1%", "last 4 versions", "Firefox ESR", "not ie < 9" ] }),
     cssnano({ autoprefixer: false, reduceIdents: false }),
     reporter({ clearMessage: true, throwError: true }),
 ]);
@@ -52,11 +45,7 @@ const config = {
                 test: /\.tsx?$/, 
                 enforce: 'pre',
                 loader: 'tslint-loader',
-                options: {
-                    emitErrors: true,
-                    failOnHint: true,
-                },
-            
+                options: { emitErrors: true, failOnHint: true },
             },
             {
                 test: /\.(eot|woff|woff2|ttf|svg|png)$/,

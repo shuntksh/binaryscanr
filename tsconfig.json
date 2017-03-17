@@ -20,10 +20,7 @@
         "lib": ["es2016", "dom"]
     },
     "include": [
-        "./index.d.ts",
-        "./client/**/*.tsx",
-        "./client/**/*.ts",
-        "./server/**/*.tx"
+        "./index.d.ts"
     ],
     "exclude": [
         "config",

@@ -13,8 +13,9 @@ export function configureStore(initialState: AppState): redux.Store<AppState> {
             (window as LocalWindow).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ||
             redux.compose;
         return redux.createStore(reducer, initialState, composeEnhancers());
+    } else {
+        return redux.createStore(reducer, initialState);
     }
-    return redux.createStore(reducer, initialState);
 };
 
 export default configureStore;

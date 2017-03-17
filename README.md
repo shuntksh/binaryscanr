@@ -16,7 +16,7 @@ That said, Tcl's binary scan command has been always something I wanted to visua
 
 ## Design
 
-![Design](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/highlevel_design.gif)
+![Design](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/highlevel_design.png)
 
 ### Frontend - An react-base "editor" application
 

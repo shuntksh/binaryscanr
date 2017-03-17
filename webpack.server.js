@@ -39,7 +39,12 @@ const config = {
 
     module: {
         rules: [
-            { test: /\.ts$/, enforce: "pre", loader: "tslint-loader" },
+            { 
+                test: /\.tsx?$/, 
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: { emitErrors: true, failOnHint: true },
+            },
             { test: /\.json$/, use: "json-loader" },
             { test: /\.ts$/, loader: "awesome-typescript-loader", exclude: /(\.spec.ts$|node_modules)/ },
         ],
