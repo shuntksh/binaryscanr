@@ -20,7 +20,9 @@ You can start by selecting one of examples from righthand side.
 
 ## Design
 
-![Design](https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/highlevel_design.png)
+<p align="center">
+  <img alt="App Design" width="75%" src="https://raw.githubusercontent.com/shuntksh/binaryscanr/master/assets/highlevel_design.png">
+</p>
 
 ### Frontend - react-base "editor" application
 
