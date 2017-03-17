@@ -14,11 +14,9 @@ const webpack = require("webpack");
 const cssnext = require("postcss-cssnext");
 const cssnano = require("cssnano");
 const reporter = require("postcss-reporter");
-const stylefmt = require("stylefmt");
 const stylelint = require("stylelint");
 
 const plugins = () => ([
-    stylefmt(),
     stylelint(),
     cssnext({
             browsers: [

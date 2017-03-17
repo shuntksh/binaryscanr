@@ -45,7 +45,7 @@
 }
 
 :local(.menu-item:hover) {
-  background: #F1F1F1;
+  background: #f1f1f1;
 }
 
 :local(.clickable) {

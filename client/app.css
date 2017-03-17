@@ -95,7 +95,7 @@ body {
   min-height: 20px;
   padding-left: 5px;
   width: 98%;
-  position:relative;
+  position: relative;
 }
 
 :local(.section-header) span:nth-child(2) {
@@ -243,12 +243,12 @@ body {
 :local(.button:hover) {
   background-color: #e0e1e2;
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  color: #e25c4b
+  color: #e25c4b;
 }
 
 :local(.button:active) {
   background-color: #babbbc;
   box-shadow: 0 0 0 1px transparent inset, 0 0 0 0 rgba(34, 36, 38, 0.15) inset;
-  color: #fff
+  color: #fff;
 }
 

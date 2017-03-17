@@ -84,7 +84,6 @@
 }
 
 @keyframes y4mhJrcnEM__zoomIn {
-
   0% {
     transform: scale3d(0.3, 0.3, 0.3);
     opacity: 0;
@@ -113,6 +112,11 @@
 }
 
 @keyframes y4mhJrcnEM__slideIn {
-  0% { opacity: 0; }
-  100% { opacity: 0.4; }
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0.4;
+  }
 }

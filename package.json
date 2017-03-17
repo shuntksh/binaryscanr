@@ -35,14 +35,9 @@
   "stylelint": {
     "extends": "stylelint-config-standard",
     "rules": {
+      "custom-property-empty-line-before": ["never"],
       "selector-pseudo-class-no-unknown": [
-        true, 
-        { 
-          "ignorePseudoClasses": [
-              "local",
-              "global"
-          ]
-        }
+        true, { "ignorePseudoClasses": ["local", "global"] }
       ]
     }
   },
@@ -94,7 +89,7 @@
     "ncp": "2.0.0",
     "npm-check": "5.4.0",
     "nsp": "2.6.3",
-    "postcss-cssnext": "2.9.0",
+    "postcss-cssnext": "2.10.0",
     "postcss-loader": "1.3.3",
     "postcss-reporter": "3.0.0",
     "react": "15.4.2",
@@ -105,8 +100,7 @@
     "react-redux": "5.0.3",
     "redux": "3.6.0",
     "rimraf": "2.6.1",
-    "style-loader": "0.13.2",
-    "stylefmt": "5.2.0",
+    "style-loader": "0.14.1",
     "stylelint": "7.9.0",
     "stylelint-config-standard": "16.0.0",
     "ts-node": "2.1.0",
