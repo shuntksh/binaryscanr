@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 
 import { fromJS, Map } from "immutable";
 
-import MainLayout from "./layouts/Main";
+import BinaryScanr from "./BinaryScanr";
 import apiHandler from "./store/apiRequetHandler";
 import configureStore from "./store/configureStore";
 import exampleHandler from "./store/exampleHandler";
@@ -52,7 +52,8 @@ const store = configureStore(initialState);
 apiHandler(store);
 exampleHandler(store);
 
+// Render app into DOM tree.
 ReactDom.render(
-    <Provider store={store}><MainLayout /></Provider>,
+    <Provider store={store}><BinaryScanr /></Provider>,
     document.getElementById("main"),
 );

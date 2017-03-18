@@ -59,7 +59,7 @@ const config = {
         new ExtractTextPlugin({
             filename: "[name].[chunkhash].css",
             disable: false,
-            allChunks: true,           
+            allChunks: true,
         }),
         new HtmlWebpackPlugin({
             template: "./client/index.html",
@@ -105,6 +105,11 @@ if (process.env.NODE_ENV === "production") {
             publicPath: "/"
         }),
     });
+
+    config.plugins.push(new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+    }));
 
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
         compress: { screw_ie8: true },

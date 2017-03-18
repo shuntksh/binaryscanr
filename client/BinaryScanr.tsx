@@ -3,17 +3,17 @@ import * as React from "react";
 import { connect } from "react-redux";
 import { ActionCreator, Dispatch } from "redux";
 
-import * as css from "../app.css";
+import * as css from "./app.css";
 
-import { AppState, Result } from "../app";
-import ExampleSelectorContainer from "../containers/ExampleSelectorContainer";
-import HexEditorContainer from "../containers/HexEditorContainer";
-import InputContainer from "../containers/InputContainer";
-import ResultTableContainerProps from "../containers/ResultTableContainer";
+import { AppState, Result } from "./app";
+import ExampleSelectorContainer from "./containers/ExampleSelectorContainer";
+import HexEditorContainer from "./containers/HexEditorContainer";
+import InputContainer from "./containers/InputContainer";
+import ResultTableContainerProps from "./containers/ResultTableContainer";
 
-import { actions, selectors } from "../store/module";
+import { actions, selectors } from "./store/module";
 
-export interface MainLayoutProps {
+export interface BinaryScanrLayoutProps {
     readonly tab: string;
     readonly results: Result[];
 };
@@ -22,7 +22,7 @@ export interface DispatchedProps {
     readonly switchTab: (tab: string) => any;
 }
 
-const mapStateToProps = (state: AppState): MainLayoutProps => ({
+const mapStateToProps = (state: AppState): BinaryScanrLayoutProps => ({
     results: selectors.getResults()(state),
     tab: selectors.getCurrentTab()(state),
 });
@@ -31,10 +31,10 @@ const mapDispatchToProps = (dispatch: Dispatch<ActionCreator<any>>): DispatchedP
     switchTab: (tab: string) => dispatch(actions.switchTab(tab)),
 });
 
-export class MainLayout extends React.Component<MainLayoutProps & DispatchedProps, {}> {
+export class BinaryScanrLayout extends React.Component<BinaryScanrLayoutProps & DispatchedProps, {}> {
     public displayName: string;
 
-    public componentWillReceiveProps(nextProps: MainLayoutProps & DispatchedProps) {
+    public componentWillReceiveProps(nextProps: BinaryScanrLayoutProps & DispatchedProps) {
         if (!this.props.results.length && nextProps.results.length) {
             this.switchToResult();
         }
@@ -77,27 +77,27 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
             results.push(css.active);
         }
         return (
-        <div className={css.sectionHeader}>
-            <a
-                href="#"
-                className={cx(results)}
-                draggable={false}
-                onClick={this.switchToResult}
-            >
-                Results
-            </a>
-            <a
-                href="#"
-                className={cx(help)}
-                draggable={false}
-                onClick={this.switchToHelp}
-            >
-                Help
-            </a>
-            <div className={css.leftMenu}>
-                <ExampleSelectorContainer />
+            <div className={css.sectionHeader}>
+                <a
+                    href="#"
+                    className={cx(results)}
+                    draggable={false}
+                    onClick={this.switchToResult}
+                >
+                    Results
+                </a>
+                <a
+                    href="#"
+                    className={cx(help)}
+                    draggable={false}
+                    onClick={this.switchToHelp}
+                >
+                    Help
+                </a>
+                <div className={css.leftMenu}>
+                    <ExampleSelectorContainer />
+                </div>
             </div>
-        </div>
         );
     }
 
@@ -105,4 +105,4 @@ export class MainLayout extends React.Component<MainLayoutProps & DispatchedProp
     private switchToResult = () => this.props.switchTab("results");
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainLayout);
+export default connect(mapStateToProps, mapDispatchToProps)(BinaryScanrLayout);

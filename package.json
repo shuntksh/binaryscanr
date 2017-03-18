@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npm run clean && npm run prebuild:css && npm run build:client && npm run build:server && npm run cp",
-    "build:client": "cross-env NODE_ENV=production webpack -p --config webpack.client.js",
-    "build:server": "cross-env NODE_ENV=production webpack -p --config webpack.server.js",
+    "build:client": "cross-env NODE_ENV=production webpack --config webpack.client.js",
+    "build:server": "cross-env NODE_ENV=production webpack --config webpack.server.js",
     "dev:build": "npm run dev:build:client && npm run dev:build:server",
     "dev:build:client": "cross-env NODE_ENV=development webpack -d --config webpack.client.js",
     "dev:build:server": "cross-env NODE_ENV=development webpack -d --config webpack.server.js",

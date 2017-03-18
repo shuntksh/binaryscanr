@@ -71,7 +71,10 @@ const config = {
 //
 if (process.env.NODE_ENV === "production") {
     config.bail = true;
-
+    config.plugins.push(new webpack.LoaderOptionsPlugin({
+        minimize: true,
+        debug: false
+    }));
 //
 // Development Configuration
 //

@@ -9,7 +9,7 @@ import * as helmet from "helmet";
 import * as serveStatic from "serve-static";
 
 import isValidFilter from "../client/helpers/isValidFilter";
-import filterString from "./utils/filterString";
+import filterString from "./filterString";
 
 const MAX_FILTER_LEN = 254;
 const MAX_HEX_LEN = 1500;
