@@ -20,12 +20,13 @@
         "lib": ["es2016", "dom"]
     },
     "include": [
-        "./index.d.ts"
+        "client/**/*.tsx",
+        "client/**/*.ts"
     ],
     "exclude": [
         "config",
         "node_modules",
         "build",
-        "client/**/*.spec.t*"
+        "src/**/*.spec.t*"
     ]
 }
