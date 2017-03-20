@@ -112,7 +112,7 @@ if (process.env.NODE_ENV === "production") {
     }));
 
     config.plugins.push(new webpack.optimize.UglifyJsPlugin({
-        compress: { screw_ie8: true },
+        compress: { screw_ie8: true, warnings: false },
         mangle: { screw_ie8: true },
         output: { comments: false, screw_ie8: true },
     }));
