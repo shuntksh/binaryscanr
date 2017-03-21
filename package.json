@@ -66,7 +66,7 @@
     "@types/mocha": "2.2.40",
     "@types/node": "7.0.8",
     "@types/path-exists": "1.0.29",
-    "@types/react": "15.0.16",
+    "@types/react": "15.0.17",
     "@types/react-addons-test-utils": "0.14.17",
     "@types/react-dom": "0.14.23",
     "@types/react-redux": "4.4.37",
