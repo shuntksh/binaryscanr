@@ -64,7 +64,7 @@
     "@types/helmet": "0.0.34",
     "@types/lodash.throttle": "4.1.1",
     "@types/mocha": "2.2.40",
-    "@types/node": "7.0.8",
+    "@types/node": "7.0.9",
     "@types/path-exists": "1.0.29",
     "@types/react": "15.0.16",
     "@types/react-addons-test-utils": "0.14.17",
