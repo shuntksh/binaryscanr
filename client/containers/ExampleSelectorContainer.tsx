@@ -8,7 +8,7 @@ import { actions, selectors } from "../store/module";
 
 export interface HexEditorProps {
     readonly example?: string;
-};
+}
 
 export interface DispatchedProps {
     readonly setExample: (example: string) => void;

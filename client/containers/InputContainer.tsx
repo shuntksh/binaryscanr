@@ -14,7 +14,7 @@ export interface InputContainerProps {
     readonly varNameStub: HighlightProps;
     readonly strToCopy: string;
     readonly valid: boolean;
-};
+}
 
 export interface DispatchedProps {
     readonly clearInput: () => void;

@@ -15,6 +15,6 @@ export function configureStore(initialState: AppState): redux.Store<AppState> {
         return redux.createStore(reducer, initialState, composeEnhancers());
     }
     return redux.createStore(reducer, initialState);
-};
+}
 
 export default configureStore;

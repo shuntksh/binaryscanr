@@ -13,7 +13,7 @@ export interface InputProps extends React.Props<Input> {
     valid?: boolean;
     handleChange: (ev: React.FormEvent<EventTarget>) => any;
     hasError?: boolean;
-};
+}
 
 export interface InputState {
     isActive?: boolean;

@@ -48,7 +48,7 @@ export interface ActionCreators {
     updateHexData: (value: string) => Action;
     updateInput: (ev: React.SyntheticEvent<HTMLInputElement>) => Action;
     updateResults: (results: string[]) => Action;
-};
+}
 
 export const actions: ActionCreators = {
     apiError: (errMsg: string) => ({ type: types.api_error, payload: errMsg }),

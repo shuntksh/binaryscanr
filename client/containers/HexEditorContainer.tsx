@@ -10,7 +10,7 @@ export interface HexEditorProps {
     readonly highlights?: HexHighlightProps[];
     readonly value: string;
     readonly valid?: boolean;
-};
+}
 
 export interface DispatchedProps {
     readonly updateHexData: (value: string) => void;

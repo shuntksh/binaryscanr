@@ -16,7 +16,7 @@ import { actions, selectors } from "./store/module";
 export interface BinaryScanrLayoutProps {
     readonly tab: string;
     readonly results: Result[];
-};
+}
 
 export interface DispatchedProps {
     readonly switchTab: (tab: string) => any;

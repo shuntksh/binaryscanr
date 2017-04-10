@@ -17,7 +17,7 @@ export interface AppState extends Map<string, any> {
     isLoading?: boolean;
     results?: Result[];
     tab?: string;
-};
+}
 
 export interface AppWindow extends Window {
     __PRELOADED_STATE__: AppState;

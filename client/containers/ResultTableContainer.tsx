@@ -12,7 +12,7 @@ export interface ResultTableContainerProps {
     readonly results: Result[];
     readonly error?: string;
     readonly tab: string;
-};
+}
 
 const mapState = (state: AppState): ResultTableContainerProps => ({
     error: selectors.getError()(state),
