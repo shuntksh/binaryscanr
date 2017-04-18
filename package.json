@@ -76,7 +76,7 @@
     "@types/path-exists": "1.0.29",
     "@types/react": "15.0.21",
     "@types/react-addons-test-utils": "0.14.17",
-    "@types/react-dom": "0.14.23",
+    "@types/react-dom": "15.5.0",
     "@types/react-redux": "4.4.38",
     "@types/serve-static": "1.7.31",
     "@types/strong-cluster-control": "2.2.2",
