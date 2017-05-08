@@ -98,7 +98,7 @@
     "npm-check": "5.4.0",
     "nsp": "2.6.3",
     "postcss-cssnext": "2.10.0",
-    "postcss-loader": "1.3.3",
+    "postcss-loader": "2.0.0",
     "postcss-reporter": "3.0.0",
     "react": "15.5.4",
     "react-addons-test-utils": "15.5.1",
