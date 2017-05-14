@@ -93,7 +93,7 @@
     "immutable": "3.8.1",
     "lodash.throttle": "4.1.1",
     "mkdirp": "0.5.1",
-    "mocha": "3.3.0",
+    "mocha": "3.4.0",
     "ncp": "2.0.0",
     "npm-check": "5.4.0",
     "nsp": "2.6.3",
