@@ -57,12 +57,12 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         return arr;
     }
 
-   public static deleteRange(arr: string[], from: number, to: number): string[] {
+    public static deleteRange(arr: string[], from: number, to: number): string[] {
         const _from = (from < to) ? from : to;
         const _to = (from < to) ? to : from;
-        const _arr = [...arr];
-        _arr.splice(_from, _to - _from + 1); // +1 to include target itself
-        return _arr;
+        arr = [...arr];
+        arr.splice(_from, _to - _from + 1); // +1 to include target itself
+        return arr;
     }
 
     public state: HexEditorState = {
@@ -486,11 +486,8 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
             let cursorAt = to <= 0 ? 0 : to;
             const length = (this.state.localValue).length - 1;
             if (length < cursorAt || to === CellState.EOF) {
-                if (to === length + 1 && this.state.localValue[length] !== END_OF_INPUT) {
-                    cursorAt = length + 1;
-                } else {
-                    cursorAt = length;
-                }
+                const d = to === length + 1 && this.state.localValue[length] !== END_OF_INPUT ? 1 : 0;
+                cursorAt = length + d;
             }
             // Commit current editing before moving cursor
             if (this.isEditingCell()) {
