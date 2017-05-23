@@ -9,7 +9,7 @@ branches:
     - /^greenkeeper/.*$/
 script:
   - yarn test
-  - yarn build
+  - yarn compile
 
 # after_success:
 #   - if [ "$TRAVIS_BRANCH" == "master" ]; then
