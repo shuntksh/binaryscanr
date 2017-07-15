@@ -95,7 +95,7 @@
     "mkdirp": "0.5.1",
     "mocha": "3.4.2",
     "ncp": "2.0.0",
-    "npm-check": "5.4.4",
+    "npm-check": "5.4.5",
     "nsp": "2.6.3",
     "postcss-cssnext": "2.11.0",
     "postcss-loader": "2.0.5",
