@@ -96,7 +96,7 @@
     "mocha": "3.4.2",
     "ncp": "2.0.0",
     "npm-check": "5.4.4",
-    "nsp": "2.6.3",
+    "nsp": "2.7.0",
     "postcss-cssnext": "2.11.0",
     "postcss-loader": "2.0.5",
     "postcss-reporter": "4.0.0",
