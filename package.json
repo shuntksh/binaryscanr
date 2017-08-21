@@ -71,7 +71,7 @@
     "@types/express": "4.0.35",
     "@types/helmet": "0.0.35",
     "@types/lodash.throttle": "4.1.2",
-    "@types/mocha": "2.2.41",
+    "@types/mocha": "2.2.42",
     "@types/node": "7.0.29",
     "@types/path-exists": "1.0.29",
     "@types/react": "15.0.27",
