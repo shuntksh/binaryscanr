@@ -10,7 +10,7 @@ export const hexSection: string;
 export const hexEditorContainer: string;
 export const resultSectionContainer: string;
 export const errorBox: string;
-export const qlduNqsGz0SlideDown: string;
+export const qlDuNQsGz0SlideDown: string;
 export const tabContainer: string;
 export const tabInner: string;
 export const tabItem: string;

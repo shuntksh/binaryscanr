@@ -199,7 +199,7 @@ export const selectors = {
     ),
 };
 
-export function reducer(state: AppState, action: Action ): AppState {
+export function reducer(state: AppState, action: Action): AppState {
     const { type, payload } = action;
     switch (type) {
     //

@@ -17,7 +17,7 @@ const reporter = require("postcss-reporter");
 const stylelint = require("stylelint");
 
 const plugins = () => ([
-    stylelint(),
+    // stylelint(),
     cssnext({ browsers: [">1%", "last 4 versions", "Firefox ESR", "not ie < 9" ] }),
     cssnano({ autoprefixer: false, reduceIdents: false }),
     reporter({ clearMessage: true, throwError: true }),

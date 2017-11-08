@@ -446,10 +446,10 @@ export class HexEditor extends React.Component<HexEditorProps, HexEditorState> {
         const length = localValue.length;
         // Delete selection regardless of BS or DEL
         if (this.isSelectingCell()) {
-            const _moveCursorTo = (from < to) ? from : to;
-            const _value = HexEditor.deleteRange(localValue, from, to);
+            const __moveCursorTo = (from < to) ? from : to;
+            const __value = HexEditor.deleteRange(localValue, from, to);
             this.resetSelection();
-            this.handleChange(_value, _moveCursorTo);
+            this.handleChange(__value, __moveCursorTo);
             return void 0;
         }
 

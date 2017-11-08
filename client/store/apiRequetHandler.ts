@@ -16,7 +16,7 @@ const TOKEN_PATH = "/api/token";
 const REQUEST_INTERVAL = 250; // ms
 const request = axios.create({ timeout: 1000 });
 
-request.interceptors.request.use((config: AxiosRequestConfig ): any => {
+request.interceptors.request.use((config: AxiosRequestConfig): any => {
     return new Promise((resolve) => {
         axios.get(TOKEN_PATH)
             .then((res) => {
