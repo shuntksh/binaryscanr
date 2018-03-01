@@ -114,7 +114,7 @@
     "stylelint-config-standard": "^18.0.0",
     "ts-node": "^5.0.0",
     "tslint": "^5.9.1",
-    "tslint-loader": "3.5.3",
+    "tslint-loader": "3.6.0",
     "tslint-react": "^3.4.0",
     "typed-css-modules": "^0.3.1",
     "typescript": "^2.6.2",
