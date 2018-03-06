@@ -89,7 +89,7 @@
     "@types/react-redux": "^5.0.14",
     "@types/serve-static": "^1.13.1",
     "@types/strong-cluster-control": "^2.2.3",
-    "awesome-typescript-loader": "^3.4.1",
+    "awesome-typescript-loader": "^5.0.0-0",
     "chai": "^4.1.2",
     "concurrently": "^3.5.1",
     "cross-env": "^5.1.3",
