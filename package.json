@@ -54,7 +54,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
-    "classnames": "2.2.5",
+    "classnames": "2.2.6",
     "compression": "^1.7.1",
     "cookie-parser": "1.4.3",
     "csurf": "1.9.0",
