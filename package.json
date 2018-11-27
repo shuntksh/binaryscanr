@@ -68,7 +68,7 @@
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
     "serve-static": "^1.13.1",
-    "strong-cluster-control": "2.2.3"
+    "strong-cluster-control": "2.2.4"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
