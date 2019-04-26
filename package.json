@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.2",
+    "body-parser": "1.18.3",
     "classnames": "2.2.5",
     "compression": "^1.7.1",
     "cookie-parser": "1.4.3",
