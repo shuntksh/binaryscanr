@@ -87,7 +87,7 @@
     "@types/react-addons-test-utils": "^0.14.20",
     "@types/react-dom": "^16.0.3",
     "@types/react-redux": "^5.0.14",
-    "@types/serve-static": "^1.13.1",
+    "@types/serve-static": "^1.13.3",
     "@types/strong-cluster-control": "^2.2.3",
     "awesome-typescript-loader": "^3.4.1",
     "chai": "^4.1.2",
