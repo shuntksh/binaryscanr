@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.8",
-    "@types/chai": "^4.1.0",
+    "@types/chai": "^4.2.8",
     "@types/classnames": "^2.2.3",
     "@types/compression": "0.0.35",
     "@types/cookie-parser": "^1.4.1",
